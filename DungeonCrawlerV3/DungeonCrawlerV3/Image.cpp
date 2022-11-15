@@ -3,9 +3,7 @@
 Image::Image(std::array<std::string, MAX_IMAGE_HEIGHT> &image, int priority, std::array<int, 2> &displayPosition)
 	:_image(image), _priority(priority), _displayPosition(displayPosition)
 {
-	std::cout << &image << "\n";
-	std::cout << image[0] << "\n";
-	std::cout << &_image << "\n";
+
 }
 
 //Getters

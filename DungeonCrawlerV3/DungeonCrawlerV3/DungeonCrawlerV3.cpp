@@ -8,6 +8,12 @@
 #include "Player.h"
 #include "Enemy.h"
 
+std::vector<Enemy> vectorTest;
+
+void TestCopy(Enemy &enemy) {
+    vectorTest.push_back(enemy);
+};
+
 int main()
 {
     COORD outbuff;
@@ -35,9 +41,30 @@ int main()
     std::cout << (*image.GetImage())[0] << "\n";
     std::cout << image.GetPriority() << "\n";
 
-    Player player;
-    Enemy enemy;
-    float testAttack = 2.0f;
-    enemy.Damage(testAttack);
-    std::cout << enemy.GetCurrentHealth();
+    //Player player;
+    //Enemy enemy;
+    //float testAttack = 2.0f;
+    //enemy.Damage(testAttack);
+    //std::cout << enemy.GetCurrentHealth();
+
+    
+
+    vectorTest.reserve(4);
+
+    vectorTest.emplace_back("one");
+    vectorTest.emplace_back("two");
+    vectorTest.emplace_back("three");
+
+    Enemy enemy("four");
+    TestCopy(enemy);
+
+    for (Enemy &enemy : vectorTest) {
+        std::cout << enemy._name << "\n";
+    }
+
+    vectorTest.erase(vectorTest.begin());
+
+    for (Enemy &enemy : vectorTest) {
+        std::cout << enemy._name << "\n";
+    }
 }

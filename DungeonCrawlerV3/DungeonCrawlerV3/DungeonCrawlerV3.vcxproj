@@ -143,6 +143,7 @@
     <ClCompile Include="DungeonCrawlerV3.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Screen.cpp" />
   </ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Screen.h" />
   </ItemGroup>

@@ -12,7 +12,7 @@ float Character::GetDefense() {
 }
 
 float Character::GetSpeed() {
-	return _currentHealth;
+	return _speed;
 }
 
 void Character::Damage(float& incomingDamage) {
@@ -30,7 +30,8 @@ void Character::Attack(Character &other) {
 	//generate seed value based on time
 	std::srand((unsigned)std::time(nullptr));
 
-	if (_critRateMultiplier >= std::rand() % 101) {
+	//change rolled number to a range of 1~100 and determine if it is within crit rate 
+	if (_critRatePercentage >= (std::rand() + 1) % 101) {
 		damage *= _criteDmgMultiplier;
 	}
 

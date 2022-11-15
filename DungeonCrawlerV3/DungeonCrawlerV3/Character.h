@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 
 class Character {
 protected:
@@ -8,13 +8,20 @@ protected:
 	float _currentHealth = 20;
 
 	float _attack = 1;
-	float _critRateMultiplier = 0;
+	float _critRatePercentage = 0;
 	float _criteDmgMultiplier = 2;
 
 	float _defense = 0;
 	float _speed = 0;
 
 public:
+	Character() {
+
+	};
+	Character(const Character& obj) {
+		std::cout << "Copied" << "\n";
+	};
+
 	//Getters
 	float GetCurrentHealth();
 
@@ -35,4 +42,6 @@ protected:
 
 	//Use an Item
 	virtual void UseItem() = 0;
+
+	virtual void Death() = 0;
 };
