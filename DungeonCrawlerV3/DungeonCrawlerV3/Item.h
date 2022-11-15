@@ -21,5 +21,5 @@ public:
 
 	bool TryUseItem();
 
-	virtual void UseItem() = 0;
+	virtual void UseItem() {};
 };

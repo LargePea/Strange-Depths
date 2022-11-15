@@ -4,6 +4,7 @@ enum class GameStateMask
 {
 	Normal = 1,
 	Combat = 2,
+	GameOver = 4,
 };
 
 class GameState {
