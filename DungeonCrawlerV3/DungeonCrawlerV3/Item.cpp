@@ -9,10 +9,10 @@ int Item::GetValue() {
 	return _value;
 }
 
-bool Item::TryUseItem() {
+bool Item::TryUseItem(Character& user) {
 	if (GameState::GetStateMask() & _usableGameStates) 
 	{
-		UseItem();
+		UseItem(user);
 		return true;
 	}
 

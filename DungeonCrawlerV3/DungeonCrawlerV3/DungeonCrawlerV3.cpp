@@ -7,6 +7,9 @@
 #include <array>
 #include "Player.h"
 #include "Enemy.h"
+#include "Inventory.h"
+#include "InventoryMenu.h"
+#include "Item.h"
 
 std::vector<Enemy> vectorTest;
 
@@ -46,25 +49,4 @@ int main()
     //float testAttack = 2.0f;
     //enemy.Damage(testAttack);
     //std::cout << enemy.GetCurrentHealth();
-
-    
-
-    vectorTest.reserve(4);
-
-    vectorTest.emplace_back("one");
-    vectorTest.emplace_back("two");
-    vectorTest.emplace_back("three");
-
-    Enemy enemy("four");
-    TestCopy(enemy);
-
-    for (Enemy &enemy : vectorTest) {
-        std::cout << enemy._name << "\n";
-    }
-
-    vectorTest.erase(vectorTest.begin());
-
-    for (Enemy &enemy : vectorTest) {
-        std::cout << enemy._name << "\n";
-    }
 }

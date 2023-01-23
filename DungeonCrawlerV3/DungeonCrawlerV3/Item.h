@@ -1,5 +1,7 @@
 #pragma once
+
 #include <string>
+#include "Character.h"
 
 class Item {
 protected:
@@ -8,18 +10,17 @@ protected:
 	int _usableGameStates;
 
 public:
-	Item(std::string name, int value, int useableGameStates)
-		: _name(name), _value(value), _usableGameStates(useableGameStates)
-	{
+	Item(std::string name, int value)
+		: _name(name), _value(value) {}
 
-	};
+	virtual ~Item() = default;
 
 	//Getters
 	std::string GetName();
 
 	int GetValue();
 
-	bool TryUseItem();
+	bool TryUseItem(Character& user);
 
-	virtual void UseItem() {};
+	virtual void UseItem(Character& user) {};
 };

@@ -6,15 +6,10 @@
 class Player : public Character {
 
 private:
-	static Inventory _inventory;
+
 
 public:
 	Player();
-
-	//Getters
-	static std::vector<Item>* GetInventory();
-
-	static int GetCoins();
 
 	//functional methods
 	void ChooseAction(Character& other) override;

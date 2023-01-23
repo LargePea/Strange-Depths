@@ -1,38 +1,48 @@
 #include "Inventory.h"
 #include <iostream>
 
-Inventory::Inventory() {
-	_inventory.reserve(MAX_INVENTORY_SIZE);
+Inventory::Inventory(Character& owner) : _owner(owner) {
+	_items = ItemList(MAX_INVENTORY_SIZE);
+	_currentSize = _items.begin();
 	_coins = 0;
 }
 
-std::vector<Item>* Inventory::GetInventory() {
-	return &_inventory;
-}
-
-int Inventory::GetCoins() {
-	return _coins;
+Inventory::Inventory(Character& owner, std::initializer_list<Item*> startingItems) : _owner(owner) {
+	_items.reserve(startingItems.size());
+	for (Item* item : startingItems)
+		_items.push_back(item);
+	_currentSize = _items.end();
+	_coins = 0;
 }
 
 //Inventory Functionality
-bool Inventory::AddItem(Item& item) {
+bool Inventory::AddItem(Item* item) {
 
-	if (_inventory.size() == MAX_INVENTORY_SIZE) return false;
+	if (_currentSize == _items.end()) return false;
 
-	_inventory.push_back(item);
+	//add item to list and shift over for the next one
+	*_currentSize = item;
+	++_currentSize;
 	return true;
 }
 
-bool Inventory::RemoveOrSellItem(int& index, bool& sellItem) {
-	if (index >= _inventory.size()) return false;
+bool Inventory::RemoveOrSellItem(int index, bool sellItem) {
+	if (index >= _items.size()) return false;
 
 
 	if (sellItem)
 	{
-		int itemValue = _inventory[index].GetValue();
+		int itemValue = _items[index]->GetValue();
 		AddCoins(itemValue);
 	}
-	_inventory.erase(_inventory.begin() + index);
+	
+	//shift items down after item deletion
+	delete _items[index];
+	ItemList::iterator itemToShift = _items.begin() + index + 1;
+	while (itemToShift != _currentSize) 
+		*(itemToShift - 1) = *itemToShift;
+	--_currentSize;
+
 	return true;
 }
 
