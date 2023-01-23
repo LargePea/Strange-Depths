@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Items">
       <UniqueIdentifier>{eaab7c28-a1cf-4e09-8917-da1bf17495d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Buffs">
+      <UniqueIdentifier>{16542c54-49ff-449c-b44b-6bffff04d20f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Buffs">
+      <UniqueIdentifier>{ca7ebe15-d293-4156-93e1-eff3d9a565d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonCrawlerV3.cpp">
@@ -51,6 +57,12 @@
     <ClCompile Include="Item.cpp">
       <Filter>Source Files\Items</Filter>
     </ClCompile>
+    <ClCompile Include="Buff.cpp">
+      <Filter>Source Files\Buffs</Filter>
+    </ClCompile>
+    <ClCompile Include="EventSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Screen.h">
@@ -82,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="Enchanment.h">
       <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff.h">
+      <Filter>Header Files\Buffs</Filter>
+    </ClInclude>
+    <ClInclude Include="EventSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 #include "Inventory.h"
 #include "InventoryMenu.h"
 #include "Item.h"
+#include "EventSystem.h"
 
 std::vector<Enemy> vectorTest;
 
@@ -49,4 +50,6 @@ int main()
     //float testAttack = 2.0f;
     //enemy.Damage(testAttack);
     //std::cout << enemy.GetCurrentHealth();
+
+    EventSystem testSystem;
 }

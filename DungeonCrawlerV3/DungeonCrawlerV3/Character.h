@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <deque>
 
 enum class CharacterStats
 {
@@ -46,6 +47,9 @@ protected:
 	float _defense = _baseDefense * _defenseModifier;
 	float _speed = _baseSpeed * _speedModifier;
 
+	//buffs
+	const int _maxBuffs = 5;
+
 public:
 	Character() {
 
@@ -79,4 +83,9 @@ protected:
 	virtual void UseItem() {}
 
 	virtual void Death() {}
+
+	//add buffs
+	void AddBuff();
+
+	void CheckBuffs();
 };
