@@ -36,12 +36,12 @@ bool Inventory::RemoveOrSellItem(int index, bool sellItem) {
 		AddCoins(itemValue);
 	}
 	
-	//shift items down after item deletion
-	delete _items[index];
+	//shift items down to delete item
 	ItemList::iterator itemToShift = _items.begin() + index + 1;
 	while (itemToShift != _currentSize) 
 		*(itemToShift - 1) = *itemToShift;
 	--_currentSize;
+	*_currentSize = nullptr;
 
 	return true;
 }

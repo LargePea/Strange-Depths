@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <deque>
+#include "EventSystem.h"
 
 enum class CharacterStats
 {
@@ -49,6 +50,9 @@ protected:
 
 	//buffs
 	const int _maxBuffs = 5;
+
+public:
+	Subject<Character&> AttackEvent;
 
 public:
 	Character() {

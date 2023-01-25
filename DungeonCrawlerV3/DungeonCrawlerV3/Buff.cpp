@@ -7,5 +7,4 @@ bool Buff::TryUseBuff(Character& user) {
 		return true;
 	}
 	else return false;
-
 }
