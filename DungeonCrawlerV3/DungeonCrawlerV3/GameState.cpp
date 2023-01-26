@@ -6,6 +6,6 @@ int GameState::GetStateMask() {
 	return (int) _currentGameState;
 }
 
-void GameState::SetStateMask(GameStateMask& newState) {
+void GameState::SetStateMask(GameStateMask newState) {
 	_currentGameState = newState;
 }

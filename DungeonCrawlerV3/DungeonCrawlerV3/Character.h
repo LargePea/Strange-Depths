@@ -52,7 +52,9 @@ protected:
 	const int _maxBuffs = 5;
 
 public:
-	Subject<Character&> AttackEvent;
+	//Events
+	Subject<> AttackEvent;
+	Subject<> TurnBeginEvent;
 
 public:
 	Character() {
@@ -64,22 +66,30 @@ public:
 	virtual ~Character() = default;
 
 	//Getters
+	inline float GetMaxHealth() { return _maxHealth; }
+
 	inline float GetCurrentHealth() { return _currentHealth; }
 
 	inline float GetDefense() { return _defense; }
 
 	inline float GetSpeed() { return _speed; }
 
+	inline float GetAttack() { return _attack; }
+
 	//Functional methods
 	//AI/Player chooses what to do in this function
-	virtual void ChooseAction(Character &other) {}
+	virtual void ChooseAction(Character& other) { TurnBeginEvent.Invoke(); }
 
 	//Damage character
-	void Damage(float& incomingDamage);
+	void Damage(const float& incomingDamage);
 
+	//Heal character
+	void Heal(const float& incomingHeal);
+
+	//apply character enhancements
 	void ModStats(float& incomingMod, CharacterStats& statToMod);
 
-protected:
+public:
 	//Attack the opposing character
 	void Attack(Character& other);
 

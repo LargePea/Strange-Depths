@@ -5,18 +5,18 @@
 
 class Item {
 protected:
-	std::string _name;
+	const char* _name;
 	int _value;
 	int _usableGameStates;
 
 public:
-	Item(std::string name, int value)
+	Item(const char* name, int value)
 		: _name(name), _value(value) {}
 
 	virtual ~Item() = default;
 
 	//Getters
-	std::string GetName();
+	const char* GetName();
 
 	int GetValue();
 

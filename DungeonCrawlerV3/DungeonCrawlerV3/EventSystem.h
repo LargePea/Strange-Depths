@@ -1,10 +1,16 @@
 #pragma once
-#include <list>
+#include <set>
 
 template<typename... Args>
 class IEvent {
 public:
+	IEvent() = default;
+
+	virtual ~IEvent() = default;
+
 	inline virtual void Invoke(Args... args) = 0;
+
+	inline virtual void Delete() = 0;
 };
 
 template<typename T, typename... Args>
@@ -20,21 +26,41 @@ public:
 		_event.second = functionPointer;
 	}
 	
+	~Event() override = default;
+
+	//assumes pointer points to a valid object
 	inline void Invoke(Args... args) override { (_event.first->*_event.second)(args...); }
+
+	inline void Delete() override { delete _event.first; }
 };
 
 //Event handler
 template<typename... Args>
 class Subject {
 private:
-	std::list<IEvent<Args...>*> events;
-
+	std::set<IEvent<Args...>*> events;
+	std::set< IEvent<Args...>*> eventsToRemove;
 public:
-	inline void Attach(IEvent<Args...>* event) { events.push_back(event); }
+	Subject() = default;
 
-	inline void Remove(IEvent<Args...>* event) { events.remove(event); }
+	~Subject() = default;
 
-	inline void Invoke(Args... args) { for (IEvent<Args...>* &event : events) event->Invoke(args...); }
+	inline void Attach(IEvent<Args...>* event) { events.insert(events.end(), event); }
+
+	inline void Remove(IEvent<Args...>* event) { eventsToRemove.insert(eventsToRemove.end(), event); }
+
+
+	void Invoke(Args... args) { 
+		for (IEvent<Args...>* event : events) event->Invoke(args...);
+
+		if (eventsToRemove.size() == 0) return;
+
+		for (IEvent<Args...>* event : eventsToRemove) {
+			events.erase(events.find(event));
+			event->Delete();
+		}
+		eventsToRemove.clear();
+	}
 
 	inline int ObserverCount() { return events.size(); }
 };

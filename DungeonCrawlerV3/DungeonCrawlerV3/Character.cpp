@@ -3,13 +3,23 @@
 #include <cstdlib>
 #include <random>
 
-void Character::Damage(float& incomingDamage) {
+void Character::Damage(const float& incomingDamage) {
+	float incomingDamageABS = incomingDamage > 0 ? incomingDamage : -incomingDamage;
 
-	float recalculatedIncomingDamage = incomingDamage * (- 2 * std::pow(_defense / (_defense + incomingDamage), incomingDamage / (_defense + incomingDamage)) + 2);
+	float recalculatedIncomingDamage = incomingDamageABS * (- 2 * std::pow(_defense / (_defense + incomingDamageABS), incomingDamageABS / (_defense + incomingDamageABS)) + 2);
 	float damagedhealth = std::round(_currentHealth - recalculatedIncomingDamage);
 
 	//clamp health to a minimum of 0
 	_currentHealth = damagedhealth > 0 ? damagedhealth : 0;
+	
+	if (_currentHealth == 0) Death();
+}
+
+void Character::Heal(const float& incomingHeal) {
+
+	float healedHealth = std::round(_currentHealth + incomingHeal > 0 ? incomingHeal : -incomingHeal);
+
+	_currentHealth = healedHealth > _maxHealth ? _maxHealth : healedHealth;
 }
 
 void Character::ModStats(float& incomingMod, CharacterStats& statToMod) {
@@ -43,7 +53,11 @@ void Character::ModStats(float& incomingMod, CharacterStats& statToMod) {
 	}
 }
 
+
 void Character::Attack(Character &other) {
+	//Invoke the attack event
+	AttackEvent.Invoke();
+
 	//static to save the state so it's actually randomized instead of rerolling the same state
 	static std::uniform_int_distribution<int> dist(1, 100);
 	static std::default_random_engine randGen;

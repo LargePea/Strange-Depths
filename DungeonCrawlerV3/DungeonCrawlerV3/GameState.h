@@ -20,5 +20,5 @@ public:
 	static int GetStateMask();
 
 	//Setters
-	static void SetStateMask(GameStateMask& newState);
+	static void SetStateMask(GameStateMask newState);
 };
