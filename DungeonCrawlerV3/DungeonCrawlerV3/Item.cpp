@@ -1,7 +1,7 @@
 #include "Item.h"
 #include "GameState.h"
 
-std::string Item::GetName() {
+const char* Item::GetName() {
 	return _name;
 };
 

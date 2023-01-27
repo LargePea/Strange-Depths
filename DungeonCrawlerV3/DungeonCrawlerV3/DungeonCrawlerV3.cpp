@@ -10,6 +10,10 @@
 #include "Inventory.h"
 #include "InventoryMenu.h"
 #include "Item.h"
+#include "EventSystem.h"
+#include <functional>
+#include <string>
+#include "Buff.h"
 
 std::vector<Enemy> vectorTest;
 
@@ -49,4 +53,12 @@ int main()
     //float testAttack = 2.0f;
     //enemy.Damage(testAttack);
     //std::cout << enemy.GetCurrentHealth();
+    GameState::SetStateMask(GameStateMask::Combat);
+    int state = GameState::GetStateMask();
+    Character character;
+    LifeSteal* lsBuff = new LifeSteal(&character, 1, 0.5f);
+    state = GameState::GetStateMask();
+    Item item1("item1", 2);
+    std::cout << item1.GetName() << std::endl;
+    character.Attack(character);
 }
