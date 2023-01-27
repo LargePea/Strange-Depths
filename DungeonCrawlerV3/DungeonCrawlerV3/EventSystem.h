@@ -9,8 +9,6 @@ public:
 	virtual ~IEvent() = default;
 
 	inline virtual void Invoke(Args... args) = 0;
-
-	inline virtual void Delete() = 0;
 };
 
 template<typename T, typename... Args>
@@ -30,8 +28,6 @@ public:
 
 	//assumes pointer points to a valid object
 	inline void Invoke(Args... args) override { (_event.first->*_event.second)(args...); }
-
-	inline void Delete() override { delete _event.first; }
 };
 
 //Event handler
@@ -57,7 +53,6 @@ public:
 
 		for (IEvent<Args...>* event : eventsToRemove) {
 			events.erase(events.find(event));
-			event->Delete();
 		}
 		eventsToRemove.clear();
 	}

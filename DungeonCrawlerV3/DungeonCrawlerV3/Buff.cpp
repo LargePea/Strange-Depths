@@ -8,7 +8,10 @@ void Buff::TryUseBuff() {
 		UseBuff();
 
 	if (_usesRemaining == 0)
+	{
 		NoMoreUses();
+		Buff::RemoveBuff(this);
+	}
 }
 
 //LifeSteal

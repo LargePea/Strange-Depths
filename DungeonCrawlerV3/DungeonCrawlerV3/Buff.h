@@ -15,6 +15,10 @@ public:
 	Buff(Character* user, int uses);
 	virtual ~Buff() = default;
 
+	static void RemoveBuff(Buff* buffToDelete) {
+		delete buffToDelete;
+	}
+
 	void TryUseBuff();
 	virtual void UseBuff() {}
 	virtual void NoMoreUses() {}
