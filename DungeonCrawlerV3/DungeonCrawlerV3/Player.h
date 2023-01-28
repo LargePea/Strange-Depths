@@ -1,6 +1,5 @@
 #pragma once
 #include "Character.h"
-#include "Inventory.h"
 #include <vector>
 
 class Player : public Character {
@@ -17,5 +16,5 @@ public:
 protected:
 	void UseItem() override;
 
-	void Death() override;
+	void Death(Character& killer) override;
 };

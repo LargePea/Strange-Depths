@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <deque>
+#include "Inventory.h"
 #include "EventSystem.h"
 
 enum class CharacterStats
@@ -51,15 +52,16 @@ protected:
 	//buffs
 	const int _maxBuffs = 5;
 
+	//inventory
+	Inventory _inventory = Inventory(*this);
+
 public:
 	//Events
 	Subject<> AttackEvent;
 	Subject<> TurnBeginEvent;
 
 public:
-	Character() {
-
-	};
+	Character() = default;
 	Character(const Character& obj) {
 		std::cout << "Copied" << "\n";
 	};
@@ -81,7 +83,7 @@ public:
 	virtual void ChooseAction(Character& other) { TurnBeginEvent.Invoke(); }
 
 	//Damage character
-	void Damage(const float& incomingDamage);
+	void Damage(const float& incomingDamage, Character& attacker);
 
 	//Heal character
 	void Heal(const float& incomingHeal);
@@ -96,10 +98,5 @@ public:
 	//Use an Item
 	virtual void UseItem() {}
 
-	virtual void Death() {}
-
-	//add buffs
-	void AddBuff();
-
-	void CheckBuffs();
+	virtual void Death(Character& killer) {}
 };

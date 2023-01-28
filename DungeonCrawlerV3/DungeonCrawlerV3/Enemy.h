@@ -2,6 +2,7 @@
 
 #include "Image.h"
 #include "Character.h"
+#include "LootTable.h"
 #include <array>
 #include <iostream>
 
@@ -10,8 +11,9 @@ protected:
 	//Display
 	std::array<std::string, MAX_IMAGE_HEIGHT> _imageDisplay;
 
-	
 	//TO:DO Drops
+	int _maxDropsPossible = 1;
+	LootTable _possibleDrops;
 	//TO:DO Inventory
 	//Special drop
 
@@ -28,5 +30,5 @@ public:
 protected:
 	void UseItem() override;
 	
-	void Death() override;
+	void Death(Character& killer) override;
 };

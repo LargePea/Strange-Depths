@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <random>
 
-void Character::Damage(const float& incomingDamage) {
+void Character::Damage(const float& incomingDamage, Character& attacker) {
 	float incomingDamageABS = incomingDamage > 0 ? incomingDamage : -incomingDamage;
 
 	float recalculatedIncomingDamage = incomingDamageABS * (- 2 * std::pow(_defense / (_defense + incomingDamageABS), incomingDamageABS / (_defense + incomingDamageABS)) + 2);
@@ -12,7 +12,7 @@ void Character::Damage(const float& incomingDamage) {
 	//clamp health to a minimum of 0
 	_currentHealth = damagedhealth > 0 ? damagedhealth : 0;
 	
-	if (_currentHealth == 0) Death();
+	if (_currentHealth == 0) Death(attacker);
 }
 
 void Character::Heal(const float& incomingHeal) {
@@ -72,6 +72,6 @@ void Character::Attack(Character &other) {
 		damage *= _critDmgMulti;
 	}
 
-	other.Damage(damage);
+	other.Damage(damage, *this);
 }
 
