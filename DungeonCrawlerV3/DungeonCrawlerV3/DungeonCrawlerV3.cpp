@@ -14,6 +14,7 @@
 #include <functional>
 #include <string>
 #include "Buff.h"
+#include "LootTable.h"
 
 std::vector<Enemy> vectorTest;
 
@@ -59,6 +60,14 @@ int main()
     LifeSteal* lsBuff = new LifeSteal(&character, 1, 0.5f);
     state = GameState::GetStateMask();
     Item item1("item1", 2);
+    Item item2("item2", 2);
     std::cout << item1.GetName() << std::endl;
     character.Attack(character);
+
+    LootTable testTable({ {&item1, 3} , {&item2, 1} });
+    testTable.PrintTable();
+    auto testLootDrops = testTable.CreateLoot<5>();
+    for (Item* loot : testLootDrops) {
+        std::cout << loot->GetName() << " ";
+    }
 }
