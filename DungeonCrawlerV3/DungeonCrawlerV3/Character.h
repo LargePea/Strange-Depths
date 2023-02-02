@@ -1,27 +1,19 @@
 #pragma once
 #include <iostream>
 #include <deque>
-#include "Inventory.h"
 #include "EventSystem.h"
-
-enum class CharacterStats
-{
-	Attack,
-	Health,
-	CritRate,
-	CritDmg,
-	Defense,
-	Speed
-};
+#include "IEquippable.h"
 
 class Character {
+friend class Enchant;
+
 private:
 	//modifiers
 	float _maxHealthModifier = 1;
 
 	float _attackModifier = 1;
-	float _critRateModifier = 1;
-	float _critDmgModifier = 1;
+	float _critRateModifier = 0;
+	float _critDmgModifier = 0;
 
 	float _defenseModifier = 1;
 	float _speedModifier = 1;
@@ -52,8 +44,7 @@ protected:
 	//buffs
 	const int _maxBuffs = 5;
 
-	//inventory
-	Inventory _inventory = Inventory(*this);
+	IEquippable* _enchantment = nullptr;
 
 public:
 	//Events
@@ -89,7 +80,9 @@ public:
 	void Heal(const float& incomingHeal);
 
 	//apply character enhancements
-	void ModStats(float& incomingMod, CharacterStats& statToMod);
+	void EquipEnchantment(IEquippable* toEquip);
+
+	void ModStat(float& incomingMod, float Character::* statToMod);
 
 public:
 	//Attack the opposing character

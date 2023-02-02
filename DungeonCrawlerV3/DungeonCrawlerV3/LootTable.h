@@ -17,12 +17,11 @@ public:
 
 	template<size_t Size>
 	std::array<Item*, Size> CreateLoot() {
-		if (_lootList.size() == 0) return;
-
 		static std::default_random_engine numberGenerator;
 		static std::uniform_real_distribution<float> distribution(1, _totalTableWeight);
 
-		std::array<Item*, Size> createdLoot;
+		std::array<Item*, Size> createdLoot{};
+		if (_lootList.size() == 0) return createdLoot;
 
 		for (size_t i = 0; i < Size; i++)
 		{

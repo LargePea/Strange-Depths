@@ -63,6 +63,15 @@
     <ClCompile Include="Potion.cpp">
       <Filter>Source Files\Items</Filter>
     </ClCompile>
+    <ClCompile Include="LootTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enchantment.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Enchant.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Screen.h">
@@ -92,7 +101,7 @@
     <ClInclude Include="Item.h">
       <Filter>Header Files\Items</Filter>
     </ClInclude>
-    <ClInclude Include="Enchanment.h">
+    <ClInclude Include="Enchantment.h">
       <Filter>Header Files\Items</Filter>
     </ClInclude>
     <ClInclude Include="Buff.h">
@@ -102,6 +111,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Potion.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="LootTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IEquippable.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Enchant.h">
       <Filter>Header Files\Items</Filter>
     </ClInclude>
   </ItemGroup>

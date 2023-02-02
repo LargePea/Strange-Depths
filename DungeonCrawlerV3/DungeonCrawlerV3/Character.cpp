@@ -22,35 +22,17 @@ void Character::Heal(const float& incomingHeal) {
 	_currentHealth = healedHealth > _maxHealth ? _maxHealth : healedHealth;
 }
 
-void Character::ModStats(float& incomingMod, CharacterStats& statToMod) {
-	switch (statToMod)
-	{
-	case CharacterStats::Attack:
-		_attackModifier += incomingMod;
-		break;
-	case CharacterStats::CritDmg:
-		_critDmgModifier += incomingMod;
-		break;
-	case CharacterStats::CritRate:
-		_critRateModifier += incomingMod;
-		break;
-	case CharacterStats::Defense:
-		_defenseModifier += incomingMod;
-		break;
-	case CharacterStats::Speed:
-		_speedModifier += incomingMod;
-		break;
-	case CharacterStats::Health:
-	{
-		//preserve health ratio when upgrading health
-		float currentHealthRatio = _currentHealth / _baseMaxHealth;
-		_maxHealthModifier += incomingMod;
-		_currentHealth = std::round(_maxHealth * currentHealthRatio);
+void Character::EquipEnchantment(IEquippable* toEquip) {
+	if (_enchantment != nullptr) {
+		_enchantment->UnequipItem();
+		delete _enchantment;
 	}
-		break;
-	default:
-		break;
-	}
+	toEquip->EquipItem();
+	_enchantment = toEquip;
+}
+
+void Character::ModStat(float& incomingMod, float Character::* statToUnmod) {
+	this->*statToUnmod += incomingMod;
 }
 
 

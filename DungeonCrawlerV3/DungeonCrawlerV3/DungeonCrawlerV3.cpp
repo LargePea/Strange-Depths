@@ -64,9 +64,9 @@ int main()
     std::cout << item1.GetName() << std::endl;
     character.Attack(character);
 
-    LootTable testTable({ {&item1, 3} , {&item2, 1} });
+    LootTable testTable({ {&item1, 3.0f} , {&item2, 1.0f} });
     testTable.PrintTable();
-    auto testLootDrops = testTable.CreateLoot<5>();
+    auto testLootDrops = testTable.CreateLoot<(size_t) 5>();
     for (Item* loot : testLootDrops) {
         std::cout << loot->GetName() << " ";
     }

@@ -16,6 +16,6 @@ void Player::UseItem() {
 
 } 
 
-void Player::Death() {
+void Player::Death(Character& killer) {
 
 }
