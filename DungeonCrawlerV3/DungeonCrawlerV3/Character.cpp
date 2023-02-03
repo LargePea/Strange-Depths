@@ -12,7 +12,7 @@ void Character::Damage(const float& incomingDamage, Character& attacker) {
 	//clamp health to a minimum of 0
 	_currentHealth = damagedhealth > 0 ? damagedhealth : 0;
 	
-	if (_currentHealth == 0) Death(attacker);
+	if (_currentHealth == 0) Death(&attacker);
 }
 
 void Character::Heal(const float& incomingHeal) {

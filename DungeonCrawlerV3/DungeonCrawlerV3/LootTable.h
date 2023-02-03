@@ -16,16 +16,20 @@ public:
 	LootTable(std::initializer_list<std::pair<Item*, float>> startingLoot);
 
 	template<size_t Size>
-	std::array<Item*, Size> CreateLoot() {
+	void CreateLoot(std::array<Item*, Size>& createdLoot) {
 		static std::default_random_engine numberGenerator;
-		static std::uniform_real_distribution<float> distribution(1, _totalTableWeight);
+		static std::uniform_real_distribution<float> itemDistribution(1, _totalTableWeight);
+		static std::uniform_int_distribution<int> amountGeneratedDistribution(0, Size);
 
-		std::array<Item*, Size> createdLoot{};
-		if (_lootList.size() == 0) return createdLoot;
+		//dont bother generating loot if there's nothing to generate
+		if (_lootList.size() == 0) return;
 
-		for (size_t i = 0; i < Size; i++)
+		int amountToGenerate = amountGeneratedDistribution(numberGenerator);
+		for (int i = 0; i < amountToGenerate; i++)
 		{
-			float generatedNumber = distribution(numberGenerator);
+			float generatedNumber = itemDistribution(numberGenerator);
+
+			//generate loot based on weight
 			for (auto& loot : _lootList) {
 				if (generatedNumber < loot.second) {
 					createdLoot[i] = loot.first;
@@ -34,8 +38,6 @@ public:
 				generatedNumber -= loot.second;
 			}
 		}
-
-		return createdLoot;
 	}
 
 	void PrintTable() {

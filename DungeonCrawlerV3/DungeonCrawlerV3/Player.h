@@ -14,8 +14,10 @@ public:
 	//functional methods
 	void ChooseAction(Character& other) override;
 
+	inline Inventory* GetInventory() { return &_playerInventory; }
+
 protected:
 	void UseItem() override;
 
-	void Death(Character& killer) override;
+	void Death(Character* killer) override;
 };

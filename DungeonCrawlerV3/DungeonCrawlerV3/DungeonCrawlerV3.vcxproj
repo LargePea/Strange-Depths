@@ -150,6 +150,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="InventoryMenu.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemDictionary.cpp" />
     <ClCompile Include="LootTable.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Potion.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventoryMenu.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemDictionary.h" />
     <ClInclude Include="LootTable.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Potion.h" />

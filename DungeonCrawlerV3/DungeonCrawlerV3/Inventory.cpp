@@ -1,23 +1,39 @@
 #include "Inventory.h"
 #include <iostream>
 
-Inventory::Inventory(Character& owner) : _owner(owner) {
+Inventory::Inventory(Character& owner) : _owner(&owner) , _coins(0) {
 	_items = ItemList(MAX_INVENTORY_SIZE);
 	_currentSize = _items.begin();
-	_coins = 0;
 }
 
-Inventory::Inventory(Character& owner, std::initializer_list<Item*> startingItems) : _owner(owner) {
+Inventory::Inventory(Character& owner, std::initializer_list<Item*> startingItems) : _owner(&owner), _coins(0) {
 	_items.reserve(startingItems.size());
 	for (Item* item : startingItems)
 		_items.push_back(item);
 	_currentSize = _items.end();
-	_coins = 0;
+}
+
+Inventory::Inventory(Character& owner, ItemList startingList) : _owner(&owner), _items(startingList), _coins(0) {
+	_currentSize = _items.end();
+}
+
+Inventory::Inventory(const Inventory& other) : _owner(other._owner), _items(other._items), _coins(other._coins) {
+	_currentSize = _items.begin();
+}
+
+Inventory& Inventory::operator=(const Inventory& other) {
+	_owner = other._owner;
+	_items = other._items;
+	_currentSize = _items.begin();
+	_coins = other._coins;
+
+	return *this;
 }
 
 //Inventory Functionality
 bool Inventory::AddItem(Item* item) {
 
+	//TO:DO alert when inventory is full
 	if (_currentSize == _items.end()) return false;
 
 	//add item to list and shift over for the next one

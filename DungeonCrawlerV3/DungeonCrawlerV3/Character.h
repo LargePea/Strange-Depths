@@ -91,5 +91,5 @@ public:
 	//Use an Item
 	virtual void UseItem() {}
 
-	virtual void Death(Character& killer) {}
+	virtual void Death(Character* killer) {}
 };
