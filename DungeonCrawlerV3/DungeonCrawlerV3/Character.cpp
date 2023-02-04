@@ -33,6 +33,7 @@ void Character::EquipEnchantment(IEquippable* toEquip) {
 
 void Character::ModStat(float& incomingMod, float Character::* statToMod) {
 	this->*statToMod += incomingMod;
+
 }
 
 
