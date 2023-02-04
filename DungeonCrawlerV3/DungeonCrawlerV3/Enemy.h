@@ -11,22 +11,25 @@ class Enemy : public Character {
 protected:
 	//Display
 	std::array<std::string, MAX_IMAGE_HEIGHT> _imageDisplay;
+	const char* _name;
 
-	static const int _maxDropsPossible = 1;
-	static const int _maxInventoryStartingSize = 5;
+	//AI
+	const float _healThreshold;
 
+	//Drops
 	LootTable _possibleDrops;
+	static const int _maxDropsPossible = 5;
+	static const int _maxInventoryStartingSize = 5;
+	int _enemyValue;
+
 	//TO:DO Inventory
 	Inventory _enemyInventory;
-	//Special drop
 
 public:
-	const char* _name;
-	Enemy(const char* name);
+	Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold);
 
 	void ChooseAction(Character& other) override;
 
-protected:
 	void UseItem() override;
 	
 	void Death(Character* killer) override;

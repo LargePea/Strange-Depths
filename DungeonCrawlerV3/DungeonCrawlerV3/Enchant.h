@@ -3,6 +3,7 @@
 #include "IEquippable.h"
 
 class Enchant : public IEquippable {
+	friend class SkeletonEnchant;
 private:
 	const char* _name;
 	float _modifyAmount = 0;
@@ -24,3 +25,7 @@ public:
 
 	void UnequipItem() override;
 };
+
+class SkeletonEnchant : public Enchant {
+	SkeletonEnchant() : Enchant("Skeleton Enchant", 0.1, &Character::_attackModifier)
+}

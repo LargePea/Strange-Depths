@@ -19,7 +19,6 @@ private:
 	float _speedModifier = 1;
 
 protected:
-	float _currentHealth = 0;
 
 	//baseStats
 	float _baseMaxHealth = 20;
@@ -32,6 +31,7 @@ protected:
 	float _baseSpeed = 0;
 
 	//usefull stats
+	float _currentHealth = _baseMaxHealth;
 	float _maxHealth = _baseMaxHealth * _maxHealthModifier;
 
 	float _attack = _baseAttack * _attackModifier;
@@ -52,7 +52,8 @@ public:
 	Subject<> TurnBeginEvent;
 
 public:
-	Character() = default;
+	Character(float maxHealth, float attack, float defense, float critRate, float speed) :
+		_baseMaxHealth(maxHealth), _baseAttack(attack), _baseDefense(defense), _baseCritRatePercent(critRate), _baseSpeed(speed) {}
 	Character(const Character& obj) {
 		std::cout << "Copied" << "\n";
 	};
@@ -84,7 +85,6 @@ public:
 
 	void ModStat(float& incomingMod, float Character::* statToMod);
 
-public:
 	//Attack the opposing character
 	void Attack(Character& other);
 

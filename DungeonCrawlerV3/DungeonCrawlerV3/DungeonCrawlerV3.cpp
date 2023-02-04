@@ -16,6 +16,7 @@
 #include "Buff.h"
 #include "LootTable.h"
 #include "ItemDictionary.h"
+#include "Skeleton.h"
 
 std::vector<Enemy> vectorTest;
 
@@ -67,9 +68,8 @@ int main()
 
     LootTable testTable({ {&item1, 3.0f} , {&item2, 1.0f} });
     testTable.PrintTable();
-    Character chara;
 
     ItemDictionary instance = ItemDictionary::Instance();
     Item* potionTest = instance.GetPotions()["Heal"];
-    potionTest->UseItem(chara);
+    
 }
