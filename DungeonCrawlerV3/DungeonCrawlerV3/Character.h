@@ -9,26 +9,14 @@ friend class Enchant;
 
 private:
 	//modifiers
-	float _maxHealthModifier = 1;
-
-	float _attackModifier = 1;
-	float _critRateModifier = 0;
-	float _critDmgModifier = 0;
-
-	float _defenseModifier = 1;
-	float _speedModifier = 1;
+	float _maxHealthModifier, _attackModifier, _defenseModifier, _speedModifier = 1;
+	float _critRateModifier, _critDmgModifier = 0;
 
 protected:
 
 	//baseStats
-	float _baseMaxHealth = 20;
-
-	float _baseAttack = 1;
-	float _baseCritRatePercent = 0;
+	float _baseMaxHealth, _baseAttack, _baseCritRatePercent, _baseDefense, _baseSpeed = 0;
 	float _baseCritDmgMulti = 2;
-
-	float _baseDefense = 0;
-	float _baseSpeed = 0;
 
 	//usefull stats
 	float _currentHealth = _baseMaxHealth;

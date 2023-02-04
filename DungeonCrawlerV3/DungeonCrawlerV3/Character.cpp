@@ -31,8 +31,8 @@ void Character::EquipEnchantment(IEquippable* toEquip) {
 	_enchantment = toEquip;
 }
 
-void Character::ModStat(float& incomingMod, float Character::* statToUnmod) {
-	this->*statToUnmod += incomingMod;
+void Character::ModStat(float& incomingMod, float Character::* statToMod) {
+	this->*statToMod += incomingMod;
 }
 
 
