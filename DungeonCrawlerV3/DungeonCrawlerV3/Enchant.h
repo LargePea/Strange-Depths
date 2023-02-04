@@ -2,16 +2,32 @@
 #include "Character.h"
 #include "IEquippable.h"
 
+#include <map>
+
 class Enchant : public IEquippable {
-	friend class SkeletonEnchant;
+public:
+enum EnchanmentTypes
+{
+	Attack,
+	Defense,
+	CritRate,
+	Speed
+};
 private:
+	std::map<EnchanmentTypes, float Character::*> _modificationTypeMap{
+		{EnchanmentTypes::Attack, &Character::_attackModifier},
+		{EnchanmentTypes::Defense, &Character::_defenseModifier},
+		{EnchanmentTypes::CritRate, &Character::_critRateModifier},
+		{EnchanmentTypes::Speed, &Character::_speedModifier}
+	};
+
 	const char* _name;
 	float _modifyAmount = 0;
 	float Character::* _moddedStat = &Character::_attackModifier;
 	Character* _equippedCharacter = nullptr;
 
 public:
-	Enchant(const char* name, float modifyAmount, float Character::* moddedStat);
+	Enchant(const char* name, float modifyAmount, EnchanmentTypes enchantType);
 
 	Enchant(const Enchant& other);
 
@@ -25,7 +41,3 @@ public:
 
 	void UnequipItem() override;
 };
-
-class SkeletonEnchant : public Enchant {
-	SkeletonEnchant() : Enchant("Skeleton Enchant", 0.1, &Character::_attackModifier)
-}

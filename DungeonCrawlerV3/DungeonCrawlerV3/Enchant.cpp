@@ -1,6 +1,7 @@
 #include "Enchant.h"
 
-Enchant::Enchant(const char* name, float modifyAmount, float Character::* moddedStat) : _name(name), _modifyAmount(modifyAmount), _moddedStat(moddedStat) {
+Enchant::Enchant(const char* name, float modifyAmount, EnchanmentTypes enchanmentType) 
+	: _name(name), _modifyAmount(modifyAmount), _moddedStat(_modificationTypeMap[enchanmentType]) {
 
 }
 

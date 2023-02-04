@@ -35,9 +35,17 @@ private:
 
 
 	//enchantments
-	Enchantment _skeletonEnchant = Enchantment("Skeleton Enchantment", 50, Enchant("Skeleton Enchant", 0.1, &Character::_attackModifier));
+	Enchantment _slimeEnchant = Enchantment("Slime Enchantment", 50, Enchant("Slime Enchant", 0.1, Enchant::CritRate));
+	Enchantment _skeletonEnchant = Enchantment("Skeleton Enchantment", 50, Enchant("Skeleton Enchant", 0.1, Enchant::Attack));
+	Enchantment _bansheeEnchant = Enchantment("Banshee Enchantment", 65, Enchant("Banshee Enchant", 0.55, Enchant::Speed));
+	Enchantment _ogreEnchant = Enchantment("Ogre Enchantment", 70, Enchant("Ogre Enchant", 0.1, Enchant::Defense));
 
-	ItemMap _enchanmentsInterface{ {"Null", &NullItem} };
+	ItemMap _enchanmentsInterface{
+		{"Slime", &_slimeEnchant},
+		{"Skeleton", &_skeletonEnchant},
+		{"Banshee", &_bansheeEnchant},
+		{"Ogre", &_ogreEnchant}
+	};
 
 private:
 	ItemDictionary() = default;
