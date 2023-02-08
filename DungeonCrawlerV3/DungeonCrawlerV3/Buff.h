@@ -9,15 +9,11 @@ protected:
 	int _maxUses;
 	int _usesRemaining = _maxUses;
 	Character* _user = nullptr;
-	Event<Buff> _buffEvent{ this, &Buff::TryUseBuff };
+	Event<Buff>* _buffEvent;
 
 public:
-	Buff(Character* user, int uses);
+	Buff(Character* user, int uses, int activeGameState);
 	virtual ~Buff() = default;
-
-	static void RemoveBuff(Buff* buffToDelete) {
-		delete buffToDelete;
-	}
 
 	void TryUseBuff();
 	virtual void UseBuff() {}
@@ -29,7 +25,6 @@ private:
 	float _lifeStealStrength;
 public:
 	LifeSteal(Character* user, int uses, float lifeStealStrength);
-	~LifeSteal() override = default;
 
 	void UseBuff() override;
 	void NoMoreUses() override;

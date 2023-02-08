@@ -2,43 +2,22 @@
 #include <iostream>
 #include <deque>
 #include "EventSystem.h"
-
-enum class CharacterStats
-{
-	Attack,
-	Health,
-	CritRate,
-	CritDmg,
-	Defense,
-	Speed
-};
+#include "IEquippable.h"
 
 class Character {
 private:
 	//modifiers
-	float _maxHealthModifier = 1;
-
-	float _attackModifier = 1;
-	float _critRateModifier = 1;
-	float _critDmgModifier = 1;
-
-	float _defenseModifier = 1;
-	float _speedModifier = 1;
+	float _maxHealthModifier = 1, _attackModifier = 1, _defenseModifier = 1, _speedModifier = 1;
+	float _critRateModifier = 0, _critDmgModifier = 0;
 
 protected:
-	float _currentHealth = 0;
 
 	//baseStats
-	float _baseMaxHealth = 20;
-
-	float _baseAttack = 1;
-	float _baseCritRatePercent = 0;
+	float _baseMaxHealth = 0, _baseAttack = 0, _baseCritRatePercent = 0, _baseDefense = 0, _baseSpeed = 0;
 	float _baseCritDmgMulti = 2;
 
-	float _baseDefense = 0;
-	float _baseSpeed = 0;
-
 	//usefull stats
+	float _currentHealth = _baseMaxHealth;
 	float _maxHealth = _baseMaxHealth * _maxHealthModifier;
 
 	float _attack = _baseAttack * _attackModifier;
@@ -51,19 +30,20 @@ protected:
 	//buffs
 	const int _maxBuffs = 5;
 
+	IEquippable* _enchantment = nullptr;
+
 public:
 	//Events
 	Subject<> AttackEvent;
 	Subject<> TurnBeginEvent;
 
 public:
-	Character() {
-
-	};
+	Character(float maxHealth, float attack, float defense, float critRate, float speed) :
+		_baseMaxHealth(maxHealth), _baseAttack(attack), _baseDefense(defense), _baseCritRatePercent(critRate), _baseSpeed(speed) {}
 	Character(const Character& obj) {
 		std::cout << "Copied" << "\n";
 	};
-	virtual ~Character() = default;
+	virtual ~Character();
 
 	//Getters
 	inline float GetMaxHealth() { return _maxHealth; }
@@ -81,25 +61,27 @@ public:
 	virtual void ChooseAction(Character& other) { TurnBeginEvent.Invoke(); }
 
 	//Damage character
-	void Damage(const float& incomingDamage);
+	void Damage(const float& incomingDamage, Character& attacker);
 
 	//Heal character
 	void Heal(const float& incomingHeal);
 
 	//apply character enhancements
-	void ModStats(float& incomingMod, CharacterStats& statToMod);
+	void EquipEnchantment(IEquippable* toEquip);
 
-public:
+	void ModAttack(float& incomingMod);
+	void ModDefense(float& incomingMod);
+	void ModCritRate(float& incomingMod);
+	void ModSpeed(float& incomingMod);
+
 	//Attack the opposing character
 	void Attack(Character& other);
 
 	//Use an Item
 	virtual void UseItem() {}
 
-	virtual void Death() {}
+	virtual void Death(Character* killer) {}
 
-	//add buffs
-	void AddBuff();
-
-	void CheckBuffs();
+private:
+	void ModStat(float& incomingMod, float statToMod);
 };

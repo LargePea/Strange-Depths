@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include "Character.h"
+#include "GameState.h"
 
 class Item {
 protected:
@@ -10,8 +10,8 @@ protected:
 	int _usableGameStates;
 
 public:
-	Item(const char* name, int value)
-		: _name(name), _value(value) {}
+	Item(const char* name, int value, int usableGameStates = 0)
+		: _name(name), _value(value), _usableGameStates(usableGameStates) {}
 
 	virtual ~Item() = default;
 

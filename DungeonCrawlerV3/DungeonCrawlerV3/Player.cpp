@@ -2,7 +2,8 @@
 #include <vector>
 
 
-Player::Player() {
+Player::Player() : 
+	Character(20, 6, 4, 0.3f, 5) {
 
 }
 
@@ -16,6 +17,6 @@ void Player::UseItem() {
 
 } 
 
-void Player::Death() {
+void Player::Death(Character* killer) {
 
 }

@@ -14,6 +14,9 @@
 #include <functional>
 #include <string>
 #include "Buff.h"
+#include "LootTable.h"
+#include "ItemDictionary.h"
+#include "Skeleton.h"
 
 std::vector<Enemy> vectorTest;
 
@@ -55,10 +58,24 @@ int main()
     //std::cout << enemy.GetCurrentHealth();
     GameState::SetStateMask(GameStateMask::Combat);
     int state = GameState::GetStateMask();
-    Character character;
-    LifeSteal* lsBuff = new LifeSteal(&character, 1, 0.5f);
+    LifeSteal* buff;
+    {
+        Character character = Player();
+        LifeSteal* lsBuff = new LifeSteal(&character, 1, 0.5f);
+        buff = lsBuff;
+        
+    }
+
     state = GameState::GetStateMask();
     Item item1("item1", 2);
+    Item item2("item2", 2);
     std::cout << item1.GetName() << std::endl;
-    character.Attack(character);
+    //character.Attack(character);
+
+    LootTable testTable({ {&item1, 3.0f} , {&item2, 1.0f} });
+    testTable.PrintTable();
+
+    ItemDictionary instance = ItemDictionary::Instance();
+    Item* potionTest = instance.GetPotions()["Heal"];
+    
 }

@@ -1,6 +1,10 @@
 #pragma once
 #include <set>
 
+template<typename... Args> class Subject;
+template<typename... Args> class IEvent;
+template<typename T, typename... Args> class Event;
+
 template<typename... Args>
 class IEvent {
 public:
@@ -15,17 +19,23 @@ template<typename T, typename... Args>
 class Event : public IEvent<Args...> {
 using functionType = void (T::*)(Args...);
 
+friend class Subject<Args...>;
+
 private:
 	std::pair<T*, functionType> _event;
+	bool _deleteObject;
+
+private:
+	Event(T* object, functionType functionPointer, bool deleteObject) : 
+		IEvent<Args...>(), _event(object, functionPointer), _deleteObject(deleteObject) {
+	}
+
+	virtual ~Event() {
+		if (_deleteObject)
+			delete _event.first;
+	}
 
 public:
-	Event(T* object, functionType functionPointer) : IEvent<Args...>() {
-		_event.first = object;
-		_event.second = functionPointer;
-	}
-	
-	~Event() override = default;
-
 	//assumes pointer points to a valid object
 	inline void Invoke(Args... args) override { (_event.first->*_event.second)(args...); }
 };
@@ -39,9 +49,17 @@ private:
 public:
 	Subject() = default;
 
-	~Subject() = default;
+	~Subject() {
+		for (auto& event : events)
+			delete event;
+	}
 
-	inline void Attach(IEvent<Args...>* event) { events.insert(events.end(), event); }
+	template<typename T> 
+	Event<T>* Attach(T* object, void (T::* function)(Args...), bool deleteObject = false                                       ) {
+		Event<T>* event = new Event<T>(object, function, deleteObject);
+		events.insert(events.end(), event);
+		return event;
+	}
 
 	inline void Remove(IEvent<Args...>* event) { eventsToRemove.insert(eventsToRemove.end(), event); }
 
@@ -52,10 +70,14 @@ public:
 		if (eventsToRemove.size() == 0) return;
 
 		for (IEvent<Args...>* event : eventsToRemove) {
-			events.erase(events.find(event));
+			auto foundEvent = events.find(event);
+			//check to see if event was already removed
+			if (foundEvent != events.end())
+				delete event;
+				events.erase(foundEvent);
 		}
 		eventsToRemove.clear();
 	}
 
-	inline int ObserverCount() { return events.size(); }
+	inline int EventCount() { return events.size(); }
 };

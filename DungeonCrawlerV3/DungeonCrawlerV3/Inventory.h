@@ -10,7 +10,7 @@ class Inventory {
 	typedef std::vector<Item*> ItemList;
 
 private:
-	Character _owner;
+	Character* _owner;
 
 	ItemList _items;
 	int _coins;
@@ -19,9 +19,13 @@ private:
 public:
 	Inventory(Character &owner);
 	Inventory(Character& owner, std::initializer_list<Item*>);
+	Inventory(Character& owner, ItemList startingItems);
+
+	Inventory(const Inventory& other);
+	Inventory& operator=(const Inventory& other);
 
 	//Getters
-	inline Character GetOwner() { return _owner; }
+	inline Character GetOwner() { return *_owner; }
 
 	inline std::vector<Item*> GetItems(){ return _items; }
 

@@ -1,21 +1,25 @@
 #pragma once
 #include "Character.h"
-#include "Inventory.h"
 #include <vector>
+#include "Inventory.h"
 
 class Player : public Character {
 
 private:
-
+	Inventory _playerInventory{ *this };
 
 public:
 	Player();
 
+	~Player() override = default;
+
 	//functional methods
 	void ChooseAction(Character& other) override;
+
+	inline Inventory* GetInventory() { return &_playerInventory; }
 
 protected:
 	void UseItem() override;
 
-	void Death() override;
+	void Death(Character* killer) override;
 };

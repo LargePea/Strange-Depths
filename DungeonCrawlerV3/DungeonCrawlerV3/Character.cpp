@@ -3,7 +3,12 @@
 #include <cstdlib>
 #include <random>
 
-void Character::Damage(const float& incomingDamage) {
+Character::~Character() {
+	if (_enchantment != nullptr)
+		delete _enchantment;
+}
+
+void Character::Damage(const float& incomingDamage, Character& attacker) {
 	float incomingDamageABS = incomingDamage > 0 ? incomingDamage : -incomingDamage;
 
 	float recalculatedIncomingDamage = incomingDamageABS * (- 2 * std::pow(_defense / (_defense + incomingDamageABS), incomingDamageABS / (_defense + incomingDamageABS)) + 2);
@@ -12,7 +17,7 @@ void Character::Damage(const float& incomingDamage) {
 	//clamp health to a minimum of 0
 	_currentHealth = damagedhealth > 0 ? damagedhealth : 0;
 	
-	if (_currentHealth == 0) Death();
+	if (_currentHealth == 0) Death(&attacker);
 }
 
 void Character::Heal(const float& incomingHeal) {
@@ -22,35 +27,37 @@ void Character::Heal(const float& incomingHeal) {
 	_currentHealth = healedHealth > _maxHealth ? _maxHealth : healedHealth;
 }
 
-void Character::ModStats(float& incomingMod, CharacterStats& statToMod) {
-	switch (statToMod)
-	{
-	case CharacterStats::Attack:
-		_attackModifier += incomingMod;
-		break;
-	case CharacterStats::CritDmg:
-		_critDmgModifier += incomingMod;
-		break;
-	case CharacterStats::CritRate:
-		_critRateModifier += incomingMod;
-		break;
-	case CharacterStats::Defense:
-		_defenseModifier += incomingMod;
-		break;
-	case CharacterStats::Speed:
-		_speedModifier += incomingMod;
-		break;
-	case CharacterStats::Health:
-	{
-		//preserve health ratio when upgrading health
-		float currentHealthRatio = _currentHealth / _baseMaxHealth;
-		_maxHealthModifier += incomingMod;
-		_currentHealth = std::round(_maxHealth * currentHealthRatio);
+void Character::EquipEnchantment(IEquippable* toEquip) {
+	if (_enchantment != nullptr) {
+		_enchantment->UnequipItem();
+		delete _enchantment;
 	}
-		break;
-	default:
-		break;
-	}
+	toEquip->EquipItem();
+	_enchantment = toEquip;
+}
+
+void Character::ModStat(float& incomingMod, float statToMod) {
+	statToMod += incomingMod;
+}
+
+void Character::ModAttack(float& incomingMod) {
+	ModStat(incomingMod, _attackModifier);
+	_attack = _baseAttack * _attackModifier; 
+}
+
+void Character::ModDefense(float& incomingMod) {
+	ModStat(incomingMod, _defenseModifier);
+	_defense = _baseDefense * _defenseModifier; 
+}
+
+void Character::ModCritRate(float& incomingMod) {
+	ModStat(incomingMod, _critRateModifier);
+	_critRatePercent = _baseCritRatePercent + _critRateModifier;
+}
+
+void Character::ModSpeed(float& incomingMod) {
+	ModStat(incomingMod, _speedModifier);
+	_speed = _baseSpeed * _speedModifier;
 }
 
 
@@ -72,6 +79,6 @@ void Character::Attack(Character &other) {
 		damage *= _critDmgMulti;
 	}
 
-	other.Damage(damage);
+	other.Damage(damage, *this);
 }
 
