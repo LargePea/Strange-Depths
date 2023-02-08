@@ -55,7 +55,7 @@ public:
 	}
 
 	template<typename T> 
-	Event<T>* Attach(T* object, void (T::* function)(Args...), bool deleteObject = false) {
+	Event<T>* Attach(T* object, void (T::* function)(Args...), bool deleteObject = false                                       ) {
 		Event<T>* event = new Event<T>(object, function, deleteObject);
 		events.insert(events.end(), event);
 		return event;

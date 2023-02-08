@@ -5,17 +5,15 @@
 #include "IEquippable.h"
 
 class Character {
-friend class Enchant;
-
 private:
 	//modifiers
-	float _maxHealthModifier, _attackModifier, _defenseModifier, _speedModifier = 1;
-	float _critRateModifier, _critDmgModifier = 0;
+	float _maxHealthModifier = 1, _attackModifier = 1, _defenseModifier = 1, _speedModifier = 1;
+	float _critRateModifier = 0, _critDmgModifier = 0;
 
 protected:
 
 	//baseStats
-	float _baseMaxHealth, _baseAttack, _baseCritRatePercent, _baseDefense, _baseSpeed = 0;
+	float _baseMaxHealth = 0, _baseAttack = 0, _baseCritRatePercent = 0, _baseDefense = 0, _baseSpeed = 0;
 	float _baseCritDmgMulti = 2;
 
 	//usefull stats
@@ -45,7 +43,7 @@ public:
 	Character(const Character& obj) {
 		std::cout << "Copied" << "\n";
 	};
-	virtual ~Character() = default;
+	virtual ~Character();
 
 	//Getters
 	inline float GetMaxHealth() { return _maxHealth; }
@@ -71,7 +69,10 @@ public:
 	//apply character enhancements
 	void EquipEnchantment(IEquippable* toEquip);
 
-	void ModStat(float& incomingMod, float Character::* statToMod);
+	void ModAttack(float& incomingMod);
+	void ModDefense(float& incomingMod);
+	void ModCritRate(float& incomingMod);
+	void ModSpeed(float& incomingMod);
 
 	//Attack the opposing character
 	void Attack(Character& other);
@@ -80,4 +81,7 @@ public:
 	virtual void UseItem() {}
 
 	virtual void Death(Character* killer) {}
+
+private:
+	void ModStat(float& incomingMod, float statToMod);
 };

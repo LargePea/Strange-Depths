@@ -38,13 +38,15 @@ void Enemy::Death(Character* killer) {
 		if (loot == nullptr) break;
 		playerInventory->AddItem(loot);
 	}
+
+	playerInventory->AddCoins(_enemyValue);
 }
 
 std::vector<Item*> Enemy::CreateStartingItems() {
 
 	static std::default_random_engine generator;
 	static std::uniform_int_distribution<int> randomInventorySize(0, _maxInventoryStartingSize);
-	static Item*& healPotion = ItemDictionary::Instance().GetPotions()["Heal"];
+	static Item*& healPotion = ItemDictionary::Instance().GetPotion("Heal");
 
 	int generatedSize = randomInventorySize(generator);
 

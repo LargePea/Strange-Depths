@@ -3,6 +3,11 @@
 #include <cstdlib>
 #include <random>
 
+Character::~Character() {
+	if (_enchantment != nullptr)
+		delete _enchantment;
+}
+
 void Character::Damage(const float& incomingDamage, Character& attacker) {
 	float incomingDamageABS = incomingDamage > 0 ? incomingDamage : -incomingDamage;
 
@@ -31,9 +36,28 @@ void Character::EquipEnchantment(IEquippable* toEquip) {
 	_enchantment = toEquip;
 }
 
-void Character::ModStat(float& incomingMod, float Character::* statToMod) {
-	this->*statToMod += incomingMod;
+void Character::ModStat(float& incomingMod, float statToMod) {
+	statToMod += incomingMod;
+}
 
+void Character::ModAttack(float& incomingMod) {
+	ModStat(incomingMod, _attackModifier);
+	_attack = _baseAttack * _attackModifier; 
+}
+
+void Character::ModDefense(float& incomingMod) {
+	ModStat(incomingMod, _defenseModifier);
+	_defense = _baseDefense * _defenseModifier; 
+}
+
+void Character::ModCritRate(float& incomingMod) {
+	ModStat(incomingMod, _critRateModifier);
+	_critRatePercent = _baseCritRatePercent + _critRateModifier;
+}
+
+void Character::ModSpeed(float& incomingMod) {
+	ModStat(incomingMod, _speedModifier);
+	_speed = _baseSpeed * _speedModifier;
 }
 
 

@@ -28,6 +28,8 @@ protected:
 public:
 	Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold);
 
+	virtual ~Enemy() = default;
+
 	void ChooseAction(Character& other) override;
 
 	void UseItem() override;

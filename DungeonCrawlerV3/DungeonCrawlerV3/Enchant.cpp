@@ -24,10 +24,10 @@ void Enchant::SetOwner(Character* owner) {
 }
 
 void Enchant::EquipItem() {
-	_equippedCharacter->ModStat(_modifyAmount, _moddedStat);
+	(_equippedCharacter->*_moddedStat)(_modifyAmount);
 }
 
 void Enchant::UnequipItem() {
 	float negMod = -_modifyAmount;
-	_equippedCharacter->ModStat(negMod, _moddedStat);
+	(_equippedCharacter->*_moddedStat)(negMod);
 }

@@ -5,8 +5,10 @@
 #include <map>
 
 class Enchant : public IEquippable {
+using ModFunction = void(Character::*)(float&);
+
 public:
-enum EnchanmentTypes
+enum class EnchanmentTypes
 {
 	Attack,
 	Defense,
@@ -14,16 +16,16 @@ enum EnchanmentTypes
 	Speed
 };
 private:
-	std::map<EnchanmentTypes, float Character::*> _modificationTypeMap{
-		{EnchanmentTypes::Attack, &Character::_attackModifier},
-		{EnchanmentTypes::Defense, &Character::_defenseModifier},
-		{EnchanmentTypes::CritRate, &Character::_critRateModifier},
-		{EnchanmentTypes::Speed, &Character::_speedModifier}
+	std::map<EnchanmentTypes, ModFunction> _modificationTypeMap{
+		{EnchanmentTypes::Attack, &Character::ModAttack},
+		{EnchanmentTypes::Defense, &Character::ModDefense},
+		{EnchanmentTypes::CritRate, &Character::ModCritRate},
+		{EnchanmentTypes::Speed,  &Character::ModSpeed}
 	};
 
 	const char* _name;
 	float _modifyAmount = 0;
-	float Character::* _moddedStat = &Character::_attackModifier;
+	ModFunction _moddedStat;
 	Character* _equippedCharacter = nullptr;
 
 public:
@@ -31,7 +33,7 @@ public:
 
 	Enchant(const Enchant& other);
 
-	~Enchant() = default;
+	virtual ~Enchant() = default;
 
 	Enchant& operator=(Enchant other);
 

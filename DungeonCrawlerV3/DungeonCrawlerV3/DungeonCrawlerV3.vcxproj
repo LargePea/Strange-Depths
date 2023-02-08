@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Banshee.cpp" />
     <ClCompile Include="Buff.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="DungeonCrawlerV3.cpp" />
@@ -152,12 +153,16 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemDictionary.cpp" />
     <ClCompile Include="LootTable.cpp" />
+    <ClCompile Include="Mimic.cpp" />
+    <ClCompile Include="Ogre.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Potion.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="Slime.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Banshee.h" />
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enchant.h" />
@@ -171,11 +176,14 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemDictionary.h" />
     <ClInclude Include="LootTable.h" />
+    <ClInclude Include="Mimic.h" />
+    <ClInclude Include="Ogre.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Potion.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Enchantment.h" />
     <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="Slime.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

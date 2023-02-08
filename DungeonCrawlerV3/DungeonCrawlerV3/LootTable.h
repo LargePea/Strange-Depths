@@ -15,6 +15,8 @@ public:
 	LootTable() = default;
 	LootTable(std::initializer_list<std::pair<Item*, float>> startingLoot);
 
+	~LootTable() = default;
+
 	template<size_t Size>
 	void CreateLoot(std::array<Item*, Size>& createdLoot) {
 		static std::default_random_engine numberGenerator;

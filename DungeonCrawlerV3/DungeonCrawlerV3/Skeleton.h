@@ -4,4 +4,6 @@
 class Skeleton : public Enemy {
 public:
 	Skeleton();
+
+	virtual ~Skeleton() = default;
 };

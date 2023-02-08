@@ -11,6 +11,8 @@ private:
 public:
 	Player();
 
+	~Player() override = default;
+
 	//functional methods
 	void ChooseAction(Character& other) override;
 
