@@ -34,6 +34,9 @@
     <Filter Include="Header Files\Rooms">
       <UniqueIdentifier>{278cf90e-0909-44ad-9689-07b43d9743ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Rooms">
+      <UniqueIdentifier>{4f6e19b9-a5de-4587-9c69-8b6fad3b970a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonCrawlerV3.cpp">
@@ -100,10 +103,13 @@
       <Filter>Source Files\Items</Filter>
     </ClCompile>
     <ClCompile Include="Room.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Rooms</Filter>
     </ClCompile>
     <ClCompile Include="EnemyRoom.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Rooms</Filter>
+    </ClCompile>
+    <ClCompile Include="TreasureRoom.cpp">
+      <Filter>Source Files\Rooms</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TreasureRoom.h">
+      <Filter>Header Files\Rooms</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

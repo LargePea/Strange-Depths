@@ -1,5 +1,6 @@
 #include "Room.h"
 #include "EnemyRoom.h"
+#include "TreasureRoom.h"
 #include <random>
 #include <iostream>
 
@@ -31,6 +32,7 @@ void Room::Move(Direction moveDirection) {
 		_currentRoom = EnemyRoom();
 		break;
 	case RoomType::Treasure:
+		_currentRoom = TreasureRoom();
 		break;
 	case RoomType::Empty:
 		_currentRoom = Room();

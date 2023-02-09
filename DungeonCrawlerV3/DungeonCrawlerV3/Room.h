@@ -39,9 +39,9 @@ protected:
 		return *it + GenerateTotalWeights(it + 1, ed);
 	}
 
-public:
 	Room();
 
+public:
 	Room(const Room& other);
 
 	Room& operator=(Room other);

@@ -6,7 +6,7 @@
 #include <random>
 
 EnemyRoom::EnemyRoom() :
-	Room(), _roomEnemy(GenerateEnemy()) {
+	Room(), _totalEnemyWeights(0) {
 
 }
 
@@ -16,6 +16,7 @@ Enemy EnemyRoom::GenerateEnemy() {
 	GenerateEnemyWeights();
 	std::uniform_int_distribution<int> distribution(1, _totalEnemyWeights);
 
+	//Roll for enemy
 	int generatedNumber = distribution(engine);
 
 	for (int i = 0; i < _enemyWeightMap.size(); ++i) {

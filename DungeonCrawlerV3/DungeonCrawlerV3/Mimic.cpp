@@ -1,7 +1,8 @@
 #include "Mimic.h"
 #include "ItemDictionary.h"
 
-Mimic::Mimic() : 
-	Enemy(1, 5, 0, 0, 10, "Mimic", 50, 0) {
+Mimic::Mimic(LootTable _chestLootTable, int mimicValue) :
+	Enemy(1, 5, 0, 0, 10, "Mimic", mimicValue, 0) {
 
+	_possibleDrops = _chestLootTable;
 }
