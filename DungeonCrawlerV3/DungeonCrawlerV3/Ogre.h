@@ -6,5 +6,5 @@ class Ogre : public Enemy {
 public:
 	Ogre();
 
-	virtual ~Ogre();
+	virtual ~Ogre() = default;
 };
