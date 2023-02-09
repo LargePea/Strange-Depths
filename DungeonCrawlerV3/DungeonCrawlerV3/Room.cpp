@@ -1,6 +1,5 @@
 #include "Room.h"
 #include "EnemyRoom.h"
-
 #include <random>
 #include <iostream>
 
@@ -9,34 +8,32 @@ int Room::_roomsCompleted;
 int Room::_roomDifficulty;
 
 Room::Room() {
-	_currentRoom = *this;
 	++_roomsCompleted;
-	_totalGenerationWeight = GenerateTotalRoomWeights();
 	GenerateNextPossibleRooms();
 }
 
-Room::Room(const Room& other) : _totalGenerationWeight(other._totalGenerationWeight) {
+Room::Room(const Room& other) : 
+	_totalGenerationWeight(other._totalGenerationWeight), _roomGenerationWeights(other._roomGenerationWeights) {
 	_nextRooms = other._nextRooms;
 }
 
 Room& Room::operator=(Room other) {
 	_nextRooms = other._nextRooms;
 	_totalGenerationWeight = other._totalGenerationWeight;
+	_roomGenerationWeights = other._roomGenerationWeights;
 	return *this;
 }
 
-void Room::MoveToNextRoom(Direction moveDirection) {
-	//TO:DO Create the different types of rooms
-	RoomType roomTypeToGenerate = _nextRooms[(int)moveDirection];
-
-	switch (roomTypeToGenerate)
+void Room::Move(Direction moveDirection) {
+	switch (GetNextRooms()[(int)moveDirection])
 	{
 	case RoomType::Enemy:
-		EnemyRoom();
+		_currentRoom = EnemyRoom();
 		break;
-	case RoomType::Tresure:
+	case RoomType::Treasure:
 		break;
 	case RoomType::Empty:
+		_currentRoom = Room();
 		break;
 	case RoomType::Shop:
 		break;
@@ -45,16 +42,11 @@ void Room::MoveToNextRoom(Direction moveDirection) {
 	}
 }
 
-int Room::GenerateTotalRoomWeights(int i) {
-	if (i == _roomGenerationWeights.size())
-		return 0;
-
-	return _roomGenerationWeights[i] + GenerateTotalRoomWeights(i + 1);
-}
-
 void Room::GenerateNextPossibleRooms() {
 	static std::default_random_engine engine;
-	static std::uniform_int_distribution<int> distributor(1, 7);
+
+	GenerateRoomWeights();
+	std::uniform_int_distribution<int> distributor(1, _totalGenerationWeight);
 
 
 	if (_roomsCompleted % _shopApperance == 0) {
@@ -76,11 +68,12 @@ void Room::GenerateNextPossibleRooms() {
 	}
 }
 
+void Room::GenerateRoomWeights() {
+	_roomGenerationWeights[(int)RoomType::Enemy] += _roomDifficulty;
+	_roomGenerationWeights[(int)RoomType::Treasure] += _roomDifficulty / 2;
+	_totalGenerationWeight = GenerateTotalWeights(_roomGenerationWeights.begin(), _roomGenerationWeights.end());
+}
+
 void Room::IncreaseRoomDifficulty() {
 	++_roomDifficulty;
-	++_roomGenerationWeights[(int)RoomType::Enemy];
-
-	if (_roomDifficulty % 2) ++_roomGenerationWeights[(int)RoomType::Tresure];
-
-	_totalGenerationWeight = GenerateTotalRoomWeights();
 }

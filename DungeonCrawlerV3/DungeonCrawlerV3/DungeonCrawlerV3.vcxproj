@@ -146,6 +146,7 @@
     <ClCompile Include="Enchant.cpp" />
     <ClCompile Include="Enchantment.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyRoom.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyRoom.h" />
     <ClInclude Include="EventSystem.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IEquippable.h" />
     <ClInclude Include="Image.h" />

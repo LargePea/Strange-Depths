@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <iterator>
 
 class Room {
 public:
@@ -14,24 +15,32 @@ public:
 private:
 	enum class RoomType {
 		Enemy,
-		Tresure,
+		Treasure,
 		Empty,
 		Shop
 	};
 
-	static const int _shopApperance = 5;
 	static Room _currentRoom;
+	static const int _shopApperance = 5;
 	static int _roomsCompleted;
 	static int _roomDifficulty;
 
 	std::array<RoomType, 4> _nextRooms;
-	std::array<int, 3> _roomGenerationWeights{7, 1, 2};
+	std::array<int, 3> _roomGenerationWeights{ 7, 1, 2 };
 	int _totalGenerationWeight;
 
 protected:
-	Room();
+
+	template<size_t Size>
+	int GenerateTotalWeights(std::_Array_iterator<int, Size> it, std::_Array_iterator<int, Size> ed) {
+		if (it == ed)
+			return 0;
+
+		return *it + GenerateTotalWeights(it + 1, ed);
+	}
 
 public:
+	Room();
 
 	Room(const Room& other);
 
@@ -39,18 +48,21 @@ public:
 
 	~Room() = default;
 
+	void Move(Direction moveDirection);
+
 	static inline Room* GetCurrentRoom() { return &_currentRoom; }
 
 	static inline int GetRoomsCompleted() { return _roomsCompleted; }
 
 	static inline int GetCurrentDifficulty() { return _roomDifficulty; }
 
-	void MoveToNextRoom(Direction moveDirection);
+	inline std::array<RoomType, 4> GetNextRooms() { return _nextRooms; }
 
 private:
-	int GenerateTotalRoomWeights(int i = 0);
 
 	void GenerateNextPossibleRooms();
+
+	void GenerateRoomWeights();
 
 protected:
 	void IncreaseRoomDifficulty();
