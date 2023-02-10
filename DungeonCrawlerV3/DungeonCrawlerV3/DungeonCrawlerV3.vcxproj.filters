@@ -111,6 +111,9 @@
     <ClCompile Include="TreasureRoom.cpp">
       <Filter>Source Files\Rooms</Filter>
     </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Screen.h">
