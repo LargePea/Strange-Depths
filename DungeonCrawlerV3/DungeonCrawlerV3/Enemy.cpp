@@ -28,8 +28,8 @@ void Enemy::UseItem() {
 }
 
 void Enemy::Death(Character* killer) {
+	Character::Death(killer);
 	Inventory* playerInventory = (static_cast<Player*>(killer))->GetInventory();
-
 	std::array<Item*, _maxDropsPossible> droppedLoot{ nullptr };
 	//generate loot
 	_possibleDrops.CreateLoot(droppedLoot);

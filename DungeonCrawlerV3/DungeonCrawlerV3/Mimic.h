@@ -4,7 +4,7 @@
 
 class Mimic : public Enemy {
 public:
-	Mimic();
+	Mimic(LootTable _chestLootTable, int mimicValue);
 
 	virtual ~Mimic() = default;
 };

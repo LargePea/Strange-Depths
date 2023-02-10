@@ -36,6 +36,7 @@ public:
 	//Events
 	Subject<> AttackEvent;
 	Subject<> TurnBeginEvent;
+	Subject<Character*> DeathEvent;
 
 public:
 	Character(float maxHealth, float attack, float defense, float critRate, float speed) :
@@ -80,7 +81,7 @@ public:
 	//Use an Item
 	virtual void UseItem() {}
 
-	virtual void Death(Character* killer) {}
+	virtual void Death(Character* killer);
 
 private:
 	void ModStat(float& incomingMod, float statToMod);

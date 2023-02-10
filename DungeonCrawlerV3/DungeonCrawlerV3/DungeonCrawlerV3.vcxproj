@@ -146,6 +146,7 @@
     <ClCompile Include="Enchant.cpp" />
     <ClCompile Include="Enchantment.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyRoom.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -157,9 +158,11 @@
     <ClCompile Include="Ogre.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Potion.cpp" />
+    <ClCompile Include="Room.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Slime.cpp" />
+    <ClCompile Include="TreasureRoom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Banshee.h" />
@@ -167,7 +170,9 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enchant.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyRoom.h" />
     <ClInclude Include="EventSystem.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IEquippable.h" />
     <ClInclude Include="Image.h" />
@@ -180,10 +185,12 @@
     <ClInclude Include="Ogre.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Potion.h" />
+    <ClInclude Include="Room.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Enchantment.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Slime.h" />
+    <ClInclude Include="TreasureRoom.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

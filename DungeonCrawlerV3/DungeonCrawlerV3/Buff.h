@@ -9,7 +9,7 @@ protected:
 	int _maxUses;
 	int _usesRemaining = _maxUses;
 	Character* _user = nullptr;
-	Event<Buff>* _buffEvent;
+	IEvent<>* _buffEvent;
 
 public:
 	Buff(Character* user, int uses, int activeGameState);

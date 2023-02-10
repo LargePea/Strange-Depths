@@ -17,6 +17,8 @@
 #include "LootTable.h"
 #include "ItemDictionary.h"
 #include "Skeleton.h"
+#include "EnemyRoom.h"
+#include "GameManager.h"
 
 std::vector<Enemy> vectorTest;
 
@@ -77,5 +79,6 @@ int main()
 
     ItemDictionary instance = ItemDictionary::Instance();
     Item* potionTest = instance.GetPotions()["Heal"];
-    
+    int currentRoom = Room::GetRoomsCompleted();
+    GameManager gm;
 }
