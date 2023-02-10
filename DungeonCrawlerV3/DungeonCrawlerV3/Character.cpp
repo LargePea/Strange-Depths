@@ -20,6 +20,10 @@ void Character::Damage(const float& incomingDamage, Character& attacker) {
 	if (_currentHealth == 0) Death(&attacker);
 }
 
+void Character::Death(Character* killer) {
+	DeathEvent.Invoke(this);
+}
+
 void Character::Heal(const float& incomingHeal) {
 
 	float healedHealth = std::round(_currentHealth + incomingHeal > 0 ? incomingHeal : -incomingHeal);

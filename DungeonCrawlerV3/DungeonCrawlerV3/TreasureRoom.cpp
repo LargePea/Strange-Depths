@@ -1,6 +1,7 @@
 #include "TreasureRoom.h"
 #include "ItemDictionary.h"
 #include "Mimic.h"
+#include "GameManager.h"
 #include <random>
 #include <array>
 
@@ -20,7 +21,7 @@ void TreasureRoom::OpenChest(Player& player) {
 	std::normal_distribution<float> coinsGenerated(_maxChestValue / 2, 1.5f);
 
 	if (spawnMimic(engine)) {
-		//spawn mimic and start combat
+		GameManager::BeginCombat(Mimic(_chestLootTable, coinsGenerated(engine)));
 	}
 	else {
 		std::array<Item*, 5> createdLoot;

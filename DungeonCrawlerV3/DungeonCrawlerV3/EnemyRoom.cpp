@@ -3,11 +3,12 @@
 #include "Ogre.h"
 #include "Skeleton.h"
 #include "Slime.h"
+#include "GameManager.h"
 #include <random>
 
 EnemyRoom::EnemyRoom() :
 	Room(), _totalEnemyWeights(0) {
-
+	GameManager::BeginCombat(GenerateEnemy());
 }
 
 Enemy EnemyRoom::GenerateEnemy() {

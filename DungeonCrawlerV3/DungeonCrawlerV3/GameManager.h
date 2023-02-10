@@ -12,7 +12,7 @@ private:
 public:
 	static void SetPlayer(Character* player);
 
-	static void BeginCombat(std::initializer_list<Character> enemies);
+	static void BeginCombat(Character enemy);
 
-	static void EndCombat();
+	static void EndCombat(Character* deadCharacter);
 };
