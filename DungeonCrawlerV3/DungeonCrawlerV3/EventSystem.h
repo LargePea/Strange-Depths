@@ -55,7 +55,7 @@ private:
 	virtual ~StaticEvent() = default;
 
 public:
-	inline void Invoke(Args... args) override { (*_event)(args); }
+	inline void Invoke(Args... args) override { (*_event)(args...); }
 };
 
 //Event handler
@@ -80,7 +80,7 @@ public:
 	}
 
 	IEvent<Args...>* Attach(void (* function)(Args...)) {
-		IEvent<Args...>* event = new StaticEvent<Args>(function);
+		IEvent<Args...>* event = new StaticEvent<Args...>(function);
 		events.insert(events.end(), event);
 		return event;
 	}

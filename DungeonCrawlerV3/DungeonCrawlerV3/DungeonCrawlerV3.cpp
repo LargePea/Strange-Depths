@@ -80,5 +80,4 @@ int main()
     ItemDictionary instance = ItemDictionary::Instance();
     Item* potionTest = instance.GetPotions()["Heal"];
     int currentRoom = Room::GetRoomsCompleted();
-    GameManager gm;
 }
