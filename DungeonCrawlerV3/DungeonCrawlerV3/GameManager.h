@@ -1,15 +1,18 @@
 #pragma once
 
-#include "Room.h"
-#include "EnemyRoom.h"
+#include "Character.h"
 
 class GameManager {
-public:
-
+private:
+	static Character* _player;
 
 private:
-	static Room _currentRoom;
+	GameManager();
 
 public:
+	static void SetPlayer(Character* player);
 
+	static void BeginCombat(std::initializer_list<Character> enemies);
+
+	static void EndCombat();
 };

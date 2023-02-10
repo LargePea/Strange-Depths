@@ -8,7 +8,7 @@ class TreasureRoom : public Room {
 	friend class Room;
 
 	int _maxChestValue = 40;
-	float _mimicSpawnChance = GetCurrentDifficulty() / 2;
+	float _mimicSpawnChance = (float)GetCurrentDifficulty() / (float)2;
 	float const _chestSpawnChance = 10;
 
 	LootTable _chestLootTable;

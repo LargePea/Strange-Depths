@@ -4,6 +4,7 @@
 template<typename... Args> class Subject;
 template<typename... Args> class IEvent;
 template<typename T, typename... Args> class Event;
+template<typename... Args> class StaticEvent;
 
 template<typename... Args>
 class IEvent {
@@ -26,9 +27,8 @@ private:
 	bool _deleteObject;
 
 private:
-	Event(T* object, functionType functionPointer, bool deleteObject) : 
-		IEvent<Args...>(), _event(object, functionPointer), _deleteObject(deleteObject) {
-	}
+	Event(T* object, functionType functionPointer, bool deleteObject) :
+		IEvent<Args...>(), _event(object, functionPointer), _deleteObject(deleteObject){}
 
 	virtual ~Event() {
 		if (_deleteObject)
@@ -38,6 +38,24 @@ private:
 public:
 	//assumes pointer points to a valid object
 	inline void Invoke(Args... args) override { (_event.first->*_event.second)(args...); }
+};
+
+template<typename... Args>
+class StaticEvent : public IEvent<Args...> {
+using functionType = void (*)(Args...);
+
+friend class Subject<Args...>;
+
+private:
+	functionType _event;
+
+private:
+	StaticEvent(functionType event) : _event(event){}
+
+	virtual ~StaticEvent() = default;
+
+public:
+	inline void Invoke(Args... args) override { (*_event)(args); }
 };
 
 //Event handler
@@ -55,13 +73,19 @@ public:
 	}
 
 	template<typename T> 
-	Event<T>* Attach(T* object, void (T::* function)(Args...), bool deleteObject = false                                       ) {
-		Event<T>* event = new Event<T>(object, function, deleteObject);
+	IEvent<Args...>* Attach(T* object, void (T::* function)(Args...), bool deleteObject = false) {
+		IEvent<Args...>* event = new Event<T, Args...>(object, function, deleteObject);
 		events.insert(events.end(), event);
 		return event;
 	}
 
-	inline void Remove(IEvent<Args...>* event) { eventsToRemove.insert(eventsToRemove.end(), event); }
+	IEvent<Args...>* Attach(void (* function)(Args...)) {
+		IEvent<Args...>* event = new StaticEvent<Args>(function);
+		events.insert(events.end(), event);
+		return event;
+	}
+
+	void Remove(IEvent<Args...>* event) { eventsToRemove.insert(eventsToRemove.end(), event); }
 
 
 	void Invoke(Args... args) { 
