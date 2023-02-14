@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionMap.cpp" />
     <ClCompile Include="Banshee.cpp" />
     <ClCompile Include="Buff.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="TreasureRoom.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionMap.h" />
     <ClInclude Include="Banshee.h" />
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Character.h" />

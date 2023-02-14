@@ -15,6 +15,7 @@ private:
 	//navigation
 	static int _cursorPos;
 	static int _currentPage;
+	static bool _inventoryOverflowMode;
 
 public:
 	static void SetInventory(Inventory* inventory) {
@@ -22,6 +23,8 @@ public:
 	}
 
 	static bool Navigate(char& input);
+
+	static bool ItemOverflow();
 
 	static void UpdateDisplay(); //TO:DO somehow delegate things to screen
 

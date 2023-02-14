@@ -1,4 +1,5 @@
 #include "Inventory.h"
+#include "InventoryMenu.h"
 #include <iostream>
 
 Inventory::Inventory(Character& owner) : _owner(&owner) , _coins(0) {

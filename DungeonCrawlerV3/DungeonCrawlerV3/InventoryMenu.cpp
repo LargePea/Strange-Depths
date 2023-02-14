@@ -1,10 +1,12 @@
 #include "InventoryMenu.h"
 #include "GameState.h"
 #include "Character.h"
+#include <conio.h>
 
 Inventory* InventoryMenu::_inventory;
 int InventoryMenu::_cursorPos;
 int InventoryMenu::_currentPage;
+bool InventoryMenu::_inventoryOverflowMode;
 
 
 //assumes input will have been capitalized already
@@ -40,6 +42,8 @@ bool InventoryMenu::Navigate(char& input) {
 
 	case 'E':				//use item
 	{
+		if (_inventoryOverflowMode) return true;
+
 		int itemIndex = _cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1);
 		if (itemIndex >= _inventory->Size()) return true;
 
@@ -55,8 +59,9 @@ bool InventoryMenu::Navigate(char& input) {
 	{
 		bool removedItem = _inventory->RemoveOrSellItem(_cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1), GameState::GetStateMask() & static_cast<int> (GameStateMask::Shop));
 		if(removedItem) UpdateDisplay();
-		return true;
 
+		if (_inventoryOverflowMode) return false;
+		return true;
 	}
 
 	case 'Q':				//Quit inventory
@@ -70,5 +75,28 @@ bool InventoryMenu::Navigate(char& input) {
 		return true;
 	}
 }
+
+//TO:DO Fix input actions
+//bool InventoryMenu::ItemOverflow() {
+//	bool selectingItem = true;
+//
+//	while (selectingItem)
+//	{
+//		char input = _getch();
+//		
+//		switch (input)
+//		{
+//		case 'a':
+//		case 'A':
+//			_inventoryOverflowMode = true;
+//			while ()
+//			{
+//
+//			}
+//		default:
+//			break;
+//		}
+//	}
+//}
 
 void InventoryMenu::UpdateDisplay() {}
