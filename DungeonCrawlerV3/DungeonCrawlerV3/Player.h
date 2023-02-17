@@ -1,12 +1,18 @@
 #pragma once
 #include "Character.h"
-#include <vector>
 #include "Inventory.h"
+#include "InventoryMenu.h"
+#include <vector>
 
 class Player : public Character {
+friend class InventoryMenu;
+friend class CombatAM;
 
 private:
 	Inventory _playerInventory{ *this };
+
+	//combat
+	bool _playerCombatTurn = false;
 
 public:
 	Player();
@@ -16,10 +22,16 @@ public:
 	//functional methods
 	void ChooseAction(Character& other) override;
 
-	inline Inventory* GetInventory() { return &_playerInventory; }
 
 protected:
 	void UseItem() override;
 
 	void Death(Character* killer) override;
+
+private:
+	inline Inventory* GetInventory() { return &_playerInventory; }
+
+	void QuickHeal();
+
+	void Attack(Character& other) override;
 };

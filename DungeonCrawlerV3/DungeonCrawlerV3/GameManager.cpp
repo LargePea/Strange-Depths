@@ -1,9 +1,25 @@
 #include "GameManager.h"
 #include "GameState.h"
+#include "Player.h"
 #include <vector>
-
+#include <conio.h>
 
 Character* GameManager::_player;
+PlayerAM GameManager::_playerControls;
+
+void GameManager::Init() {
+	Player player = Player();
+	SetPlayer(&player);
+	ActionMap::AddActionMap(&_playerControls);
+
+	//main game loop
+	while (~(GameState::GetStateMask() & (int)GameStateMask::GameOver)) {
+		ActionMap::GetCurrentMap().InputAction(static_cast<char>(_getch()));
+	}
+
+	ActionMap::PopCurrentMap();
+}
+
 
 void GameManager::SetPlayer(Character* player) {
 	_player = player;

@@ -10,7 +10,7 @@ private:
 
 public:
 	Enchantment(const char* name, int value, Enchant enchant) 
-		: Item(name, value, static_cast<int>(GameStateMask::Combat) + static_cast<int>(GameStateMask::Normal)), _enchant(enchant) {
+		: Item(name, value, ItemType::Enchantment, static_cast<int>(GameStateMask::Combat) + static_cast<int>(GameStateMask::Normal)), _enchant(enchant) {
 	}
 
 	void UseItem(Character& user) override;

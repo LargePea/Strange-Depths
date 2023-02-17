@@ -1,7 +1,10 @@
 #include "TreasureRoom.h"
 #include "ItemDictionary.h"
+#include "InventoryMenu.h"
 #include "Mimic.h"
 #include "GameManager.h"
+#include "TreasureRoomAM.h"
+#include <conio.h>
 #include <random>
 #include <array>
 
@@ -12,9 +15,22 @@ TreasureRoom::TreasureRoom() {
 		{instance.GetPotion("Life Steal"), 5 + GetCurrentDifficulty()},
 		{instance.GetPotion("Regen"), 2 + GetCurrentDifficulty() + (float) GetCurrentDifficulty() / (float)2}
 		});
+	_maxChestValue *= 1 + (float)GetCurrentDifficulty() / (float)2;
+
+	//wait for player to accept or reject chest
+	TreasureRoomAM actionMap = TreasureRoomAM(*this);
+	ActionMap::AddActionMap(&actionMap);
+	while (!_interacted)
+	{
+		ActionMap::GetCurrentMap().InputAction(static_cast<char>(_getch()));
+	}
+
 }
 
-void TreasureRoom::OpenChest(Player& player) {
+void TreasureRoom::OpenChest() {
+	_interacted = true;
+	ActionMap::PopCurrentMap(); //pop the treasure actionmap off
+
 	static std::default_random_engine engine;
 
 	std::bernoulli_distribution spawnMimic(_mimicSpawnChance / (_mimicSpawnChance + _chestSpawnChance));
@@ -28,9 +44,14 @@ void TreasureRoom::OpenChest(Player& player) {
 		_chestLootTable.CreateLoot(createdLoot);
 
 		for (auto& item : createdLoot) {
-			player.GetInventory()->AddItem(item);
+			InventoryMenu::AddItem(item);
 		}
 		int coins = coinsGenerated(engine);
-		player.GetInventory()->AddCoins(coins);
+		InventoryMenu::AddCoins(coins);
 	}
+}
+
+void TreasureRoom::RejectChest() {
+	_interacted = true;
+	ActionMap::PopCurrentMap();
 }

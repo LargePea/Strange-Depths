@@ -1,4 +1,5 @@
 #include "Inventory.h"
+#include "InventoryMenu.h"
 #include <iostream>
 
 Inventory::Inventory(Character& owner) : _owner(&owner) , _coins(0) {
@@ -24,7 +25,7 @@ Inventory::Inventory(const Inventory& other) : _owner(other._owner), _items(othe
 Inventory& Inventory::operator=(const Inventory& other) {
 	_owner = other._owner;
 	_items = other._items;
-	_currentSize = _items.begin();
+	_currentSize = other._currentSize;
 	_coins = other._coins;
 
 	return *this;
@@ -34,7 +35,7 @@ Inventory& Inventory::operator=(const Inventory& other) {
 bool Inventory::AddItem(Item* item) {
 
 	//TO:DO alert when inventory is full
-	if (_currentSize == _items.end()) return false;
+	if (IsFull()) return false;
 
 	//add item to list and shift over for the next one
 	*_currentSize = item;
