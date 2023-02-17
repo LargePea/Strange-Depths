@@ -135,6 +135,9 @@
     <ClCompile Include="PlayerAM.cpp">
       <Filter>Source Files\ActionMaps</Filter>
     </ClCompile>
+    <ClCompile Include="TreasureRoomAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Screen.h">
@@ -228,6 +231,9 @@
       <Filter>Header Files\ActionMaps</Filter>
     </ClInclude>
     <ClInclude Include="CombatAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="TreasureRoomAM.h">
       <Filter>Header Files\ActionMaps</Filter>
     </ClInclude>
   </ItemGroup>

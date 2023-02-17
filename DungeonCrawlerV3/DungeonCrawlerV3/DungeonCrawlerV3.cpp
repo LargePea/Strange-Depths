@@ -9,6 +9,7 @@
 #include "GameManager.h"
 #include "GameState.h"
 #include <conio.h>
+#include"TreasureRoom.h"
 
 int main()
 {
@@ -28,6 +29,8 @@ int main()
     
     bool gameRunning = true;
     GameState::SetStateMask(GameStateMask::Normal); //sanity check
+    TreasureRoom room = TreasureRoom();
+    ActionMap::GetCurrentMap().InputAction(static_cast<char>(_getch()));
 
     while (gameRunning)
     {

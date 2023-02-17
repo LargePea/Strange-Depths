@@ -169,6 +169,7 @@
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="TreasureRoom.cpp" />
+    <ClCompile Include="TreasureRoomAM.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionMap.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="TreasureRoom.h" />
+    <ClInclude Include="TreasureRoomAM.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
