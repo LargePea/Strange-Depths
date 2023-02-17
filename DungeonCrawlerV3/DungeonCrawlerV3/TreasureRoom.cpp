@@ -1,5 +1,6 @@
 #include "TreasureRoom.h"
 #include "ItemDictionary.h"
+#include "InventoryMenu.h"
 #include "Mimic.h"
 #include "GameManager.h"
 #include <random>
@@ -28,9 +29,9 @@ void TreasureRoom::OpenChest(Player& player) {
 		_chestLootTable.CreateLoot(createdLoot);
 
 		for (auto& item : createdLoot) {
-			player.GetInventory()->AddItem(item);
+			InventoryMenu::AddItem(item);
 		}
 		int coins = coinsGenerated(engine);
-		player.GetInventory()->AddCoins(coins);
+		InventoryMenu::AddCoins(coins);
 	}
 }

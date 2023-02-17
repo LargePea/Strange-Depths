@@ -1,6 +1,5 @@
 #include "Character.h"
 #include <cmath>
-#include <cstdlib>
 #include <random>
 
 Character::~Character() {
@@ -18,6 +17,24 @@ void Character::Damage(const float& incomingDamage, Character& attacker) {
 	_currentHealth = damagedhealth > 0 ? damagedhealth : 0;
 	
 	if (_currentHealth == 0) Death(&attacker);
+}
+
+void Character::Attack(Character& other) {
+	//Invoke the attack event
+	AttackEvent.Invoke();
+
+	//static to save the state so it's actually randomized instead of rerolling the same state
+	static std::uniform_int_distribution<int> dist(1, 100);
+	static std::default_random_engine randGen;
+
+	float damage = _attack;
+
+	//change rolled number to a range of 1~100 and determine if it is within crit rate 
+	if (_critRatePercent >= dist(randGen)) {
+		damage *= _critDmgMulti;
+	}
+
+	other.Damage(damage, *this);
 }
 
 void Character::Death(Character* killer) {
@@ -62,27 +79,5 @@ void Character::ModCritRate(float& incomingMod) {
 void Character::ModSpeed(float& incomingMod) {
 	ModStat(incomingMod, _speedModifier);
 	_speed = _baseSpeed * _speedModifier;
-}
-
-
-void Character::Attack(Character &other) {
-	//Invoke the attack event
-	AttackEvent.Invoke();
-
-	//static to save the state so it's actually randomized instead of rerolling the same state
-	static std::uniform_int_distribution<int> dist(1, 100);
-	static std::default_random_engine randGen;
-
-	float damage = _attack;
-
-	//generate seed value based on time
-	std::srand((unsigned)std::time(nullptr));
-
-	//change rolled number to a range of 1~100 and determine if it is within crit rate 
-	if (_critRatePercent >= dist(randGen)) {
-		damage *= _critDmgMulti;
-	}
-
-	other.Damage(damage, *this);
 }
 

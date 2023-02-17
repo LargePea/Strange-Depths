@@ -7,6 +7,8 @@ Inventory* InventoryMenu::_inventory;
 int InventoryMenu::_cursorPos;
 int InventoryMenu::_currentPage;
 bool InventoryMenu::_inventoryOverflowMode;
+InventoryMenuAM InventoryMenu::_inventoryAM;
+InventoryOverflowAM InventoryMenu::_overflowAM;
 
 
 //return value of this represents if the player is still wants to use the inventoryMenu
@@ -53,15 +55,14 @@ void InventoryMenu::UseItem() {
 	if (itemIndex >= _inventory->Size()) return; //if pointing at memory out of bounds dont do anything
 
 	Character inventoryOwner = _inventory->GetOwner();
-	bool itemUsed = _inventory->GetItems()[itemIndex]->TryUseItem(inventoryOwner);	
+	bool itemUsed = _inventory->GetItem(itemIndex)->TryUseItem(inventoryOwner);
 	if (!itemUsed) return; //if item did not get used do not remove item
 
-	_inventory->RemoveOrSellItem(itemIndex, false);
-	UpdateDisplay();
+	RemoveItem(false);
 }
 
-void InventoryMenu::RemoveItem() {
-	bool removedItem = _inventory->RemoveOrSellItem(_cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1), GameState::GetStateMask() & static_cast<int> (GameStateMask::Shop));
+void InventoryMenu::RemoveItem(bool sellItem) {
+	bool removedItem = _inventory->RemoveOrSellItem(_cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1), sellItem);
 
 	if (!removedItem) return; 
 

@@ -25,7 +25,7 @@ Inventory::Inventory(const Inventory& other) : _owner(other._owner), _items(othe
 Inventory& Inventory::operator=(const Inventory& other) {
 	_owner = other._owner;
 	_items = other._items;
-	_currentSize = _items.begin();
+	_currentSize = other._currentSize;
 	_coins = other._coins;
 
 	return *this;

@@ -54,7 +54,7 @@ private:
 	static void IncreasePage();
 	static void DecreasePage();
 	static void UseItem();
-	static void RemoveItem();
+	static void RemoveItem(bool sellItem = GameState::GetStateMask() & static_cast<int> (GameStateMask::Shop));
 	static void Quit();
 
 	//item overflow functions

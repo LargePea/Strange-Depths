@@ -76,7 +76,7 @@ public:
 	void ModSpeed(float& incomingMod);
 
 	//Attack the opposing character
-	void Attack(Character& other);
+	virtual void Attack(Character& other);
 
 	//Use an Item
 	virtual void UseItem() {}
@@ -85,4 +85,5 @@ public:
 
 private:
 	void ModStat(float& incomingMod, float statToMod);
+
 };

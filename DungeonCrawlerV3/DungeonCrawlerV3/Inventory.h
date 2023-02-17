@@ -29,6 +29,8 @@ public:
 
 	inline std::vector<Item*> GetItems(){ return _items; }
 
+	inline Item* GetItem(int index) { return _items[index]; }
+
 	inline int GetCoins() { return _coins; }
 
 	inline size_t Size() { return _currentSize - _items.begin(); }

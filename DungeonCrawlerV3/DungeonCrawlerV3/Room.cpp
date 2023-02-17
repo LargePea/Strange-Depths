@@ -26,6 +26,7 @@ Room& Room::operator=(Room other) {
 }
 
 void Room::Move(Direction moveDirection) {
+	std::cout << "moved: " << (int)moveDirection << std::endl;
 	switch (GetNextRooms()[(int)moveDirection])
 	{
 	case RoomType::Enemy:
@@ -38,6 +39,7 @@ void Room::Move(Direction moveDirection) {
 		_currentRoom = Room();
 		break;
 	case RoomType::Shop:
+		_currentRoom = Room();
 		break;
 	default:
 		break;
