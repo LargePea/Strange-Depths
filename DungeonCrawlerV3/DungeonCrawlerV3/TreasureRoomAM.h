@@ -1,13 +1,13 @@
 #pragma once
 #include "ActionMap.h"
-#include "TreasureRoom.h"
+#include "Chest.h"
 
 
 class TreasureRoomAM : public ActionMap {
 private:
-	TreasureRoom& _room;
+	Chest* _chest;
 public:
-	TreasureRoomAM(TreasureRoom& room);
+	TreasureRoomAM(Chest* chest);
 
 	void InputAction(const char input) override;
 };

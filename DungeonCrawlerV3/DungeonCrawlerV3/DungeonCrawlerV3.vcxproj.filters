@@ -138,6 +138,9 @@
     <ClCompile Include="TreasureRoomAM.cpp">
       <Filter>Source Files\ActionMaps</Filter>
     </ClCompile>
+    <ClCompile Include="Chest.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Screen.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="TreasureRoomAM.h">
       <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="Chest.h">
+      <Filter>Header Files\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

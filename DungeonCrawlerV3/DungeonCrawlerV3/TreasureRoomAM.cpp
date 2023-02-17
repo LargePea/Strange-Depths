@@ -1,18 +1,18 @@
 #include "TreasureRoomAm.h"
 
-TreasureRoomAM::TreasureRoomAM(TreasureRoom& room) 
-	: _room(room) {}
+TreasureRoomAM::TreasureRoomAM(Chest* chest) 
+	: _chest(chest) {}
 
 void TreasureRoomAM::InputAction(const char input) {
 	switch (input)
 	{
 	case 'q':
 	case 'Q':
-		_room.RejectChest();
+		_chest->RejectChest();
 		break;
 	case 'e':
 	case 'E':
-		_room.OpenChest();
+		_chest->OpenChest();
 		break;
 	default:
 		break;

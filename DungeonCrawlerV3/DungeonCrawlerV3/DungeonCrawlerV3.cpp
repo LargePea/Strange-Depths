@@ -11,6 +11,8 @@
 #include <conio.h>
 #include"TreasureRoom.h"
 
+void CreateScreen();
+
 int main()
 {
     CreateScreen();

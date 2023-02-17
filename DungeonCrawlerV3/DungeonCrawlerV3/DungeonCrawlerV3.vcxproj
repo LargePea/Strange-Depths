@@ -143,6 +143,7 @@
     <ClCompile Include="Banshee.cpp" />
     <ClCompile Include="Buff.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Chest.cpp" />
     <ClCompile Include="CombatAM.cpp" />
     <ClCompile Include="DungeonCrawlerV3.cpp" />
     <ClCompile Include="Enchant.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Banshee.h" />
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Chest.h" />
     <ClInclude Include="CombatAM.h" />
     <ClInclude Include="Enchant.h" />
     <ClInclude Include="Enemy.h" />
