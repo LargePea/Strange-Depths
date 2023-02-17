@@ -5,27 +5,10 @@
 #include <string>
 #include <Windows.h>
 #include <array>
-#include "Player.h"
-#include "Enemy.h"
-#include "Inventory.h"
-#include "InventoryMenu.h"
-#include "Item.h"
-#include "EventSystem.h"
-#include <functional>
 #include <string>
-#include "Buff.h"
-#include "LootTable.h"
-#include "ItemDictionary.h"
-#include "Skeleton.h"
-#include "EnemyRoom.h"
 #include "GameManager.h"
+#include "GameState.h"
 #include <conio.h>
-
-std::vector<Enemy> vectorTest;
-
-void TestCopy(Enemy &enemy) {
-    vectorTest.push_back(enemy);
-};
 
 int main()
 {
@@ -41,45 +24,27 @@ int main()
         SetConsoleScreenBufferSize(hConsole, outbuff);
     }
 
-    Screen::PrintMainMenu();
+    
+    
+    bool gameRunning = true;
+    GameState::SetStateMask(GameStateMask::Normal); //sanity check
 
-    std::cout << "\033[" << 2 << ";" << 3 << "f";
-    std::cin.get();
-    std::array<std::string, MAX_IMAGE_HEIGHT> test = { "test", "image" };
-    std::array<int, 2> testPos = std::array<int, 2> {0, 0};
-    Image image(test, 10, testPos);
-
-    std::cout << (*image.GetImage())[0] << "\n";
-    test[0] = "updated";
-    std::cout << (*image.GetImage())[0] << "\n";
-    std::cout << image.GetPriority() << "\n";
-
-    //Player player;
-    //Enemy enemy;
-    //float testAttack = 2.0f;
-    //enemy.Damage(testAttack);
-    //std::cout << enemy.GetCurrentHealth();
-    GameState::SetStateMask(GameStateMask::Combat);
-    int state = GameState::GetStateMask();
-    LifeSteal* buff;
+    while (gameRunning)
     {
-        Character character = Player();
-        LifeSteal* lsBuff = new LifeSteal(&character, 1, 0.5f);
-        buff = lsBuff;
-        
+        Screen::PrintMainMenu();
+        switch (static_cast<char>(_getch()))
+        {
+        case 'p':
+        case 'P':
+            GameManager::Init();
+            std::cin.get(); //wait for player to enter input before loading main menu again
+            break;
+        case 'q':
+        case 'Q':
+            gameRunning = false;
+            break;
+        default:
+            break;
+        }
     }
-
-    state = GameState::GetStateMask();
-    Item item1("item1", 2);
-    Item item2("item2", 2);
-    std::cout << item1.GetName() << std::endl;
-    //character.Attack(character);
-
-    LootTable testTable({ {&item1, 3.0f} , {&item2, 1.0f} });
-    testTable.PrintTable();
-
-    ItemDictionary instance = ItemDictionary::Instance();
-    Item* potionTest = instance.GetPotions()["Heal"];
-    int currentRoom = Room::GetRoomsCompleted();
-    char t = _getch();
 }

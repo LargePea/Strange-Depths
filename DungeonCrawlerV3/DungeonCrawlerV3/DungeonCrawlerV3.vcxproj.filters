@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Rooms">
       <UniqueIdentifier>{4f6e19b9-a5de-4587-9c69-8b6fad3b970a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ActionMaps">
+      <UniqueIdentifier>{25e45925-ed9f-40cd-8d84-b3dcda3c7503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ActionMaps">
+      <UniqueIdentifier>{0c83b236-6afb-4cd2-bc63-01d0cca93d06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonCrawlerV3.cpp">
@@ -115,7 +121,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ActionMap.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryMenuAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryOverflowAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +216,19 @@
       <Filter>Header Files\Rooms</Filter>
     </ClInclude>
     <ClInclude Include="ActionMap.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryMenuAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryOverflowAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
