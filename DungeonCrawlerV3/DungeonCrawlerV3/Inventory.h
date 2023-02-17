@@ -33,6 +33,8 @@ public:
 
 	inline size_t Size() { return _currentSize - _items.begin(); }
 
+	inline bool IsFull() { return _currentSize == _items.end(); }
+
 	//Functional methods
 	bool AddItem(Item* item);
 

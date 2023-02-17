@@ -9,94 +9,95 @@ int InventoryMenu::_currentPage;
 bool InventoryMenu::_inventoryOverflowMode;
 
 
-//assumes input will have been capitalized already
 //return value of this represents if the player is still wants to use the inventoryMenu
-bool InventoryMenu::Navigate(char& input) {
-	switch (input)
-	{
-	case 'W':				//decrease cursor position (loops around)
-		if (_cursorPos == 0) MaxCursor();
-		else --_cursorPos;
-		UpdateDisplay();
-		return true;
-
-	case 'A':				//increase cursor position (loops around)
-		if (_cursorPos == MAX_CURSOR_POSITION) ResetCursor();
-		else ++_cursorPos;
-		UpdateDisplay();
-		return true;
-
-	case 'S':				//decrease page number (loops around)
-		if (_currentPage == 0) MaxPageCount();
-		else --_currentPage;
-		ResetCursor();
-		UpdateDisplay();
-		return true;
-
-	case 'D':				//increase page number (loops around)
-		if (_currentPage == MAX_PAGE_COUNT) ResetPageCount();
-		else ++_currentPage;
-		ResetCursor();
-		UpdateDisplay();
-		return true;
-
-	case 'E':				//use item
-	{
-		if (_inventoryOverflowMode) return true;
-
-		int itemIndex = _cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1);
-		if (itemIndex >= _inventory->Size()) return true;
-
-		Character inventoryOwner = _inventory->GetOwner();
-		bool itemUsed = _inventory->GetItems()[itemIndex]->TryUseItem(inventoryOwner);
-		if (!itemUsed) return true;
-
-		_inventory->RemoveOrSellItem(itemIndex, false);
-		UpdateDisplay();
-		return true;
-	}
-	case 'C':				//Sell/Remove item
-	{
-		bool removedItem = _inventory->RemoveOrSellItem(_cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1), GameState::GetStateMask() & static_cast<int> (GameStateMask::Shop));
-		if(removedItem) UpdateDisplay();
-
-		if (_inventoryOverflowMode) return false;
-		return true;
-	}
-
-	case 'Q':				//Quit inventory
-		ResetCursor();
-		ResetPageCount();
-		UpdateDisplay();
-		return false;
-
-	default:				//incorrect input
-		UpdateDisplay();
-		return true;
-	}
+void InventoryMenu::Navigate() {
+	ActionMap::AddActionMap(&_inventoryAM);
 }
 
-//TO:DO Fix input actions
-//bool InventoryMenu::ItemOverflow() {
-//	bool selectingItem = true;
-//
-//	while (selectingItem)
-//	{
-//		char input = _getch();
-//		
-//		switch (input)
-//		{
-//		case 'a':
-//		case 'A':
-//			_inventoryOverflowMode = true;
-//			while ()
-//			{
-//
-//			}
-//		default:
-//			break;
-//		}
-//	}
-//}
+void InventoryMenu::AddItem(Item*& item) {
+	if (!_inventory->AddItem(item)) ItemOverflow(item);
+}
+
+void InventoryMenu::AddCoins(int& coins) {
+	_inventory->AddCoins(coins);
+}
+
+void InventoryMenu::IncreaseCursor() {
+	if (_cursorPos == MAX_CURSOR_POSITION) ResetCursor();
+	else ++_cursorPos;
+	UpdateDisplay();
+}
+
+void InventoryMenu::DecreaseCursor() {
+	if (_cursorPos == 0) MaxCursor();
+	else --_cursorPos;
+	UpdateDisplay();
+}
+
+void InventoryMenu::IncreasePage() {
+	if (_currentPage == MAX_PAGE_COUNT) ResetPageCount();
+	else ++_currentPage;
+	ResetCursor();
+	UpdateDisplay();
+}
+
+void InventoryMenu::DecreasePage() {
+	if (_currentPage == 0) MaxPageCount();
+	else --_currentPage;
+	ResetCursor();
+	UpdateDisplay();
+}
+
+void InventoryMenu::UseItem() {
+	int itemIndex = _cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1);
+	if (itemIndex >= _inventory->Size()) return; //if pointing at memory out of bounds dont do anything
+
+	Character inventoryOwner = _inventory->GetOwner();
+	bool itemUsed = _inventory->GetItems()[itemIndex]->TryUseItem(inventoryOwner);	
+	if (!itemUsed) return; //if item did not get used do not remove item
+
+	_inventory->RemoveOrSellItem(itemIndex, false);
+	UpdateDisplay();
+}
+
+void InventoryMenu::RemoveItem() {
+	bool removedItem = _inventory->RemoveOrSellItem(_cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1), GameState::GetStateMask() & static_cast<int> (GameStateMask::Shop));
+
+	if (!removedItem) return; 
+
+	if (_inventoryOverflowMode) {
+		_inventoryOverflowMode = false;
+		ActionMap::PopCurrentMap(); //if this actionmap call is for overflow then it's job is done
+	}
+
+	UpdateDisplay(); //only remove item from display if item was actually removed from inventory
+}
+
+void InventoryMenu::Quit() {
+	ResetCursor();
+	ResetPageCount();
+	UpdateDisplay();
+	ActionMap::PopCurrentMap();
+}
+
+void InventoryMenu::ItemOverflow(Item*& itemToAdd) {
+	_inventoryOverflowMode = true;
+	ActionMap::AddActionMap(&_overflowAM);
+	while (_inventoryOverflowMode) {
+		ActionMap::GetCurrentMap().InputAction(static_cast<char>(_getch()));
+	}
+
+	if (!_inventory->IsFull()) AddItem(itemToAdd);
+}
+
+void InventoryMenu::AcceptOverflowItem() {
+	Navigate();
+}
+
+void InventoryMenu::RejectOverflowItem() {
+	_inventoryOverflowMode = false;
+	ActionMap::PopCurrentMap();
+}
+
 
 void InventoryMenu::UpdateDisplay() {}

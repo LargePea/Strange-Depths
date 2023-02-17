@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Inventory.h"
+#include "InventoryMenu.h"
 #include "ItemDictionary.h"
 #include <random>
 #include <array>
@@ -29,17 +30,16 @@ void Enemy::UseItem() {
 
 void Enemy::Death(Character* killer) {
 	Character::Death(killer);
-	Inventory* playerInventory = (static_cast<Player*>(killer))->GetInventory();
 	std::array<Item*, _maxDropsPossible> droppedLoot{ nullptr };
 	//generate loot
 	_possibleDrops.CreateLoot(droppedLoot);
 
 	for (auto& loot : droppedLoot) {
 		if (loot == nullptr) break;
-		playerInventory->AddItem(loot);
+		InventoryMenu::AddItem(loot);
 	}
 
-	playerInventory->AddCoins(_enemyValue);
+	InventoryMenu::AddCoins(_enemyValue);
 }
 
 std::vector<Item*> Enemy::CreateStartingItems() {

@@ -35,7 +35,7 @@ Inventory& Inventory::operator=(const Inventory& other) {
 bool Inventory::AddItem(Item* item) {
 
 	//TO:DO alert when inventory is full
-	if (_currentSize == _items.end()) return false;
+	if (IsFull()) return false;
 
 	//add item to list and shift over for the next one
 	*_currentSize = item;
