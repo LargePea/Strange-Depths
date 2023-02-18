@@ -167,6 +167,9 @@
     <ClCompile Include="Potion.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="ShopRoom.cpp" />
+    <ClCompile Include="ShopRoomAM.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="TreasureRoom.cpp" />
@@ -202,6 +205,9 @@
     <ClInclude Include="Room.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Enchantment.h" />
+    <ClInclude Include="Shop.h" />
+    <ClInclude Include="ShopRoom.h" />
+    <ClInclude Include="ShopRoomAM.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="TreasureRoom.h" />

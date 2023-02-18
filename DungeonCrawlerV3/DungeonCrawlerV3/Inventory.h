@@ -31,11 +31,11 @@ public:
 
 	inline Item* GetItem(int index) { return _items[index]; }
 
-	inline int GetCoins() { return _coins; }
+	inline const int& GetCoins() const { return _coins; }
 
-	inline size_t Size() { return _currentSize - _items.begin(); }
+	inline const size_t Size() const { return _currentSize - _items.begin(); }
 
-	inline bool IsFull() { return _currentSize == _items.end(); }
+	inline const bool IsFull() const { return _currentSize == _items.end(); }
 
 	//Functional methods
 	bool AddItem(Item* item);

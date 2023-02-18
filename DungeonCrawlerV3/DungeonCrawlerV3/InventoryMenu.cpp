@@ -14,6 +14,7 @@ InventoryOverflowAM InventoryMenu::_overflowAM;
 //return value of this represents if the player is still wants to use the inventoryMenu
 void InventoryMenu::Navigate() {
 	ActionMap::AddActionMap(&_inventoryAM);
+	UpdateDisplay();
 }
 
 void InventoryMenu::AddItem(Item*& item) {
@@ -22,6 +23,13 @@ void InventoryMenu::AddItem(Item*& item) {
 
 void InventoryMenu::AddCoins(int& coins) {
 	_inventory->AddCoins(coins);
+}
+
+bool InventoryMenu::RemoveCoins(int& amount) {
+	if (_inventory->GetCoins() < amount) return false;
+
+	_inventory->RemoveCoins(amount);
+	return true;
 }
 
 void InventoryMenu::IncreaseCursor() {

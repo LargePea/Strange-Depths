@@ -17,7 +17,8 @@ private:
 		Enemy,
 		Treasure,
 		Empty,
-		Shop
+		Shop,
+		Exit
 	};
 
 	static Room _currentRoom;
@@ -30,6 +31,7 @@ private:
 	int _totalGenerationWeight;
 
 protected:
+	static bool _exitUnlocked;
 
 	template<size_t Size>
 	int GenerateTotalWeights(std::_Array_iterator<int, Size> it, std::_Array_iterator<int, Size> ed) {
@@ -46,7 +48,7 @@ public:
 
 	Room& operator=(Room other);
 
-	~Room() = default;
+	virtual ~Room() = default;
 
 	void Move(Direction moveDirection);
 

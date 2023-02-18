@@ -16,10 +16,12 @@ friend class TreasureRoomAM;
 	TreasureRoomAM _actionMap;
 	Chest _chest;
 	
-
-public:
-	TreasureRoom();
-
 private:
 	Chest GenerateChest();
+
+protected:
+	TreasureRoom();
+
+public:
+	~TreasureRoom() override = default;
 };
