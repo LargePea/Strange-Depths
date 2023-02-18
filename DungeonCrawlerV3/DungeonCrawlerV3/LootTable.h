@@ -18,7 +18,7 @@ public:
 	~LootTable() = default;
 
 	template<size_t Size>
-	void CreateLoot(std::array<Item*, Size>& createdLoot) {
+	void CreateLoot(std::array<Item*, Size>& createdLoot, bool maxLoot = false) {
 		static std::default_random_engine numberGenerator;
 		static std::uniform_real_distribution<float> itemDistribution(1, _totalTableWeight);
 		static std::uniform_int_distribution<int> amountGeneratedDistribution(1, Size);
@@ -26,7 +26,7 @@ public:
 		//dont bother generating loot if there's nothing to generate
 		if (_lootList.size() == 0) return;
 
-		int amountToGenerate = amountGeneratedDistribution(numberGenerator);
+		int amountToGenerate = maxLoot ? Size : amountGeneratedDistribution(numberGenerator);
 		for (int i = 0; i < amountToGenerate; i++)
 		{
 			float generatedNumber = itemDistribution(numberGenerator);

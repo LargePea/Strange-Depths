@@ -39,6 +39,8 @@ public:
 
 	static void AddCoins(int& amount);
 
+	static bool RemoveCoins(int& amount);
+
 	static void UpdateDisplay(); //TO:DO somehow delegate things to screen
 
 private:

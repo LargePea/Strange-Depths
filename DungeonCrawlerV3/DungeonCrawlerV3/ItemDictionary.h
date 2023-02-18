@@ -27,6 +27,7 @@ private:
 	Item _club = Item("Club", 3);
 	Item _ogreSkin = Item("Ogre Skin", 5);
 	Item _onion = Item("Onion", 7);
+	Item _key = Item("KeyStone", 500);
 
 	ItemMap _itemsInterface{
 		{"Gel", &_gel},
@@ -40,7 +41,8 @@ private:
 		{"Lost Soul", &_lostSoul},
 		{"Club", &_club },
 		{"Ogre Skin", &_ogreSkin},
-		{"Onion", &_onion}
+		{"Onion", &_onion},
+		{"KeyStone", &_key}
 	};
 	
 	//potions

@@ -1,12 +1,14 @@
 #include "Room.h"
 #include "EnemyRoom.h"
 #include "TreasureRoom.h"
+#include "ShopRoom.h"
 #include <random>
 #include <iostream>
 
 Room Room::_currentRoom;
 int Room::_roomsCompleted;
 int Room::_roomDifficulty;
+bool Room::_exitUnlocked;
 
 Room::Room() {
 	++_roomsCompleted;
@@ -39,7 +41,10 @@ void Room::Move(Direction moveDirection) {
 		_currentRoom = Room();
 		break;
 	case RoomType::Shop:
-		_currentRoom = Room();
+		_currentRoom = ShopRoom();
+		break;
+	case RoomType::Exit:
+		//TO:DO win game
 		break;
 	default:
 		break;
@@ -54,7 +59,8 @@ void Room::GenerateNextPossibleRooms() {
 
 
 	if (_roomsCompleted % _shopApperance == 0) {
-		_nextRooms.fill(RoomType::Shop);
+		if (_exitUnlocked) _nextRooms.fill(RoomType::Exit);
+		else _nextRooms.fill(RoomType::Shop);
 		return;
 	}
 

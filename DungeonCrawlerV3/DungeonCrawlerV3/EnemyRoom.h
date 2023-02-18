@@ -21,6 +21,9 @@ private:
 protected:
 	EnemyRoom();
 
+public:
+	~EnemyRoom() override = default;
+
 private:
 	Enemy GenerateEnemy();
 
