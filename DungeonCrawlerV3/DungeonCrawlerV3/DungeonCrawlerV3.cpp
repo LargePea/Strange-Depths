@@ -1,21 +1,11 @@
 #include "Screen.h"
-#include "Image.h"
-#include <iostream>
-#include <vector>
-#include <string>
-#include <Windows.h>
-#include <array>
-#include <string>
 #include "GameManager.h"
 #include "GameState.h"
 #include <conio.h>
-#include"TreasureRoom.h"
-
-void CreateScreen();
 
 int main()
 {
-    CreateScreen();
+    Screen::Init();
     
     bool gameRunning = true;
     GameState::SetStateMask(GameStateMask::Normal); //sanity check
@@ -37,19 +27,5 @@ int main()
         default:
             break;
         }
-    }
-}
-
-void CreateScreen() {
-    COORD outbuff;
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    HWND window = GetConsoleWindow();
-    CONSOLE_SCREEN_BUFFER_INFO info;
-    SMALL_RECT windowSize = { 0, 0, 115, 50 };
-    SetConsoleWindowInfo(hConsole, TRUE, &windowSize);
-    if (GetConsoleScreenBufferInfo(hConsole, &info)) {
-        outbuff.X = info.srWindow.Right - info.srWindow.Left + 1;
-        outbuff.Y = info.srWindow.Bottom - info.srWindow.Top + 1;
-        SetConsoleScreenBufferSize(hConsole, outbuff);
     }
 }
