@@ -9,15 +9,15 @@
 
 class Image {
 private:
-	std::array<std::string, MAX_IMAGE_HEIGHT>& _image;
+	std::array<std::string, MAX_IMAGE_HEIGHT> _image;
 	int _priority = 0;
 	std::pair<int, int> _displayPosition;
 
 public:
-	Image(std::array<std::string, MAX_IMAGE_HEIGHT> &image, int priority, std::pair<int, int> displayPos);
+	Image(const char* imageFilePath, int priority, std::pair<int, int> displayPos);
 
 	//Getters
-	inline std::array<std::string, MAX_IMAGE_HEIGHT>* GetImage() { return &_image; }
+	inline const std::array<std::string, MAX_IMAGE_HEIGHT>& GetImage() const { return _image; }
 
 	inline size_t GetPriority() { return _priority; }
 
