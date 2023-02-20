@@ -5,8 +5,7 @@
 
 int main()
 {
-    Screen::Init();
-    
+    Screen::Init(); //start screen
     bool gameRunning = true;
     GameState::SetStateMask(GameStateMask::Normal); //sanity check
 
