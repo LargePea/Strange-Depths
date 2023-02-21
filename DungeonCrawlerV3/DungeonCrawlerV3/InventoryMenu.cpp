@@ -114,7 +114,8 @@ void InventoryMenu::RejectOverflowItem() {
 
 
 void InventoryMenu::UpdateDisplay() {
-	static std::array<std::string, MAX_IMAGE_HEIGHT> inventoryDisplay;
+	static std::vector<std::string> inventoryDisplay;
+	inventoryDisplay.reserve(12);
 
 	for (int row = 0; row < DISPLAY_ROWS; ++row) {
 		std::string line;

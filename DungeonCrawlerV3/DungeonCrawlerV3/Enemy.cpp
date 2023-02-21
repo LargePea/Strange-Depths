@@ -23,7 +23,7 @@ void Enemy::LoadEnemyImage() {
 }
 
 void Enemy::UpdateStatsMenu() {
-	std::array<std::string, MAX_IMAGE_HEIGHT> stats{std::to_string((int)_currentHealth), "", "", "", std::to_string((int)_defense), "", "", "", std::to_string((int)_attack)};
+	std::vector<std::string> stats{std::to_string((int)_currentHealth), "", "", "", std::to_string((int)_defense), "", "", "", std::to_string((int)_attack)};
 
 	_enemyStats = _enemyStatsBase + Image(stats, 2, {12, 9});
 }

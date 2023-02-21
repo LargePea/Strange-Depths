@@ -27,7 +27,7 @@ void Player::HideStats() {
 }
 
 void Player::UpdateStats() {
-	std::array<std::string, MAX_IMAGE_HEIGHT> stats{ 
+	std::vector<std::string> stats{ 
 		"        Health: " + std::to_string((int)_currentHealth), 
 		"", 
 		"Defense: " + std::to_string((int)_defense) + "     " + "Attack: " + std::to_string((int)_attack)};

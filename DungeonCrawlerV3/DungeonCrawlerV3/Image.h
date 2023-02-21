@@ -2,14 +2,12 @@
 
 #include <string>
 #include <iostream>
-#include <array>
+#include <vector>
 #include <utility>
-
-#define MAX_IMAGE_HEIGHT 50
 
 class Image {
 protected:
-	std::array<std::string, MAX_IMAGE_HEIGHT> _image;
+	std::vector<std::string> _image;
 
 private:
 	int _priority = 0;
@@ -18,7 +16,7 @@ private:
 public:
 	Image(const char* imageFilePath, int priority, std::pair<int, int> displayPos);
 
-	Image(std::array<std::string, MAX_IMAGE_HEIGHT> image, int priority, std::pair<int, int> displayPos);
+	Image(std::vector<std::string> image, int priority, std::pair<int, int> displayPos);
 
 	Image(const Image&);
 	Image& operator=(const Image& other);
@@ -27,7 +25,7 @@ public:
 	Image& operator=(Image&&) noexcept;
 
 	//Getters
-	inline const std::array<std::string, MAX_IMAGE_HEIGHT>& GetImage() const { return _image; }
+	inline const std::vector<std::string>& GetImage() const { return _image; }
 
 	inline size_t GetPriority() { return _priority; }
 
@@ -38,7 +36,4 @@ public:
 	friend std::ostream& operator<<(std::ostream& stream, const Image& image);
 
 	Image operator+(const Image& rhs);
-
-private:
-	void Free();
 };

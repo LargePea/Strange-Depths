@@ -11,7 +11,7 @@
 class Enemy : public Character {
 protected:
 	//Display
-	std::array<std::string, MAX_IMAGE_HEIGHT> _imageDisplay;
+	std::vector<std::string> _imageDisplay;
 	const char* _name;
 
 	//AI

@@ -84,7 +84,8 @@ void Shop::ShowShop() {
 
 void Shop::UpdateScreen() {
 	static int displayRows = _shopStock.size() / 2;
-	static std::array<std::string, MAX_IMAGE_HEIGHT> stockDisplay;
+	static std::vector<std::string> stockDisplay;
+	stockDisplay.reserve(11);
 
 	for (int row = 0; row < displayRows; ++row) {
 		std::string line;
