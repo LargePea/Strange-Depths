@@ -112,7 +112,6 @@ void InventoryMenu::RejectOverflowItem() {
 	ActionMap::PopCurrentMap();
 }
 
-
 void InventoryMenu::UpdateDisplay() {
 	static std::vector<std::string> inventoryDisplay;
 	inventoryDisplay.reserve(12);

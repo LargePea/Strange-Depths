@@ -28,7 +28,10 @@ void GameManager::Init() {
 
 	ActionMap::PopCurrentMap();
 
+	Image gameoverScreen = Image(GAMEOVER_MENU, 1, { 0, 0 });
+	Screen::AddImages({ &gameoverScreen });
 	_getch(); //wait for player to enter input before loading main menu again
+	Screen::RemoveImages({ &gameoverScreen });
 }
 
 
