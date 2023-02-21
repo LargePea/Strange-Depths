@@ -4,7 +4,7 @@
 
 class PlayerAM : public ActionMap {
 public:
-	PlayerAM() = default;
+	PlayerAM();
 
 	void InputAction(const char input) override;
 };

@@ -15,12 +15,49 @@ Image::Image(const char* imageFilePath, int priority, std::pair<int, int> displa
 	}
 }
 
-bool operator<(const Image& lhs, const Image& rhs) {
-	return lhs._priority < rhs._priority;
+Image::Image(std::array<std::string, MAX_IMAGE_HEIGHT> image, int priority, std::pair<int, int> displayPos)
+	:_image(image), _priority(priority), _displayPosition(displayPos) { }
+
+Image::Image(const Image& other) 
+	:_image(other._image), _priority(other._priority), _displayPosition(other._displayPosition) { }
+
+Image& Image::operator=(Image rhs) {
+	this->_image = rhs._image;
+	this->_priority = rhs._priority;
+	this->_displayPosition = rhs._displayPosition;
+
+	return *this;
+}
+
+Image::Image(Image&& other) noexcept
+	:_image(other._image), _priority(other._priority), _displayPosition(other._displayPosition) {
+
+	other._image = std::array<std::string, MAX_IMAGE_HEIGHT>();
+	other._priority = 0;
+	other._displayPosition = std::make_pair<int, int>(0, 0);
+}
+
+Image& Image::operator=(Image&& rhs) noexcept {
+	if (this != &rhs) {
+		_image = rhs._image;
+		_priority = rhs._priority;
+		_displayPosition = rhs._displayPosition;
+
+		rhs._image = std::array<std::string, MAX_IMAGE_HEIGHT>();
+		rhs._priority = 0;
+		rhs._displayPosition = std::make_pair<int, int>(0, 0);
+	}
+
+	return *this;
 }
 
 bool operator>(const Image& lhs, const Image& rhs) {
 	return !(lhs < rhs);
+}
+
+bool operator<(const Image& lhs, const Image& rhs)
+{
+	return lhs._priority < rhs._priority;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Image& image) {

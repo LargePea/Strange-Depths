@@ -21,7 +21,7 @@ Enemy EnemyRoom::GenerateEnemy() {
 	int generatedNumber = distribution(engine);
 
 	for (int i = 0; i < _enemyWeightMap.size(); ++i) {
-		if (generatedNumber < _enemyWeightMap[i]) {
+		if (generatedNumber <= _enemyWeightMap[i]) {
 			switch ((EnemyType)i)
 			{
 			case EnemyType::Slime:

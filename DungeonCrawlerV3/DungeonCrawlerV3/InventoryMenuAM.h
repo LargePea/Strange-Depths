@@ -4,7 +4,7 @@
 
 class InventoryMenuAM : public ActionMap {
 public:
-	InventoryMenuAM() = default;
+	InventoryMenuAM();
 
 	void InputAction(const char input) override;
 };

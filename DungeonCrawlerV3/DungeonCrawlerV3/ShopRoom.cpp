@@ -6,6 +6,7 @@ ShopRoom::ShopRoom()
 	GameState::SetStateMask(GameStateMask::Shop);
 	ActionMap::AddActionMap(&_actionMap);
 	_event = _shop.KeyBought.Attach(this, &ShopRoom::UnlockExit);
+	Room::IncreaseRoomDifficulty();
 }
 
 void ShopRoom::UnlockExit() {

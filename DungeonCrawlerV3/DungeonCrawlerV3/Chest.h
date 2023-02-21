@@ -12,4 +12,6 @@ public:
 	Chest(LootTable lootTable, int maxChestValue, float mimicSpawnChance);
 	void OpenChest();
 	void RejectChest();
+
+	~Chest() = default;
 };

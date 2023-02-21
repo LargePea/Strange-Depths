@@ -41,9 +41,7 @@ public:
 public:
 	Character(float maxHealth, float attack, float defense, float critRate, float speed) :
 		_baseMaxHealth(maxHealth), _baseAttack(attack), _baseDefense(defense), _baseCritRatePercent(critRate), _baseSpeed(speed) {}
-	Character(const Character& obj) {
-		std::cout << "Copied" << "\n";
-	};
+	Character(const Character& obj) = default;
 	virtual ~Character();
 
 	//Getters

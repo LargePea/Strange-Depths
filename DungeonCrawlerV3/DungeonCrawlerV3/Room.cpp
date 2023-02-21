@@ -5,7 +5,7 @@
 #include <random>
 #include <iostream>
 
-Room Room::_currentRoom;
+Room* Room::_currentRoom;
 int Room::_roomsCompleted;
 int Room::_roomDifficulty;
 bool Room::_exitUnlocked;
@@ -13,6 +13,11 @@ bool Room::_exitUnlocked;
 Room::Room() {
 	++_roomsCompleted;
 	GenerateNextPossibleRooms();
+}
+
+void Room::Init() {
+	if (_currentRoom != nullptr) delete _currentRoom;
+	_currentRoom = new Room();
 }
 
 Room::Room(const Room& other) : 
@@ -28,20 +33,23 @@ Room& Room::operator=(Room other) {
 }
 
 void Room::Move(Direction moveDirection) {
-	std::cout << "moved: " << (int)moveDirection << std::endl;
 	switch (GetNextRooms()[(int)moveDirection])
 	{
 	case RoomType::Enemy:
-		_currentRoom = EnemyRoom();
+		if (_currentRoom != nullptr) delete _currentRoom;
+		_currentRoom = new EnemyRoom();
 		break;
 	case RoomType::Treasure:
-		_currentRoom = TreasureRoom();
+		if (_currentRoom != nullptr) delete _currentRoom;
+		_currentRoom = new TreasureRoom();
 		break;
 	case RoomType::Empty:
-		_currentRoom = Room();
+		if (_currentRoom != nullptr) delete _currentRoom;
+		_currentRoom = new Room();
 		break;
 	case RoomType::Shop:
-		_currentRoom = ShopRoom();
+		if (_currentRoom != nullptr) delete _currentRoom;
+		_currentRoom = new ShopRoom();
 		break;
 	case RoomType::Exit:
 		//TO:DO win game
@@ -68,7 +76,7 @@ void Room::GenerateNextPossibleRooms() {
 		int generatedNumber = distributor(engine);
 
 		for (int j = 0; j < _roomGenerationWeights.size(); ++j) {
-			if (generatedNumber < _roomGenerationWeights[j]) {
+			if (generatedNumber <= _roomGenerationWeights[j]) {
 				_nextRooms[i] = (RoomType)j;
 				break;
 			}

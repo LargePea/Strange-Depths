@@ -33,7 +33,7 @@ public:
 
 			//generate loot based on weight
 			for (auto& loot : _lootList) {
-				if (generatedNumber < loot.second) {
+				if (generatedNumber <= loot.second) {
 					createdLoot[i] = loot.first;
 					break;
 				}

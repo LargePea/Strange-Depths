@@ -11,7 +11,6 @@ Chest::Chest(LootTable lootTable, int maxChestValue, float mimicSpawnChance)
 
 void Chest::OpenChest() {
 	ActionMap::PopCurrentMap(); //pop the treasure actionmap off
-
 	static std::default_random_engine engine;
 
 	std::bernoulli_distribution spawnMimic(_mimicSpawnChance);

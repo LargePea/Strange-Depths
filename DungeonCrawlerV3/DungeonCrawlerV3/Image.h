@@ -16,6 +16,14 @@ private:
 public:
 	Image(const char* imageFilePath, int priority, std::pair<int, int> displayPos);
 
+	Image(std::array<std::string, MAX_IMAGE_HEIGHT> image, int priority, std::pair<int, int> displayPos);
+
+	Image(const Image&);
+	Image& operator=(Image other);
+
+	Image(Image&&) noexcept;
+	Image& operator=(Image&&) noexcept;
+
 	//Getters
 	inline const std::array<std::string, MAX_IMAGE_HEIGHT>& GetImage() const { return _image; }
 
@@ -23,7 +31,12 @@ public:
 
 	inline const std::pair<int, int>& GetDisplayPosition() const { return _displayPosition; }
 
-	friend bool operator<(const Image& lhs, const Image& rhs);
 	friend bool operator>(const Image& lhs, const Image& rhs);
+	friend bool operator<(const Image& lhs, const Image& rhs);
 	friend std::ostream& operator<<(std::ostream& stream, const Image& image);
+
+	Image operator+(const Image& rhs);
+
+private:
+	void Free();
 };

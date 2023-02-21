@@ -1,6 +1,12 @@
 #include "PlayerAM.h"
 #include "Room.h"
 #include "InventoryMenu.h"
+#include "Image.h"
+
+PlayerAM::PlayerAM() 
+	: ActionMap(Image("Sprites\\MovementMenu.txt", 1, std::make_pair<int, int>(0, 37))) {
+
+}
 
 void PlayerAM::InputAction(const char input) {
 	

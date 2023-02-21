@@ -2,6 +2,7 @@
 
 #include "Character.h"
 #include "PlayerAM.h"
+#include "Image.h"
 
 class GameManager {
 private:

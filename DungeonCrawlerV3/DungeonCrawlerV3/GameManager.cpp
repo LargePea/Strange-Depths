@@ -1,16 +1,23 @@
 #include "GameManager.h"
 #include "GameState.h"
 #include "Player.h"
-#include <vector>
+#include "Screen.h"
+#include "Room.h"
 #include <conio.h>
 
 Character* GameManager::_player;
 PlayerAM GameManager::_playerControls;
 
 void GameManager::Init() {
+	Image menuImage = Image("Sprites\\MenuBackGround.txt", 0, std::make_pair<int, int>(0, 36));
+	Image backgroundImage = Image("Sprites\\BackGround.txt", 0, std::make_pair<int, int>(0, 0));
+
+	Screen::AddImages({ &menuImage, &backgroundImage });
+
 	Player player = Player();
 	SetPlayer(&player);
 	ActionMap::AddActionMap(&_playerControls);
+	Room::Init();
 
 	//main game loop
 	while (~(GameState::GetStateMask() & (int)GameStateMask::GameOver)) {

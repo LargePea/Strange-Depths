@@ -1,7 +1,7 @@
 #include "ShopRoomAM.h"
 
 ShopRoomAM::ShopRoomAM(Shop shop)
-	: _shop(shop) {
+	:ActionMap(Image("Sprites\\ShopMenu.txt", 1, std::make_pair<int, int>(0, 37))), _shop(shop) {
 
 }
 
