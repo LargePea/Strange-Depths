@@ -2,17 +2,17 @@
 
 #pragma region Menus
 
-constexpr auto MENU_BASE =      "Sprites\\Menus\\MenuBackGround.txt";
-constexpr auto COMBAT_MENU =    "Sprites\\Menus\\CombatMenu.txt";
-constexpr auto INVENTORY_MENU = "Sprites\\Menus\\InventoryMenu.txt";
-constexpr auto OVERFLOW_MENU =  "Sprites\\Menus\\OverflowMenu.txt";
-constexpr auto MOVEMENT_MENU =  "Sprites\\Menus\\MovementMenu.txt";
-constexpr auto TREASURE_MENU =  "Sprites\\Menus\\TreasureMenu.txt";
-constexpr auto SHOP_MENU =		"Sprites\\Menus\\ShopMenu.txt";
-constexpr auto MAIN_MENU =      "Sprites\\Menus\\MainMenu.txt";
-constexpr auto GAMEOVER_MENU = "Sprites\\Menus\\GameOver.txt";
-
-constexpr auto ENEMY_STAT_BASE ="Sprites\\Enemies\\EnemyStatsBackGround.txt";
+constexpr auto MENU_BASE =       "Sprites\\Menus\\MenuBackGround.txt";
+constexpr auto COMBAT_MENU =     "Sprites\\Menus\\CombatMenu.txt";
+constexpr auto INVENTORY_MENU =  "Sprites\\Menus\\InventoryMenu.txt";
+constexpr auto OVERFLOW_MENU =   "Sprites\\Menus\\OverflowMenu.txt";
+constexpr auto MOVEMENT_MENU =   "Sprites\\Menus\\MovementMenu.txt";
+constexpr auto TREASURE_MENU =   "Sprites\\Menus\\TreasureMenu.txt";
+constexpr auto SHOP_MENU =		 "Sprites\\Menus\\ShopMenu.txt";
+constexpr auto MAIN_MENU =       "Sprites\\Menus\\MainMenu.txt";
+constexpr auto GAMEOVER_MENU =   "Sprites\\Menus\\GameOver.txt";
+								 
+constexpr auto ENEMY_STAT_BASE = "Sprites\\Enemies\\EnemyStatsBackGround.txt";
 
 #pragma endregion
 

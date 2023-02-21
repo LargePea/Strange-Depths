@@ -56,7 +56,8 @@ void Shop::BuyItem() {
 	InventoryMenu::AddItem(itemToBuy);
 
 	_shopStock[_currentItemPos] = nullptr;
-	if (_currentItemPos == _shopStock.size()) KeyBought.Invoke();
+	if (_currentItemPos == _shopStock.size() - 1) 
+		KeyBought.Invoke();
 
 	UpdateScreen();
 }
@@ -84,8 +85,7 @@ void Shop::ShowShop() {
 
 void Shop::UpdateScreen() {
 	static int displayRows = _shopStock.size() / 2;
-	static std::vector<std::string> stockDisplay;
-	stockDisplay.reserve(11);
+	static std::vector<std::string> stockDisplay(12, "");
 
 	for (int row = 0; row < displayRows; ++row) {
 		std::string line;

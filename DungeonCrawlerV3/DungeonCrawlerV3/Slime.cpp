@@ -2,7 +2,7 @@
 #include "ItemDictionary.h"
 
 Slime::Slime() : 
-	Enemy(10, 2, 2, 0.3f, 6, "Slime", 15, 0.6f) {
+	Enemy(10, 3, 2, 0.3f, 6, "Slime", 15, 0.6f) {
 	static ItemDictionary instance = ItemDictionary::Instance();
 	static LootTable slimeLootTable({
 		{instance.GetItem("Gel"), 40},

@@ -8,7 +8,7 @@
 
 
 Player::Player() : 
-	Character(20, 6, 4, 0.3f, 5) {
+	Character(20, 6, 5, 0.3f, 5) {
 	InventoryMenu::SetInventory(&_playerInventory);
 }
 

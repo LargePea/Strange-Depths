@@ -2,7 +2,7 @@
 #include "ItemDictionary.h"
 
 Skeleton::Skeleton() : 
-	Enemy(15, 5, 2, .2f, 5.5f, "Skeleton", 20, 0.4f) {
+	Enemy(15, 5, 2, .2f, 4.5f, "Skeleton", 20, 0.4f) {
 	static ItemDictionary instance = ItemDictionary::Instance();
 	static LootTable skeletonLootTable({
 		{instance.GetItem("Bone"), 10},

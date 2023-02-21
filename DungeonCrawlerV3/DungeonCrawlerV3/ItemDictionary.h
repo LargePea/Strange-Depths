@@ -27,7 +27,7 @@ private:
 	Item _club = Item("Club", 3);
 	Item _ogreSkin = Item("Ogre Skin", 5);
 	Item _onion = Item("Onion", 7);
-	Item _key = Item("KeyStone", 500);
+	Item _key = Item("KeyStone", 5);
 
 	ItemMap _itemsInterface{
 		{"Gel", &_gel},
