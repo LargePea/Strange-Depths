@@ -2,6 +2,7 @@
 #include "InventoryMenu.h"
 #include "CombatAM.h"
 #include "Potion.h"
+#include "Screen.h"
 #include <vector>
 #include <conio.h>
 
@@ -14,6 +15,30 @@ Player::Player() :
 Player::Player(const Player& other)
 	: Character(other._maxHealth, other._baseAttack, other._baseDefense, other._baseCritRatePercent, other._baseSpeed) {
 
+}
+
+void Player::LoadStats() {
+	UpdateStats();
+	Screen::AddImages({ &_playerStats });
+}
+
+void Player::HideStats() {
+	Screen::RemoveImages({ &_playerStats });
+}
+
+void Player::UpdateStats() {
+	std::array<std::string, MAX_IMAGE_HEIGHT> stats{ 
+		"        Health: " + std::to_string((int)_currentHealth), 
+		"", 
+		"Defense: " + std::to_string((int)_defense) + "     " + "Attack: " + std::to_string((int)_attack)};
+
+	_playerStats = Image(stats, 2, { 74, 43 });
+}
+
+void Player::Damage(const float& incomingDamage, Character& attacker) {
+	Character::Damage(incomingDamage, attacker);
+
+	UpdateStats();
 }
 
 //functional methods
@@ -61,5 +86,7 @@ void Player::QuickHeal() {
 }
 
 void Player::Death(Character* killer) {
+	Character::Death(killer);
+	Screen::ClearImages();
 	//TO:DO display what room # player was on
 }

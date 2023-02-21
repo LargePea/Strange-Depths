@@ -2,6 +2,7 @@
 
 #include <array>
 #include <iterator>
+#include "Image.h"
 
 class Room {
 public:
@@ -25,6 +26,7 @@ private:
 	static const int _shopApperance = 5;
 	static int _roomsCompleted;
 	static int _roomDifficulty;
+	static Image* _progress;
 
 	std::array<RoomType, 4> _nextRooms;
 	std::array<int, 3> _roomGenerationWeights{ 7, 1, 2 };
@@ -59,6 +61,8 @@ public:
 	static inline int GetRoomsCompleted() { return _roomsCompleted; }
 
 	static inline int GetCurrentDifficulty() { return _roomDifficulty; }
+
+	static inline Image* GetProgress() { return _progress; }
 
 	inline std::array<RoomType, 4> GetNextRooms() { return _nextRooms; }
 

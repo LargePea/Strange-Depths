@@ -8,6 +8,8 @@
 
 EnemyRoom::EnemyRoom() :
 	Room(), _totalEnemyWeights(0), _roomEnemy(GenerateEnemy()) {
+
+	_roomEnemy.LoadEnemyImage();
 	GameManager::BeginCombat(&_roomEnemy);
 }
 

@@ -51,6 +51,23 @@ Image& Image::operator=(Image&& rhs) noexcept {
 	return *this;
 }
 
+Image Image::operator+(const Image& rhs) {
+	std::pair<int, int> offset{ rhs._displayPosition.first - this->_displayPosition.first, rhs._displayPosition.second - this->_displayPosition.second };
+	if (offset.first < 0 || offset.second < 0) return *this;
+
+	const std::array<std::string, MAX_IMAGE_HEIGHT>& incomingImage = rhs.GetImage();
+	std::array<std::string, MAX_IMAGE_HEIGHT> outgoingImage = this->_image;
+
+	for (int row = 0; row + offset.second < incomingImage.size(); ++row) {
+		if (incomingImage[row] == "") continue;
+		for (int character = 0; character < incomingImage[row].size() && (character + offset.first) < outgoingImage[row + offset.second].size(); ++character) {
+			outgoingImage[row + offset.second][character + offset.first] = incomingImage[row][character];
+		}
+	}
+
+	return Image(outgoingImage, this->_priority, this->_displayPosition);
+}
+
 bool operator>(const Image& lhs, const Image& rhs) {
 	return !(lhs < rhs);
 }

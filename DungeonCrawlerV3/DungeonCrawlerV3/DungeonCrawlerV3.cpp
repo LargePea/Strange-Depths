@@ -21,7 +21,6 @@ int main()
         case 'P':
             Screen::RemoveImages({ &mainMenu });
             GameManager::Init();
-            std::cin.get(); //wait for player to enter input before loading main menu again
             break;
         case 'q':
         case 'Q':

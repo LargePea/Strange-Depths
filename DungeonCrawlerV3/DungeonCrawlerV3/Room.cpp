@@ -9,9 +9,12 @@ Room* Room::_currentRoom;
 int Room::_roomsCompleted;
 int Room::_roomDifficulty;
 bool Room::_exitUnlocked;
+Image* Room::_progress;
 
 Room::Room() {
 	++_roomsCompleted;
+	if (_progress == nullptr) _progress = new Image(std::array<std::string, MAX_IMAGE_HEIGHT>{"Current Room: " + std::to_string(_roomsCompleted)}, 2, { 50, 35 });
+	else *_progress = std::move(Image(std::array<std::string, MAX_IMAGE_HEIGHT>{"Current Room: " + std::to_string(_roomsCompleted)}, 2, { 50, 35 }));
 	GenerateNextPossibleRooms();
 }
 

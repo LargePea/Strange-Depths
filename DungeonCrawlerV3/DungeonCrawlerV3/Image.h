@@ -8,8 +8,10 @@
 #define MAX_IMAGE_HEIGHT 50
 
 class Image {
-private:
+protected:
 	std::array<std::string, MAX_IMAGE_HEIGHT> _image;
+
+private:
 	int _priority = 0;
 	std::pair<int, int> _displayPosition;
 

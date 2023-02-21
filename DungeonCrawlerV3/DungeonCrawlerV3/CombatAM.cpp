@@ -14,6 +14,7 @@ void CombatAM::InputAction(const char input) {
 	case 'q':
 	case 'Q':
 		_user->QuickHeal();
+		break;
 	case 'w':
 	case 'W':
 		_user->Attack(*_opponent);

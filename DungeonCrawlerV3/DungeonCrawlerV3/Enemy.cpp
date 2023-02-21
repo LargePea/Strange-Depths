@@ -3,17 +3,35 @@
 #include "Inventory.h"
 #include "InventoryMenu.h"
 #include "ItemDictionary.h"
+#include "Screen.h"
 #include <random>
 #include <array>
 
 Enemy::Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold) :
-	Character(maxHealth, attack, defense, critRate, speed), _name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyInventory(*this, CreateStartingItems()) {
+	Character(maxHealth, attack, defense, critRate, speed), _name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyInventory(*this, CreateStartingItems()), _enemyStats(_enemyStatsBase) {
 }
 
 Enemy::Enemy(const Enemy& enemy)
 	: Character(enemy._maxHealth, enemy._baseAttack, enemy._baseDefense, enemy._baseCritRatePercent, enemy._baseSpeed), 
-	_name(enemy._name), _enemyValue(enemy._enemyValue), _healThreshold(enemy._healThreshold), _enemyInventory(enemy._enemyInventory), _possibleDrops(enemy._possibleDrops) {
+	_name(enemy._name), _enemyValue(enemy._enemyValue), _healThreshold(enemy._healThreshold), _enemyInventory(enemy._enemyInventory), _possibleDrops(enemy._possibleDrops), _enemyStats(_enemyStatsBase) {
 
+}
+
+void Enemy::LoadEnemyImage() {
+	UpdateStatsMenu();
+	Screen::AddImages({ &_enemyStats });
+}
+
+void Enemy::UpdateStatsMenu() {
+	std::array<std::string, MAX_IMAGE_HEIGHT> stats{std::to_string((int)_currentHealth), "", "", "", std::to_string((int)_defense), "", "", "", std::to_string((int)_attack)};
+
+	_enemyStats = _enemyStatsBase + Image(stats, 2, {12, 9});
+}
+
+void Enemy::Damage(const float& incomingDamage, Character& attacker) {
+	Character::Damage(incomingDamage, attacker);
+
+	UpdateStatsMenu();
 }
 
 void Enemy::ChooseAction(Character& other) {
@@ -35,6 +53,8 @@ void Enemy::UseItem() {
 }
 
 void Enemy::Death(Character* killer) {
+	Screen::RemoveImages({ &_enemyStats });
+
 	std::array<Item*, _maxDropsPossible> droppedLoot{ nullptr };
 	//generate loot
 	_possibleDrops.CreateLoot(droppedLoot);

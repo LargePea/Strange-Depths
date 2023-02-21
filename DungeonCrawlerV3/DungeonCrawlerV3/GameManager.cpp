@@ -19,13 +19,16 @@ void GameManager::Init() {
 	SetPlayer(&player);
 	ActionMap::AddActionMap(&_playerControls);
 	Room::Init();
-
+	Screen::AddImages({ Room::GetProgress() });
 	//main game loop
-	while (~(GameState::GetStateMask() & (int)GameStateMask::GameOver)) {
+	while (~GameState::GetStateMask() & (int)GameStateMask::GameOver) {
+		bool test = ~(GameState::GetStateMask() & (int)GameStateMask::GameOver);
 		ActionMap::GetCurrentMap().InputAction(static_cast<char>(_getch()));
 	}
 
 	ActionMap::PopCurrentMap();
+
+	_getch(); //wait for player to enter input before loading main menu again
 }
 
 
@@ -42,6 +45,7 @@ void GameManager::BeginCombat(Character* enemy) {
 
 	GameState::SetStateMask(GameStateMask::Combat);
 	bool firstCharacterturn = true;
+	static_cast<Player*>(_player)->LoadStats();
 
 	//Combat loop
 	while (GameState::GetStateMask() == (int) GameStateMask::Combat)
@@ -54,6 +58,8 @@ void GameManager::BeginCombat(Character* enemy) {
 
 	first->DeathEvent.Remove(firstDeathEvent);
 	second->DeathEvent.Remove(secondDeathEvent);
+
+	static_cast<Player*>(_player)->HideStats();
 }
 
 void GameManager::EndCombat(Character* deadCharacter) {
