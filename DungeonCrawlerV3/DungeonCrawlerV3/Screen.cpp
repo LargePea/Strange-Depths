@@ -17,6 +17,7 @@ void Screen::Init(int screenWidth, int screenHeight) {
 	_currentCusorPosition.X = 0;
 	_currentCusorPosition.Y = 0;
     CreateScreen(screenWidth, screenHeight);
+    HideCursor();
 
     std::thread(Screen::Renderer).detach(); // begin rendering loop
 }
@@ -26,26 +27,29 @@ void Screen::Renderer() {
 
     while (true)
     {
-        if (_updateScreen) {
-            _bufferUpdateLock.lock();
-            std::cout << std::flush; //flush buffer just incase it wasnt due to a crash
-            ResetCursor();
+        _bufferUpdateLock.lock();
+        UpdateBuffer();
+        std::cout << std::flush; //flush buffer just incase it wasnt due to a crash
+        ResetCursor();
 
-            for (int row = 0; row < SCREEN_HEIGHT; ++row) {
-                char line[SCREEN_WIDTH + 1]{};
-                for (int character = 0; character < SCREEN_WIDTH; ++character) {
-                    line[character] = _bufferFrame[character + row * SCREEN_WIDTH];
-                }
-                line[SCREEN_WIDTH] = '\0';
-                std::cout << line;
-                if (!(row == SCREEN_HEIGHT - 1)) std::cout << "\n";
+        for (int row = 0; row < SCREEN_HEIGHT; ++row) {
+            char line[SCREEN_WIDTH + 1]{};
+            for (int character = 0; character < SCREEN_WIDTH; ++character) {
+                line[character] = _bufferFrame[character + row * SCREEN_WIDTH];
             }
-            _updateScreen = false;
-            std::cout << std::flush;
-            _bufferUpdateLock.unlock();
+            line[SCREEN_WIDTH] = '\0';
+            std::cout << line;
+            if (!(row == SCREEN_HEIGHT - 1)) std::cout << "\n";
         }
+        _updateScreen = false;
+        std::cout << std::flush;
+        _bufferUpdateLock.unlock();
         std::this_thread::sleep_for(std::chrono::milliseconds(updateSpeed));
     }
+}
+
+HANDLE Screen::GetScreenHandler() {
+	return _screenHandle;
 }
 
 void Screen::CreateScreen(int& screenWidth, int& screenHeight) {
@@ -63,8 +67,12 @@ void Screen::CreateScreen(int& screenWidth, int& screenHeight) {
 
 }
 
-HANDLE Screen::GetScreenHandler() {
-	return _screenHandle;
+void Screen::HideCursor() {
+    CONSOLE_CURSOR_INFO cursorInfo;
+
+    GetConsoleCursorInfo(GetScreenHandler(), &cursorInfo);
+    cursorInfo.bVisible = false;
+    SetConsoleCursorInfo(GetScreenHandler(), &cursorInfo);
 }
 
 void Screen::ResetCursor() {
@@ -77,15 +85,16 @@ void Screen::MoveCursor(int x, int y) {
 	SetConsoleCursorPosition(_screenHandle, _currentCusorPosition);
 }
 
-void Screen::AddImages(std::initializer_list<Image*> images, bool updateScreen, bool onlyUpdateObject) {
+void Screen::AddImages(std::initializer_list<Image*> images, bool updateScreen) {
+    _bufferUpdateLock.lock();
     for (auto& image : images) {
         _imagesToRender.push_back(image);
     }
-
-    if (updateScreen) UpdateBuffer(onlyUpdateObject ? std::vector<Image*>{ images } : _imagesToRender);
+    _bufferUpdateLock.unlock();
 }
 
 void Screen::RemoveImages(std::initializer_list<Image*> images, bool updateScreen) {
+    _bufferUpdateLock.lock();
     for (auto& image : images) {
         for (auto it = _imagesToRender.begin(); it != _imagesToRender.end(); ++it) {
             if (image == *it) {
@@ -94,21 +103,21 @@ void Screen::RemoveImages(std::initializer_list<Image*> images, bool updateScree
             }
         }
     }
-    if (updateScreen) UpdateBuffer(_imagesToRender);
+    _bufferUpdateLock.unlock();
 }
 
 void Screen::ClearImages(bool updateScreen) {
+    _bufferUpdateLock.lock();
     _imagesToRender.clear();
-    if (updateScreen) UpdateBuffer(_imagesToRender);
+    _bufferUpdateLock.unlock();
 }
 
-void Screen::UpdateBuffer(std::vector<Image*> imagesToRender) {
-    _bufferUpdateLock.lock();
+void Screen::UpdateBuffer() {
     _bufferFrame.fill(' ');
-    std::sort(imagesToRender.begin(), imagesToRender.end());
+    std::sort(_imagesToRender.begin(), _imagesToRender.end());
     _updateScreen = true;
 
-    for (const Image* image : imagesToRender) {
+    for (const Image* image : _imagesToRender) {
         const std::array<std::string, MAX_IMAGE_HEIGHT> imageToLoad = image->GetImage();
         const std::pair<int, int> startingCoords = image->GetDisplayPosition();
 
@@ -125,11 +134,4 @@ void Screen::UpdateBuffer(std::vector<Image*> imagesToRender) {
             }
         }
     }
-
-    _bufferUpdateLock.unlock();
-}
-
-void Screen::PrintMainMenu() {
-    Image mainMenu = Image("Sprites\\MainMenu.txt", 0, std::make_pair<int, int>(0, 0));
-    UpdateBuffer(std::vector<Image*>{&mainMenu});
 }
