@@ -17,7 +17,8 @@ void Chest::OpenChest() {
 	std::normal_distribution<float> coinsGenerated(_maxChestValue / 2, 1.5f);
 
 	if (spawnMimic(engine)) {
-		GameManager::BeginCombat(Mimic(_chestLootTable, coinsGenerated(engine)));
+		Mimic mimic{ _chestLootTable, (int)coinsGenerated(engine) };
+		GameManager::BeginCombat(&mimic);
 	}
 	else {
 		std::array<Item*, 5> createdLoot;

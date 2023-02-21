@@ -13,5 +13,5 @@ public:
 		: Item(name, value, ItemType::Enchantment, static_cast<int>(GameStateMask::Combat) + static_cast<int>(GameStateMask::Normal)), _enchant(enchant) {
 	}
 
-	void UseItem(Character& user) override;
+	void UseItem(Character* user) override;
 };

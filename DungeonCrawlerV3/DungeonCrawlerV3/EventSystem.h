@@ -1,5 +1,6 @@
 #pragma once
 #include <set>
+#include <mutex>
 
 template<typename... Args> class Subject;
 template<typename... Args> class IEvent;
@@ -63,7 +64,8 @@ template<typename... Args>
 class Subject {
 private:
 	std::set<IEvent<Args...>*> events;
-	std::set< IEvent<Args...>*> eventsToRemove;
+	std::mutex eventsMutex;
+
 public:
 	Subject() = default;
 
@@ -85,22 +87,13 @@ public:
 		return event;
 	}
 
-	void Remove(IEvent<Args...>* event) { eventsToRemove.insert(eventsToRemove.end(), event); }
+	void Remove(IEvent<Args...>* event) { events.erase(event); }
 
 
 	void Invoke(Args... args) { 
+		std::lock_guard<std::mutex> lock(eventsMutex);
 		for (IEvent<Args...>* event : events) event->Invoke(args...);
 
-		if (eventsToRemove.size() == 0) return;
-
-		for (IEvent<Args...>* event : eventsToRemove) {
-			auto foundEvent = events.find(event);
-			//check to see if event was already removed
-			if (foundEvent != events.end())
-				delete event;
-				events.erase(foundEvent);
-		}
-		eventsToRemove.clear();
 	}
 
 	inline int EventCount() { return events.size(); }

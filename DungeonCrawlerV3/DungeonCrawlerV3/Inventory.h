@@ -25,7 +25,7 @@ public:
 	Inventory& operator=(const Inventory& other);
 
 	//Getters
-	inline Character GetOwner() { return *_owner; }
+	inline Character* GetOwner() { return _owner; }
 
 	inline std::vector<Item*> GetItems(){ return _items; }
 

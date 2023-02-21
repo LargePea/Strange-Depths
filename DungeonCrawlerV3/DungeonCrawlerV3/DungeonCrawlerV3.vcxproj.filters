@@ -257,8 +257,11 @@
     <ClInclude Include="Shop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteAtlas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ShopRoomAM.h">
-      <Filter>Header Files\Rooms</Filter>
+      <Filter>Header Files\ActionMaps</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,14 +3,15 @@
 #include "Player.h"
 #include "Screen.h"
 #include "Room.h"
+#include "SpriteAtlas.h"
 #include <conio.h>
 
 Character* GameManager::_player;
 PlayerAM GameManager::_playerControls;
 
 void GameManager::Init() {
-	Image menuImage = Image("Sprites\\MenuBackGround.txt", 0, std::make_pair<int, int>(0, 36));
-	Image backgroundImage = Image("Sprites\\BackGround.txt", 0, std::make_pair<int, int>(0, 0));
+	Image menuImage = Image(MENU_BASE, 0, std::make_pair<int, int>(0, 36));
+	Image backgroundImage = Image(BASIC_BACKGROUND, 0, std::make_pair<int, int>(0, 0));
 
 	Screen::AddImages({ &menuImage, &backgroundImage });
 
@@ -32,12 +33,12 @@ void GameManager::SetPlayer(Character* player) {
 	_player = player;
 }
 
-void GameManager::BeginCombat(Character enemy) {
-	Character* first = _player->GetSpeed() >= enemy.GetSpeed() ? _player : &enemy;
-	Character* second = _player->GetSpeed() >= enemy.GetSpeed() ? &enemy: _player;
+void GameManager::BeginCombat(Character* enemy) {
+	Character* first = _player->GetSpeed() >= enemy->GetSpeed() ? _player : enemy;
+	Character* second = _player->GetSpeed() >= enemy->GetSpeed() ? enemy: _player;
 
-	first->DeathEvent.Attach(&GameManager::EndCombat);
-	second->DeathEvent.Attach(&GameManager::EndCombat);
+	IEvent<Character*>* firstDeathEvent = first->DeathEvent.Attach(&GameManager::EndCombat);
+	IEvent<Character*>* secondDeathEvent = second->DeathEvent.Attach(&GameManager::EndCombat);
 
 	GameState::SetStateMask(GameStateMask::Combat);
 	bool firstCharacterturn = true;
@@ -50,6 +51,9 @@ void GameManager::BeginCombat(Character enemy) {
 
 		firstCharacterturn = !firstCharacterturn;
 	}
+
+	first->DeathEvent.Remove(firstDeathEvent);
+	second->DeathEvent.Remove(secondDeathEvent);
 }
 
 void GameManager::EndCombat(Character* deadCharacter) {

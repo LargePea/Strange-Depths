@@ -2,9 +2,10 @@
 #include "Room.h"
 #include "InventoryMenu.h"
 #include "Image.h"
+#include "SpriteAtlas.h"
 
 PlayerAM::PlayerAM() 
-	: ActionMap(Image("Sprites\\MovementMenu.txt", 1, std::make_pair<int, int>(0, 37))) {
+	: ActionMap(Image(MOVEMENT_MENU, 1, std::make_pair<int, int>(0, 37))) {
 
 }
 

@@ -21,7 +21,7 @@ Image::Image(std::array<std::string, MAX_IMAGE_HEIGHT> image, int priority, std:
 Image::Image(const Image& other) 
 	:_image(other._image), _priority(other._priority), _displayPosition(other._displayPosition) { }
 
-Image& Image::operator=(Image rhs) {
+Image& Image::operator=(const Image& rhs) {
 	this->_image = rhs._image;
 	this->_priority = rhs._priority;
 	this->_displayPosition = rhs._displayPosition;

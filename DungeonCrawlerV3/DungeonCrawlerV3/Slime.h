@@ -6,5 +6,7 @@ class Slime : public Enemy {
 public:
 	Slime();
 
+	Slime(const Slime&) = default;
+
 	virtual ~Slime() = default;
 };

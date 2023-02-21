@@ -6,7 +6,6 @@
 
 HANDLE Screen::_screenHandle;
 COORD Screen::_currentCusorPosition;
-bool Screen::_updateScreen;
 std::mutex Screen::_bufferUpdateLock;
 std::array<char, SCREEN_HEIGHT* SCREEN_WIDTH> Screen::_bufferFrame;
 std::vector<Image*> Screen::_imagesToRender;
@@ -18,6 +17,7 @@ void Screen::Init(int screenWidth, int screenHeight) {
 	_currentCusorPosition.Y = 0;
     CreateScreen(screenWidth, screenHeight);
     HideCursor();
+    _imagesToRender.reserve(10);
 
     std::thread(Screen::Renderer).detach(); // begin rendering loop
 }
@@ -28,9 +28,8 @@ void Screen::Renderer() {
     while (true)
     {
         _bufferUpdateLock.lock();
-        UpdateBuffer();
-        std::cout << std::flush; //flush buffer just incase it wasnt due to a crash
         ResetCursor();
+        UpdateBuffer();
 
         for (int row = 0; row < SCREEN_HEIGHT; ++row) {
             char line[SCREEN_WIDTH + 1]{};
@@ -41,7 +40,6 @@ void Screen::Renderer() {
             std::cout << line;
             if (!(row == SCREEN_HEIGHT - 1)) std::cout << "\n";
         }
-        _updateScreen = false;
         std::cout << std::flush;
         _bufferUpdateLock.unlock();
         std::this_thread::sleep_for(std::chrono::milliseconds(updateSpeed));
@@ -90,6 +88,7 @@ void Screen::AddImages(std::initializer_list<Image*> images, bool updateScreen) 
     for (auto& image : images) {
         _imagesToRender.push_back(image);
     }
+    std::sort(_imagesToRender.begin(), _imagesToRender.end());
     _bufferUpdateLock.unlock();
 }
 
@@ -103,6 +102,7 @@ void Screen::RemoveImages(std::initializer_list<Image*> images, bool updateScree
             }
         }
     }
+    std::sort(_imagesToRender.begin(), _imagesToRender.end());
     _bufferUpdateLock.unlock();
 }
 
@@ -114,19 +114,16 @@ void Screen::ClearImages(bool updateScreen) {
 
 void Screen::UpdateBuffer() {
     _bufferFrame.fill(' ');
-    std::sort(_imagesToRender.begin(), _imagesToRender.end());
-    _updateScreen = true;
 
     for (const Image* image : _imagesToRender) {
-        const std::array<std::string, MAX_IMAGE_HEIGHT> imageToLoad = image->GetImage();
-        const std::pair<int, int> startingCoords = image->GetDisplayPosition();
+        const std::pair<int, int>& startingCoords = image->GetDisplayPosition();
 
-        for (int row = 0; row < imageToLoad.size(); ++row) {
+        for (int row = 0; row < image->GetImage().size(); ++row) {
             if (startingCoords.second + row == SCREEN_HEIGHT) break; //stop rendering image if it's off the bottom of the screen
-            for (int character = 0; character < imageToLoad[row].size(); ++character) {
+            for (int character = 0; character < image->GetImage()[row].size(); ++character) {
                 if (startingCoords.first + character == SCREEN_WIDTH) break; //stop processing line if it's off the screen
 
-                char possiblePixel = imageToLoad[row][character];
+                char possiblePixel = image->GetImage()[row][character];
                 if (possiblePixel == ' ') continue; //To display transparency, dont render pixels that are "transparent"
                 if (possiblePixel == '.') possiblePixel = ' ';
 

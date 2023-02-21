@@ -7,8 +7,8 @@
 #include <random>
 
 EnemyRoom::EnemyRoom() :
-	Room(), _totalEnemyWeights(0) {
-	GameManager::BeginCombat(GenerateEnemy());
+	Room(), _totalEnemyWeights(0), _roomEnemy(GenerateEnemy()) {
+	GameManager::BeginCombat(&_roomEnemy);
 }
 
 Enemy EnemyRoom::GenerateEnemy() {

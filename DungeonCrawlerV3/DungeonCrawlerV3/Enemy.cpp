@@ -10,6 +10,12 @@ Enemy::Enemy(float maxHealth, float attack, float defense, float critRate, float
 	Character(maxHealth, attack, defense, critRate, speed), _name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyInventory(*this, CreateStartingItems()) {
 }
 
+Enemy::Enemy(const Enemy& enemy)
+	: Character(enemy._maxHealth, enemy._baseAttack, enemy._baseDefense, enemy._baseCritRatePercent, enemy._baseSpeed), 
+	_name(enemy._name), _enemyValue(enemy._enemyValue), _healThreshold(enemy._healThreshold), _enemyInventory(enemy._enemyInventory), _possibleDrops(enemy._possibleDrops) {
+
+}
+
 void Enemy::ChooseAction(Character& other) {
 	Character::ChooseAction(other);
 
@@ -24,12 +30,11 @@ void Enemy::ChooseAction(Character& other) {
 }
 
 void Enemy::UseItem() {
-	if ((_enemyInventory.GetItems()[_enemyInventory.Size() - 1])->TryUseItem(*this))
+	if ((_enemyInventory.GetItems()[_enemyInventory.Size() - 1])->TryUseItem(this))
 		_enemyInventory.RemoveOrSellItem(_enemyInventory.Size() - 1, false);
 }
 
 void Enemy::Death(Character* killer) {
-	Character::Death(killer);
 	std::array<Item*, _maxDropsPossible> droppedLoot{ nullptr };
 	//generate loot
 	_possibleDrops.CreateLoot(droppedLoot);
@@ -40,6 +45,7 @@ void Enemy::Death(Character* killer) {
 	}
 
 	InventoryMenu::AddCoins(_enemyValue);
+	Character::Death(killer);
 }
 
 std::vector<Item*> Enemy::CreateStartingItems() {

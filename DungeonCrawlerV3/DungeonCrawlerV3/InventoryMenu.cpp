@@ -1,12 +1,15 @@
 #include "InventoryMenu.h"
 #include "GameState.h"
 #include "Character.h"
+#include "Image.h"
+#include "Screen.h"
 #include <conio.h>
 
 Inventory* InventoryMenu::_inventory;
 int InventoryMenu::_cursorPos;
 int InventoryMenu::_currentPage;
 bool InventoryMenu::_inventoryOverflowMode;
+Image* InventoryMenu::_displayImage;
 InventoryMenuAM InventoryMenu::_inventoryAM;
 InventoryOverflowAM InventoryMenu::_overflowAM;
 
@@ -14,7 +17,9 @@ InventoryOverflowAM InventoryMenu::_overflowAM;
 //return value of this represents if the player is still wants to use the inventoryMenu
 void InventoryMenu::Navigate() {
 	ActionMap::AddActionMap(&_inventoryAM);
+
 	UpdateDisplay();
+	Screen::AddImages({ _displayImage });
 }
 
 void InventoryMenu::AddItem(Item*& item) {
@@ -62,8 +67,7 @@ void InventoryMenu::UseItem() {
 	int itemIndex = _cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1);
 	if (itemIndex >= _inventory->Size()) return; //if pointing at memory out of bounds dont do anything
 
-	Character inventoryOwner = _inventory->GetOwner();
-	bool itemUsed = _inventory->GetItem(itemIndex)->TryUseItem(inventoryOwner);
+	bool itemUsed = _inventory->GetItem(itemIndex)->TryUseItem(_inventory->GetOwner());
 	if (!itemUsed) return; //if item did not get used do not remove item
 
 	RemoveItem(false);
@@ -85,7 +89,7 @@ void InventoryMenu::RemoveItem(bool sellItem) {
 void InventoryMenu::Quit() {
 	ResetCursor();
 	ResetPageCount();
-	UpdateDisplay();
+	Screen::RemoveImages({ _displayImage });
 	ActionMap::PopCurrentMap();
 }
 
@@ -109,4 +113,30 @@ void InventoryMenu::RejectOverflowItem() {
 }
 
 
-void InventoryMenu::UpdateDisplay() {}
+void InventoryMenu::UpdateDisplay() {
+	static std::array<std::string, MAX_IMAGE_HEIGHT> inventoryDisplay;
+
+	for (int row = 0; row < DISPLAY_ROWS; ++row) {
+		std::string line;
+		for (int col = 0; col < DISPLAY_COLUMNS; ++col) {
+			std::string column{ "." + std::to_string((_currentPage * (MAX_CURSOR_POSITION + 1) + row) + (1 + DISPLAY_ROWS * col)) + ":"};
+
+			Item* const& possibleItem = _inventory->GetItem(_currentPage * (MAX_CURSOR_POSITION + 1) + row + col * DISPLAY_ROWS);
+			if (possibleItem != nullptr) column = column + possibleItem->GetName() + "..$" + std::to_string(possibleItem->GetValue());
+
+			column += std::string(MAX_COLUMN_SIZE - column.size(), '.');
+			line += column;
+		}
+		inventoryDisplay[row * 2] = line;
+	}
+
+	//display coins
+	std::string coinsDisplay = "Coins: $" + std::to_string(_inventory->GetCoins());
+	inventoryDisplay[DISPLAY_ROWS * 2] = std::string(MAX_COLUMN_SIZE - coinsDisplay.size() / 2, ' ') + coinsDisplay;
+
+	if (_cursorPos < DISPLAY_ROWS) inventoryDisplay[_cursorPos * 2][0] = '>';
+	else inventoryDisplay[(_cursorPos - DISPLAY_ROWS) * 2][MAX_COLUMN_SIZE] = '>';
+
+	if (_displayImage == nullptr) _displayImage = new Image(inventoryDisplay, 1, { 2, 37 });
+	else *_displayImage = std::move(Image(inventoryDisplay, 1, { 2, 37 }));
+}

@@ -44,7 +44,7 @@ bool Inventory::AddItem(Item* item) {
 }
 
 bool Inventory::RemoveOrSellItem(int index, bool sellItem) {
-	if (index >= _items.size()) return false;
+	if (index >= Size()) return false;
 
 
 	if (sellItem)
@@ -55,8 +55,10 @@ bool Inventory::RemoveOrSellItem(int index, bool sellItem) {
 	
 	//shift items down to delete item
 	ItemList::iterator itemToShift = _items.begin() + index + 1;
-	while (itemToShift != _currentSize) 
+	while (itemToShift != _currentSize) {
 		*(itemToShift - 1) = *itemToShift;
+		++itemToShift;
+	}
 	--_currentSize;
 	*_currentSize = nullptr;
 

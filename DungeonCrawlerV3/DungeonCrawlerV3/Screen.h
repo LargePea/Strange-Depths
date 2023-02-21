@@ -18,8 +18,6 @@ private:
 	static HANDLE _screenHandle;
 	static COORD _currentCusorPosition;
 
-	
-	static bool _updateScreen;
 	static std::array<char, SCREEN_HEIGHT* SCREEN_WIDTH> _bufferFrame;
 	static std::mutex _bufferUpdateLock;
 

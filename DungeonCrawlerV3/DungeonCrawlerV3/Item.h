@@ -30,7 +30,7 @@ public:
 	inline ItemType GetType() { return _itemType; }
 
 	//fuctional functions
-	bool TryUseItem(Character& user);
+	bool TryUseItem(Character* user);
 
-	virtual void UseItem(Character& user) {};
+	virtual void UseItem(Character* user) {};
 };

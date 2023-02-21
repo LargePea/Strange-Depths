@@ -1,8 +1,9 @@
 #include "InventoryOverflowAM.h"
 #include "InventoryMenu.h"
+#include "SpriteAtlas.h"
 
 InventoryOverflowAM::InventoryOverflowAM()
-	:ActionMap(Image("Sprites\\OverflowMenu.txt", 1, std::make_pair<int, int>(0, 37))) {
+	:ActionMap(Image(OVERFLOW_MENU, 1, std::make_pair<int, int>(0, 37))) {
 
 }
 

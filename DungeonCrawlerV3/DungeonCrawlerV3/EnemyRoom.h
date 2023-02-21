@@ -17,6 +17,7 @@ private:
 
 	std::array<int, 4> _enemyWeightMap{6,5,2,1};
 	int _totalEnemyWeights;
+	Enemy _roomEnemy;
 
 protected:
 	EnemyRoom();

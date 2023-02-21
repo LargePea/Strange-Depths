@@ -17,7 +17,7 @@ public:
 
 	static void SetPlayer(Character* player);
 
-	static void BeginCombat(Character enemy);
+	static void BeginCombat(Character* enemy);
 
 	static void EndCombat(Character* deadCharacter);
 };

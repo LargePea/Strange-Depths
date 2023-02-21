@@ -210,6 +210,7 @@
     <ClInclude Include="ShopRoomAM.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Slime.h" />
+    <ClInclude Include="SpriteAtlas.h" />
     <ClInclude Include="TreasureRoom.h" />
     <ClInclude Include="TreasureRoomAM.h" />
   </ItemGroup>

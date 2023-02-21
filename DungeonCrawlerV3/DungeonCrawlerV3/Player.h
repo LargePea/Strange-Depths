@@ -17,6 +17,8 @@ private:
 public:
 	Player();
 
+	Player(const Player&);
+
 	~Player() override = default;
 
 	//functional methods

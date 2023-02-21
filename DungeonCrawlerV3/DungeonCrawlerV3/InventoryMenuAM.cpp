@@ -1,8 +1,9 @@
 #include "InventoryMenuAM.h"
 #include "InventoryMenu.h"
+#include "SpriteAtlas.h"
 
 InventoryMenuAM::InventoryMenuAM() 
-	:ActionMap(Image("Sprites\\InventoryMenu.txt", 1, std::make_pair<int, int>(0, 37))){}
+	:ActionMap(Image(INVENTORY_MENU, 1, std::make_pair<int, int>(0, 37))){}
 
 void InventoryMenuAM::InputAction(const char input) {
 	switch (input)

@@ -5,9 +5,11 @@
 
 class ShopRoomAM : public ActionMap {
 private:
-	Shop _shop;
+	Shop& _shop;
 public:
-	ShopRoomAM(Shop shop);
+	ShopRoomAM(Shop& shop);
 
 	void InputAction(const char input) override;
+
+	void OnActivate() override;
 };

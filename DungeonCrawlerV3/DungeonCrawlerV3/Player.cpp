@@ -11,6 +11,11 @@ Player::Player() :
 	InventoryMenu::SetInventory(&_playerInventory);
 }
 
+Player::Player(const Player& other)
+	: Character(other._maxHealth, other._baseAttack, other._baseDefense, other._baseCritRatePercent, other._baseSpeed) {
+
+}
+
 //functional methods
 void Player::ChooseAction(Character &other) {
 	CombatAM playerActions(&other, this);
@@ -47,7 +52,7 @@ void Player::QuickHeal() {
 			&& dynamic_cast<HealPotion*>(possibleHeal)) 
 		{
 			//use and remove item
-			possibleHeal->TryUseItem(*this);
+			possibleHeal->TryUseItem(this);
 			_playerInventory.RemoveOrSellItem(i, false);
 			_playerCombatTurn = false;
 			break;

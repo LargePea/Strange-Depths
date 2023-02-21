@@ -23,6 +23,8 @@ public:
 
 	void virtual InputAction(const char) = 0;
 
+	void virtual OnActivate() {}
+
 	void RemoveMapImage() { Screen::RemoveImages({ &_actionMenu }, false); }
 
 	inline void AddMapImage() { Screen::AddImages({ &_actionMenu }); }

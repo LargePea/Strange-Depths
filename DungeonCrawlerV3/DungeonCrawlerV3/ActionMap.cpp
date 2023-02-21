@@ -10,10 +10,12 @@ void ActionMap::PopCurrentMap() {
 	GetCurrentMap().RemoveMapImage();
 	_actionMapStack.pop();
 	GetCurrentMap().AddMapImage();
+	GetCurrentMap().OnActivate();
 }
 
 void ActionMap::AddActionMap(ActionMap* newMap) {
 	if(_actionMapStack.size() != 0) GetCurrentMap().RemoveMapImage();
 	_actionMapStack.emplace(newMap);
 	GetCurrentMap().AddMapImage();
+	GetCurrentMap().OnActivate();
 }

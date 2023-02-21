@@ -3,6 +3,7 @@
 
 ShopRoom::ShopRoom() 
 	: _actionMap(_shop) {
+
 	GameState::SetStateMask(GameStateMask::Shop);
 	ActionMap::AddActionMap(&_actionMap);
 	_event = _shop.KeyBought.Attach(this, &ShopRoom::UnlockExit);

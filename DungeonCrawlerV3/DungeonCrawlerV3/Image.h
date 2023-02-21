@@ -19,7 +19,7 @@ public:
 	Image(std::array<std::string, MAX_IMAGE_HEIGHT> image, int priority, std::pair<int, int> displayPos);
 
 	Image(const Image&);
-	Image& operator=(Image other);
+	Image& operator=(const Image& other);
 
 	Image(Image&&) noexcept;
 	Image& operator=(Image&&) noexcept;

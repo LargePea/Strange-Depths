@@ -1,7 +1,9 @@
 #include "Screen.h"
 #include "GameManager.h"
 #include "GameState.h"
+#include "SpriteAtlas.h"
 #include <conio.h>
+#include "InventoryMenu.h"
 
 int main()
 {
@@ -11,7 +13,7 @@ int main()
 
     while (gameRunning)
     {
-        Image mainMenu = Image("Sprites\\MainMenu.txt", 0, std::make_pair<int, int>(0, 0));
+        Image mainMenu = Image(MAIN_MENU, 0, std::make_pair<int, int>(0, 0));
         Screen::AddImages({ &mainMenu });
         switch (static_cast<char>(_getch()))
         {

@@ -1,7 +1,8 @@
 #include "CombatAM.h"
+#include "SpriteAtlas.h"
 
 CombatAM::CombatAM(Character* opponent, Player* user)
-	:ActionMap(Image("Sprites\\CombatMenu.txt", 1, std::make_pair<int, int>(0, 37))), _opponent(opponent), _user(user) {}
+	:ActionMap(Image(COMBAT_MENU, 1, std::make_pair<int, int>(0, 37))), _opponent(opponent), _user(user) {}
 
 void CombatAM::InputAction(const char input) {
 	switch (input)
