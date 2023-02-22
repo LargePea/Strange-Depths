@@ -25,7 +25,7 @@ private:
 	static InventoryOverflowAM _overflowAM;
 
 	//navigation
-	static int _cursorPos;
+	static size_t _cursorPos;
 	static int _currentPage;
 	static bool _inventoryOverflowMode;
 	static Image* _displayImage;

@@ -6,7 +6,7 @@
 #include <conio.h>
 
 Inventory* InventoryMenu::_inventory;
-int InventoryMenu::_cursorPos;
+size_t InventoryMenu::_cursorPos;
 int InventoryMenu::_currentPage;
 bool InventoryMenu::_inventoryOverflowMode;
 Image* InventoryMenu::_displayImage;
@@ -111,9 +111,9 @@ void InventoryMenu::RejectOverflowItem() {
 void InventoryMenu::UpdateDisplay() {
 	static std::vector<std::string> inventoryDisplay(12, "");
 
-	for (int row = 0; row < DISPLAY_ROWS; ++row) {
+	for (size_t row = 0; row < DISPLAY_ROWS; ++row) {
 		std::string line;
-		for (int col = 0; col < DISPLAY_COLUMNS; ++col) {
+		for (size_t col = 0; col < DISPLAY_COLUMNS; ++col) {
 			std::string column{ "." + std::to_string((_currentPage * (MAX_CURSOR_POSITION + 1) + row) + (1 + DISPLAY_ROWS * col)) + ":"};
 
 			Item* const& possibleItem = _inventory->GetItem(_currentPage * (MAX_CURSOR_POSITION + 1) + row + col * DISPLAY_ROWS);

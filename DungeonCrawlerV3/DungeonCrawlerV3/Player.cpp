@@ -3,6 +3,8 @@
 #include "CombatAM.h"
 #include "Potion.h"
 #include "Screen.h"
+#include "Notification.h"
+#include "SpriteAtlas.h"
 #include <vector>
 #include <conio.h>
 
@@ -36,8 +38,19 @@ void Player::UpdateStats() {
 }
 
 void Player::Damage(const float& incomingDamage, Character& attacker) {
-	Character::Damage(incomingDamage, attacker);
+	float recalculatedIncomingDamage = incomingDamage * (-2 * std::pow(_defense / (_defense + incomingDamage), incomingDamage / (_defense + incomingDamage)) + 2);
+	float damagedhealth = std::round(_currentHealth - recalculatedIncomingDamage);
 
+	std::string damageString = ".You.took." + std::to_string((int)std::round(recalculatedIncomingDamage)) + ".Damage.";
+	std::string healthString = ".You.have." + std::to_string((int) (damagedhealth > 0 ? damagedhealth : 0)) + ".health.remaining.";
+
+	Notification damageNotif({
+		damageString,
+		healthString,
+		".Press.Any.Key.To.Continue."
+	}, { 42, 38 });
+
+	Character::Damage(incomingDamage, attacker);
 	UpdateStats();
 }
 
@@ -78,13 +91,19 @@ void Player::QuickHeal() {
 			possibleHeal->TryUseItem(this);
 			_playerInventory.RemoveOrSellItem(i, false);
 			_playerCombatTurn = false;
-			break;
+			return;
 		}
 	}
+
+	Notification noHealNotif({
+		".You.have.no.Heal.Potions.",
+		".Press.Any.Key.To.Continue."
+		}, { 43, 39 });
 }
 
 void Player::Death(Character* killer) {
 	Character::Death(killer);
 	Screen::ClearImages();
-	//TO:DO display what room # player was on
+
+	Notification gameOverNotif(GAMEOVER_MENU, { 0,0 });
 }

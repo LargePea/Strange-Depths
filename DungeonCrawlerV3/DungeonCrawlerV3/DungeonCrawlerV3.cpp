@@ -15,19 +15,26 @@ int main()
         GameState::SetStateMask(GameStateMask::Normal); //sanity check
         Image mainMenu = Image(MAIN_MENU, 0, std::make_pair<int, int>(0, 0));
         Screen::AddImages({ &mainMenu });
-        switch (static_cast<char>(_getch()))
+        bool correctInput = false;
+        while (!correctInput)
         {
-        case 'p':
-        case 'P':
-            Screen::RemoveImages({ &mainMenu });
-            GameManager::Init();
-            break;
-        case 'q':
-        case 'Q':
-            gameRunning = false;
-            break;
-        default:
-            break;
+            switch (static_cast<char>(_getch()))
+            {
+            case 'p':
+            case 'P':
+                correctInput = true;
+                Screen::RemoveImages({ &mainMenu });
+                GameManager::Init();
+                break;
+            case 'q':
+            case 'Q':
+                correctInput = true;
+                gameRunning = false;
+                break;
+            default:
+                break;
+            }
         }
+
     }
 }

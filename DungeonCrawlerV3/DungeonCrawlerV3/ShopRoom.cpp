@@ -12,13 +12,9 @@ ShopRoom::ShopRoom()
 }
 
 void ShopRoom::UnlockExit() {
-	Notification _exitAvalibleNotif(std::vector<std::string>{
-		"=================================================================",
-		"|...............................................................|",
-		"|.You hear something open in the distance,.possibly an escape?!.|",
-		"|.................Press Any Key To Continue.....................|",
-		"|...............................................................|",
-		"================================================================="
+	Notification _exitAvalibleNotif({
+		".You hear something open in the distance,.possibly an escape?!.",
+		".Press.Any.Key.To.Continue.",
 	}, { 25, 38 });
 	_exitUnlocked = true;
 }

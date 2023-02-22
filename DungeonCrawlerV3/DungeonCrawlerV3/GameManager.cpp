@@ -4,7 +4,6 @@
 #include "Screen.h"
 #include "Room.h"
 #include "SpriteAtlas.h"
-#include "Notification.h"
 #include "CombatAM.h"
 #include <conio.h>
 
@@ -30,8 +29,6 @@ void GameManager::Init() {
 
 	ActionMap::PopCurrentMap();
 	Room::ResetRooms();
-
-	Notification gameOverNotif(GAMEOVER_MENU, { 0,0 });
 }
 
 
