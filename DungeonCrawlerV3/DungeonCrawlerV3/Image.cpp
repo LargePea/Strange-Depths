@@ -11,6 +11,7 @@ Image::Image(const char* imageFilePath, int priority, std::pair<int, int> displa
 		while (std::getline(imageFile, line)) {
 			_image.emplace_back(line);
 		}
+		imageFile.close();
 	}
 	_image.shrink_to_fit();
 }
