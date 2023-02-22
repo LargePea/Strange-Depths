@@ -1,6 +1,6 @@
 #include "ShopRoom.h"
 #include "GameState.h"
-#include <conio.h>
+#include "Notification.h"
 
 ShopRoom::ShopRoom() 
 	: _actionMap(_shop) {
@@ -12,18 +12,14 @@ ShopRoom::ShopRoom()
 }
 
 void ShopRoom::UnlockExit() {
-	_shop.HideShop();
-
-	Image _exitAvalibleNotif = Image(std::vector<std::string>{
-		"You hear something open in the distance, possibly an escape?!",
-		"                 Press Any Key To Continue"
-	}, 2, { 27, 41 });
-
-	Screen::AddImages({ &_exitAvalibleNotif });
-	_getch();
-	Screen::RemoveImages({ &_exitAvalibleNotif });
-	_shop.ShowShop();
-
+	Notification _exitAvalibleNotif(Image(std::vector<std::string>{
+		"=================================================================",
+		"|...............................................................|",
+		"|.You hear something open in the distance,.possibly an escape?!.|",
+		"|.................Press Any Key To Continue.....................|",
+		"|...............................................................|",
+		"================================================================="
+	}, 10, { 25, 38 }));
 	_exitUnlocked = true;
 }
 

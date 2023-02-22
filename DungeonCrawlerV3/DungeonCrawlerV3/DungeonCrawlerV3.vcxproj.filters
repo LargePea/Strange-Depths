@@ -150,6 +150,9 @@
     <ClCompile Include="ShopRoomAM.cpp">
       <Filter>Source Files\ActionMaps</Filter>
     </ClCompile>
+    <ClCompile Include="Notification.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Screen.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="ShopRoomAM.h">
       <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="Notification.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
