@@ -16,16 +16,16 @@ private:
 
 	//Items
 	Item _gel = Item("Gel", 1);
-	Item _purifiedGel =Item("Purified Gel", 4);
-	Item _crystalizedGel = Item("Crystalized Gel", 8);
+	Item _purifiedGel =Item("Purified.Gel", 4);
+	Item _crystalizedGel = Item("Crystalized.Gel", 8);
 	Item _bone = Item("Bone", 2);
-	Item _scrapCloth = Item("Scrap Cloth", 1);
-	Item _rustedSword = Item("Rusted Sword", 5);
-	Item _tatteredPhoto = Item("Tattered Photo", 3);
+	Item _scrapCloth = Item("Scrap.Cloth", 1);
+	Item _rustedSword = Item("Rusted.Sword", 5);
+	Item _tatteredPhoto = Item("Tattered.Photo", 3);
 	Item _ectoplasm = Item("Ectoplasm", 4);
-	Item _lostSoul = Item("Lost Soul", 10);
+	Item _lostSoul = Item("Lost.Soul", 10);
 	Item _club = Item("Club", 3);
-	Item _ogreSkin = Item("Ogre Skin", 5);
+	Item _ogreSkin = Item("Ogre.Skin", 5);
 	Item _onion = Item("Onion", 7);
 	Item _key = Item("KeyStone", 5);
 
@@ -46,9 +46,9 @@ private:
 	};
 	
 	//potions
-	HealPotion _healPotion = HealPotion("Heal Potion", 10);
-	LifeStealPotion _lifeStealPotion = LifeStealPotion("Life Steal Potion", 15);
-	RegenPotion _regenPotion = RegenPotion("Regeneration Potion", 20);
+	HealPotion _healPotion = HealPotion("Heal.Potion", 10);
+	LifeStealPotion _lifeStealPotion = LifeStealPotion("Life.Steal.Potion", 15);
+	RegenPotion _regenPotion = RegenPotion("Regeneration.Potion", 20);
 
 	ItemMap _potionsInterface{ 
 		{"Heal", &_healPotion}, 
@@ -57,10 +57,10 @@ private:
 	};
 
 	//enchantments
-	Enchantment _slimeEnchant = Enchantment("Slime Enchantment", 50, Enchant("Slime Enchant", 0.1f, Enchant::EnchanmentTypes::CritRate));
-	Enchantment _skeletonEnchant = Enchantment("Skeleton Enchantment", 50, Enchant("Skeleton Enchant", 0.1f, Enchant::EnchanmentTypes::Attack));
-	Enchantment _bansheeEnchant = Enchantment("Banshee Enchantment", 65, Enchant("Banshee Enchant", 0.55f, Enchant::EnchanmentTypes::Speed));
-	Enchantment _ogreEnchant = Enchantment("Ogre Enchantment", 70, Enchant("Ogre Enchant", 0.1f, Enchant::EnchanmentTypes::Defense));
+	Enchantment _slimeEnchant = Enchantment("Slime.Enchantment", 50, Enchant("Slime.Enchant", 0.1f, Enchant::EnchanmentTypes::CritRate));
+	Enchantment _skeletonEnchant = Enchantment("Skeleton.Enchantment", 50, Enchant("Skeleton.Enchant", 0.1f, Enchant::EnchanmentTypes::Attack));
+	Enchantment _bansheeEnchant = Enchantment("Banshee.Enchantment", 65, Enchant("Banshee.Enchant", 0.55f, Enchant::EnchanmentTypes::Speed));
+	Enchantment _ogreEnchant = Enchantment("Ogre.Enchantment", 70, Enchant("Ogre.Enchant", 0.1f, Enchant::EnchanmentTypes::Defense));
 
 	ItemMap _enchantmentsInterface{
 		{"Slime", &_slimeEnchant},
