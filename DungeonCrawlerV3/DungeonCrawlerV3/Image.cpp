@@ -58,7 +58,7 @@ Image Image::operator+(const Image& rhs) {
 	const std::vector<std::string>& incomingImage = rhs.GetImage();
 	std::vector<std::string> outgoingImage = this->_image;
 
-	for (int row = 0; row + offset.second < incomingImage.size(); ++row) {
+	for (int row = 0; row < incomingImage.size() && row + offset.second < outgoingImage.size(); ++row) {
 		if (incomingImage[row] == "") continue;
 		for (int character = 0; character < incomingImage[row].size() && (character + offset.first) < outgoingImage[row + offset.second].size(); ++character) {
 			outgoingImage[row + offset.second][character + offset.first] = incomingImage[row][character];
