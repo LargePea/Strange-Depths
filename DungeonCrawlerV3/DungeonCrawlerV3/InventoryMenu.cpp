@@ -3,6 +3,7 @@
 #include "Character.h"
 #include "Image.h"
 #include "Screen.h"
+#include "Notification.h"
 #include <conio.h>
 
 Inventory* InventoryMenu::_inventory;
@@ -20,7 +21,17 @@ void InventoryMenu::Navigate() {
 }
 
 void InventoryMenu::AddItem(Item*& item) {
-	if (!_inventory->AddItem(item)) ItemOverflow(item);
+	if (!_inventory->AddItem(item)) 
+	{
+		{
+			Notification overflowNotif({
+				".Your.Inventory.is.full.and.can't.take.in:." + (std::string)item->GetName() + ".",
+				".Please.choose.to.accept.this.item.or.not.",
+				".Press.Any.Key.To.Continue."
+				}, { 40, 38 });
+		}
+		ItemOverflow(item);
+	}
 }
 
 void InventoryMenu::AddCoins(int& coins) {

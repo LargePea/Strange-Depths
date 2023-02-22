@@ -4,6 +4,7 @@
 #include "InventoryMenu.h"
 #include "ItemDictionary.h"
 #include "Screen.h"
+#include "Notification.h"
 #include <random>
 #include <array>
 
@@ -60,6 +61,14 @@ void Enemy::Death(Character* killer) {
 	std::array<Item*, _maxDropsPossible> droppedLoot{ nullptr };
 	//generate loot
 	_possibleDrops.CreateLoot(droppedLoot);
+
+	{
+		Notification deathNotif({
+			".You.just.killed.the." + (std::string)_name + ".",
+			droppedLoot[0] == nullptr ? ".It.dropped.no.items." : ".It.dropped.some.items!.",
+			".Press.Any.Key.To.Continue."
+			}, {42, 38});
+	}
 
 	for (auto& loot : droppedLoot) {
 		if (loot == nullptr) break;
