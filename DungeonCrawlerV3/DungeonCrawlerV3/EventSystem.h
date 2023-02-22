@@ -1,5 +1,6 @@
 #pragma once
 #include <set>
+#include <mutex>
 
 template<typename... Args> class Subject;
 template<typename... Args> class IEvent;
@@ -63,7 +64,9 @@ template<typename... Args>
 class Subject {
 private:
 	std::set<IEvent<Args...>*> events;
-	std::set< IEvent<Args...>*> eventsToRemove;
+	std::set<IEvent<Args...>*> eventsToDelete;
+	bool _isInvoking;
+
 public:
 	Subject() = default;
 
@@ -85,22 +88,27 @@ public:
 		return event;
 	}
 
-	void Remove(IEvent<Args...>* event) { eventsToRemove.insert(eventsToRemove.end(), event); }
+	void Remove(IEvent<Args...>* event) { 
+		if (_isInvoking) eventsToDelete.insert(event);
+		else events.erase(event); 
+	}
 
 
 	void Invoke(Args... args) { 
-		for (IEvent<Args...>* event : events) event->Invoke(args...);
+		_isInvoking = true;
+		for (IEvent<Args...>* const&  event : events) 
+			event->Invoke(args...);
+		_isInvoking = false;
 
-		if (eventsToRemove.size() == 0) return;
+		if (eventsToDelete.size() == 0) return;
 
-		for (IEvent<Args...>* event : eventsToRemove) {
-			auto foundEvent = events.find(event);
-			//check to see if event was already removed
-			if (foundEvent != events.end())
-				delete event;
-				events.erase(foundEvent);
+		for (IEvent<Args...>* const& event : eventsToDelete) {
+			auto it = events.find(event);
+			if (it != events.end())
+				events.erase(it);
 		}
-		eventsToRemove.clear();
+
+		eventsToDelete.clear();
 	}
 
 	inline int EventCount() { return events.size(); }

@@ -1,12 +1,16 @@
 #include "InventoryMenu.h"
 #include "GameState.h"
 #include "Character.h"
+#include "Image.h"
+#include "Screen.h"
+#include "Notification.h"
 #include <conio.h>
 
 Inventory* InventoryMenu::_inventory;
-int InventoryMenu::_cursorPos;
+size_t InventoryMenu::_cursorPos;
 int InventoryMenu::_currentPage;
 bool InventoryMenu::_inventoryOverflowMode;
+Image* InventoryMenu::_displayImage;
 InventoryMenuAM InventoryMenu::_inventoryAM;
 InventoryOverflowAM InventoryMenu::_overflowAM;
 
@@ -14,11 +18,20 @@ InventoryOverflowAM InventoryMenu::_overflowAM;
 //return value of this represents if the player is still wants to use the inventoryMenu
 void InventoryMenu::Navigate() {
 	ActionMap::AddActionMap(&_inventoryAM);
-	UpdateDisplay();
 }
 
 void InventoryMenu::AddItem(Item*& item) {
-	if (!_inventory->AddItem(item)) ItemOverflow(item);
+	if (!_inventory->AddItem(item)) 
+	{
+		{
+			Notification overflowNotif({
+				".Your.Inventory.is.full.and.can't.take.in:." + (std::string)item->GetName() + ".",
+				".Please.choose.to.accept.this.item.or.not.",
+				".Press.Any.Key.To.Continue."
+				}, { 30, 38 });
+		}
+		ItemOverflow(item);
+	}
 }
 
 void InventoryMenu::AddCoins(int& coins) {
@@ -62,8 +75,7 @@ void InventoryMenu::UseItem() {
 	int itemIndex = _cursorPos + _currentPage * (MAX_CURSOR_POSITION + 1);
 	if (itemIndex >= _inventory->Size()) return; //if pointing at memory out of bounds dont do anything
 
-	Character inventoryOwner = _inventory->GetOwner();
-	bool itemUsed = _inventory->GetItem(itemIndex)->TryUseItem(inventoryOwner);
+	bool itemUsed = _inventory->GetItem(itemIndex)->TryUseItem(_inventory->GetOwner());
 	if (!itemUsed) return; //if item did not get used do not remove item
 
 	RemoveItem(false);
@@ -76,7 +88,7 @@ void InventoryMenu::RemoveItem(bool sellItem) {
 
 	if (_inventoryOverflowMode) {
 		_inventoryOverflowMode = false;
-		ActionMap::PopCurrentMap(); //if this actionmap call is for overflow then it's job is done
+		Quit(); //if this actionmap call is for overflow then it's job is done
 	}
 
 	UpdateDisplay(); //only remove item from display if item was actually removed from inventory
@@ -85,7 +97,6 @@ void InventoryMenu::RemoveItem(bool sellItem) {
 void InventoryMenu::Quit() {
 	ResetCursor();
 	ResetPageCount();
-	UpdateDisplay();
 	ActionMap::PopCurrentMap();
 }
 
@@ -97,6 +108,7 @@ void InventoryMenu::ItemOverflow(Item*& itemToAdd) {
 	}
 
 	if (!_inventory->IsFull()) AddItem(itemToAdd);
+	ActionMap::PopCurrentMap();
 }
 
 void InventoryMenu::AcceptOverflowItem() {
@@ -105,8 +117,32 @@ void InventoryMenu::AcceptOverflowItem() {
 
 void InventoryMenu::RejectOverflowItem() {
 	_inventoryOverflowMode = false;
-	ActionMap::PopCurrentMap();
 }
 
+void InventoryMenu::UpdateDisplay() {
+	static std::vector<std::string> inventoryDisplay(12, "");
 
-void InventoryMenu::UpdateDisplay() {}
+	for (size_t row = 0; row < DISPLAY_ROWS; ++row) {
+		std::string line;
+		for (size_t col = 0; col < DISPLAY_COLUMNS; ++col) {
+			std::string column{ "." + std::to_string((_currentPage * (MAX_CURSOR_POSITION + 1) + row) + (1 + DISPLAY_ROWS * col)) + ":"};
+
+			Item* const& possibleItem = _inventory->GetItem(_currentPage * (MAX_CURSOR_POSITION + 1) + row + col * DISPLAY_ROWS);
+			if (possibleItem != nullptr) column = column + possibleItem->GetName() + "..$" + std::to_string(possibleItem->GetValue());
+
+			column += std::string(MAX_COLUMN_SIZE - column.size(), '.');
+			line += column;
+		}
+		inventoryDisplay[row * 2] = line;
+	}
+
+	//display coins
+	std::string coinsDisplay = "Coins: $" + std::to_string(_inventory->GetCoins());
+	inventoryDisplay[DISPLAY_ROWS * 2] = std::string(MAX_COLUMN_SIZE - coinsDisplay.size() / 2, ' ') + coinsDisplay;
+
+	if (_cursorPos < DISPLAY_ROWS) inventoryDisplay[_cursorPos * 2][0] = '>';
+	else inventoryDisplay[(_cursorPos - DISPLAY_ROWS) * 2][MAX_COLUMN_SIZE] = '>';
+
+	if (_displayImage == nullptr) _displayImage = new Image(inventoryDisplay, 1, { 2, 37 });
+	else *_displayImage = std::move(Image(inventoryDisplay, 1, { 2, 37 }));
+}

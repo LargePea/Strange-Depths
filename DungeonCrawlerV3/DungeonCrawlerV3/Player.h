@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "Inventory.h"
 #include "InventoryMenu.h"
+#include "Image.h"
 #include <vector>
 
 class Player : public Character {
@@ -14,14 +15,25 @@ private:
 	//combat
 	bool _playerCombatTurn = false;
 
+	Image _playerStats = Image("", 0, { 0,0 });
+
 public:
 	Player();
+
+	Player(const Player&);
 
 	~Player() override = default;
 
 	//functional methods
 	void ChooseAction(Character& other) override;
 
+	void Damage(const float& incomingDamage, Character& attacker) override;
+
+	void LoadStats();
+
+	void HideStats();
+
+	void Heal(const float& incomingHeal) override;
 
 protected:
 	void UseItem() override;
@@ -29,6 +41,8 @@ protected:
 	void Death(Character* killer) override;
 
 private:
+	void UpdateStats();
+
 	inline Inventory* GetInventory() { return &_playerInventory; }
 
 	void QuickHeal();

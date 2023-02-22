@@ -7,8 +7,10 @@
 #include <random>
 
 EnemyRoom::EnemyRoom() :
-	Room(), _totalEnemyWeights(0) {
-	GameManager::BeginCombat(GenerateEnemy());
+	Room(), _totalEnemyWeights(0), _roomEnemy(GenerateEnemy()) {
+
+	_roomEnemy.LoadEnemyImage();
+	GameManager::BeginCombat(&_roomEnemy);
 }
 
 Enemy EnemyRoom::GenerateEnemy() {
@@ -21,7 +23,7 @@ Enemy EnemyRoom::GenerateEnemy() {
 	int generatedNumber = distribution(engine);
 
 	for (int i = 0; i < _enemyWeightMap.size(); ++i) {
-		if (generatedNumber < _enemyWeightMap[i]) {
+		if (generatedNumber <= _enemyWeightMap[i]) {
 			switch ((EnemyType)i)
 			{
 			case EnemyType::Slime:

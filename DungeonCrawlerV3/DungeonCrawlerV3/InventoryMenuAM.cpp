@@ -1,5 +1,9 @@
 #include "InventoryMenuAM.h"
 #include "InventoryMenu.h"
+#include "SpriteAtlas.h"
+
+InventoryMenuAM::InventoryMenuAM() 
+	:ActionMap(Image(INVENTORY_MENU, 1, std::make_pair<int, int>(0, 37))){}
 
 void InventoryMenuAM::InputAction(const char input) {
 	switch (input)
@@ -35,4 +39,13 @@ void InventoryMenuAM::InputAction(const char input) {
 	default:
 		break;
 	}
+}
+
+void InventoryMenuAM::OnActivate() {
+	InventoryMenu::UpdateDisplay();
+	Screen::AddImages({ InventoryMenu::_displayImage });
+}
+
+void InventoryMenuAM::OnDeactivate() {
+	Screen::RemoveImages({ InventoryMenu::_displayImage });
 }

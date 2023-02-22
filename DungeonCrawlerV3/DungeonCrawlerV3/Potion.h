@@ -11,7 +11,7 @@ public:
 	LifeStealPotion(const char* name, int value) : Item(name, value, ItemType::Potion, (int)GameStateMask::Combat) {}
 	~LifeStealPotion() override = default;
 
-	void UseItem(Character& user) override;
+	void UseItem(Character* user) override;
 };
 
 class RegenPotion : public Item {
@@ -22,7 +22,7 @@ public:
 	RegenPotion(const char* name, int value) : Item(name, value, ItemType::Potion, (int)GameStateMask::Combat) {}
 	~RegenPotion() override = default;
 
-	void UseItem(Character& user) override;
+	void UseItem(Character* user) override;
 };
 
 class HealPotion : public Item {
@@ -32,5 +32,5 @@ public:
 	HealPotion(const char* name, int value) : Item(name, value, ItemType::Potion, (int)GameStateMask::Combat + (int)GameStateMask::Normal) {}
 	~HealPotion() override = default;
 
-	void UseItem(Character& user) override;
+	void UseItem(Character* user) override;
 };

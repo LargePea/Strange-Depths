@@ -3,7 +3,8 @@
 GameStateMask GameState::_currentGameState;
 
 int GameState::GetStateMask() {
-	return (int) _currentGameState;
+	int state = (int) _currentGameState;
+	return state;
 }
 
 void GameState::SetStateMask(GameStateMask newState) {

@@ -4,7 +4,11 @@
 
 class InventoryMenuAM : public ActionMap {
 public:
-	InventoryMenuAM() = default;
+	InventoryMenuAM();
 
 	void InputAction(const char input) override;
+
+	void OnActivate() override;
+
+	void OnDeactivate() override;
 };

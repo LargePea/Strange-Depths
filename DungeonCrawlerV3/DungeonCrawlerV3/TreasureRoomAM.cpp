@@ -1,7 +1,8 @@
 #include "TreasureRoomAm.h"
+#include "SpriteAtlas.h"
 
 TreasureRoomAM::TreasureRoomAM(Chest* chest) 
-	: _chest(chest) {}
+	: ActionMap(Image(TREASURE_MENU, 1, std::make_pair<int, int>(0, 37))), _chest(chest) {}
 
 void TreasureRoomAM::InputAction(const char input) {
 	switch (input)

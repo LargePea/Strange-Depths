@@ -1,55 +1,40 @@
 #include "Screen.h"
-#include "Image.h"
-#include <iostream>
-#include <vector>
-#include <string>
-#include <Windows.h>
-#include <array>
-#include <string>
 #include "GameManager.h"
 #include "GameState.h"
+#include "SpriteAtlas.h"
 #include <conio.h>
-#include"TreasureRoom.h"
-
-void CreateScreen();
+#include "InventoryMenu.h"
 
 int main()
 {
-    CreateScreen();
-    
+    Screen::Init(); //start screen
     bool gameRunning = true;
-    GameState::SetStateMask(GameStateMask::Normal); //sanity check
 
     while (gameRunning)
     {
-        Screen::PrintMainMenu();
-        switch (static_cast<char>(_getch()))
+        GameState::SetStateMask(GameStateMask::Normal); //sanity check
+        Image mainMenu = Image(MAIN_MENU, 0, std::make_pair<int, int>(0, 0));
+        Screen::AddImages({ &mainMenu });
+        bool correctInput = false;
+        while (!correctInput)
         {
-        case 'p':
-        case 'P':
-            GameManager::Init();
-            std::cin.get(); //wait for player to enter input before loading main menu again
-            break;
-        case 'q':
-        case 'Q':
-            gameRunning = false;
-            break;
-        default:
-            break;
+            switch (static_cast<char>(_getch()))
+            {
+            case 'p':
+            case 'P':
+                correctInput = true;
+                Screen::RemoveImages({ &mainMenu });
+                GameManager::Init();
+                break;
+            case 'q':
+            case 'Q':
+                correctInput = true;
+                gameRunning = false;
+                break;
+            default:
+                break;
+            }
         }
-    }
-}
 
-void CreateScreen() {
-    COORD outbuff;
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    HWND window = GetConsoleWindow();
-    CONSOLE_SCREEN_BUFFER_INFO info;
-    SMALL_RECT windowSize = { 0, 0, 115, 50 };
-    SetConsoleWindowInfo(hConsole, TRUE, &windowSize);
-    if (GetConsoleScreenBufferInfo(hConsole, &info)) {
-        outbuff.X = info.srWindow.Right - info.srWindow.Left + 1;
-        outbuff.Y = info.srWindow.Bottom - info.srWindow.Top + 1;
-        SetConsoleScreenBufferSize(hConsole, outbuff);
     }
 }

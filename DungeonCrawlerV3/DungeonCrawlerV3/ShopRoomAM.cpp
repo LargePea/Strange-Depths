@@ -1,8 +1,13 @@
 #include "ShopRoomAM.h"
+#include "SpriteAtlas.h"
 
-ShopRoomAM::ShopRoomAM(Shop shop)
-	: _shop(shop) {
+ShopRoomAM::ShopRoomAM(Shop& shop)
+	:ActionMap(Image(SHOP_MENU, 1, std::make_pair<int, int>(0, 37))), _shop(shop) {
 
+}
+
+void ShopRoomAM::OnActivate() {
+	_shop.ShowShop();
 }
 
 void ShopRoomAM::InputAction(const char input) {
@@ -16,17 +21,17 @@ void ShopRoomAM::InputAction(const char input) {
 	case 'S':
 		_shop.NextItem();
 		break;
-	case 'c':
-	case 'C':
-		_shop.BuyItem();
-		break;
 	case 'e':
 	case 'E':
+		_shop.BuyItem();
+		break;
+	case 'c':
+	case 'C':
 		_shop.SellItems();
 		break;
 	case 'q':
 	case 'Q':
-		PopCurrentMap();
+		_shop.LeaveShop();
 		break;
 	default:
 		break;

@@ -43,7 +43,7 @@ void Character::Death(Character* killer) {
 
 void Character::Heal(const float& incomingHeal) {
 
-	float healedHealth = std::round(_currentHealth + incomingHeal > 0 ? incomingHeal : -incomingHeal);
+	float healedHealth = std::round(_currentHealth + (incomingHeal > 0 ? incomingHeal : -incomingHeal));
 
 	_currentHealth = healedHealth > _maxHealth ? _maxHealth : healedHealth;
 }

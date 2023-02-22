@@ -2,19 +2,55 @@
 #include "InventoryMenu.h"
 #include "CombatAM.h"
 #include "Potion.h"
+#include "Screen.h"
+#include "Notification.h"
+#include "SpriteAtlas.h"
 #include <vector>
 #include <conio.h>
 
 
 Player::Player() : 
-	Character(20, 6, 4, 0.3f, 5) {
+	Character(20, 6, 5, 0.3f, 5) {
 	InventoryMenu::SetInventory(&_playerInventory);
+}
+
+Player::Player(const Player& other)
+	: Character(other._maxHealth, other._baseAttack, other._baseDefense, other._baseCritRatePercent, other._baseSpeed) {
+
+}
+
+void Player::LoadStats() {
+	UpdateStats();
+	Screen::AddImages({ &_playerStats });
+}
+
+void Player::HideStats() {
+	Screen::RemoveImages({ &_playerStats });
+}
+
+void Player::UpdateStats() {
+	std::vector<std::string> stats{ 
+		"        Health: " + std::to_string((int)_currentHealth), 
+		"", 
+		"Defense: " + std::to_string((int)_defense) + "     " + "Attack: " + std::to_string((int)_attack)};
+
+	_playerStats = Image(stats, 2, { 74, 43 });
+}
+
+void Player::Damage(const float& incomingDamage, Character& attacker) {
+	Character::Damage(incomingDamage, attacker);
+	UpdateStats();
+}
+
+void Player::Heal(const float& incomingHeal) {
+	Character::Heal(incomingHeal);
+
+	UpdateStats();
 }
 
 //functional methods
 void Player::ChooseAction(Character &other) {
-	CombatAM playerActions(&other, this);
-	ActionMap::AddActionMap(&playerActions);
+	Character::ChooseAction(other);
 
 	int startingInvSize = _playerInventory.Size();
 	_playerCombatTurn = true;
@@ -28,7 +64,6 @@ void Player::ChooseAction(Character &other) {
 			ActionMap::PopCurrentMap(); //pop navigation map
 		}
 	}
-	ActionMap::PopCurrentMap();
 }
 
 void Player::Attack(Character& other) {
@@ -47,14 +82,22 @@ void Player::QuickHeal() {
 			&& dynamic_cast<HealPotion*>(possibleHeal)) 
 		{
 			//use and remove item
-			possibleHeal->TryUseItem(*this);
+			possibleHeal->TryUseItem(this);
 			_playerInventory.RemoveOrSellItem(i, false);
 			_playerCombatTurn = false;
-			break;
+			return;
 		}
 	}
+
+	Notification noHealNotif({
+		".You.have.no.Heal.Potions.",
+		".Press.Any.Key.To.Continue."
+		}, { 43, 39 });
 }
 
 void Player::Death(Character* killer) {
-	//TO:DO display what room # player was on
+	Character::Death(killer);
+	Screen::ClearImages();
+
+	Notification gameOverNotif(GAMEOVER_MENU, { 0,0 });
 }

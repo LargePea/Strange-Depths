@@ -7,6 +7,9 @@
 //these are one less than what is displayed for easier vector interaction
 #define MAX_CURSOR_POSITION 9 
 #define MAX_PAGE_COUNT 4
+#define DISPLAY_ROWS 5
+#define DISPLAY_COLUMNS 2
+#define MAX_COLUMN_SIZE 55
 
 class InventoryMenu
 {
@@ -22,9 +25,10 @@ private:
 	static InventoryOverflowAM _overflowAM;
 
 	//navigation
-	static int _cursorPos;
+	static size_t _cursorPos;
 	static int _currentPage;
 	static bool _inventoryOverflowMode;
+	static Image* _displayImage;
 
 public:
 	static void SetInventory(Inventory* inventory) {
@@ -40,6 +44,8 @@ public:
 	static void AddCoins(int& amount);
 
 	static bool RemoveCoins(int& amount);
+
+	static inline const int& GetCoins() { return _inventory->GetCoins(); }
 
 	static void UpdateDisplay(); //TO:DO somehow delegate things to screen
 

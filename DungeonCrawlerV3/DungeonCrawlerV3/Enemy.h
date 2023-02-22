@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Image.h"
+#include "SpriteAtlas.h"
 #include "Character.h"
 #include "LootTable.h"
 #include "Inventory.h"
@@ -10,7 +11,6 @@
 class Enemy : public Character {
 protected:
 	//Display
-	std::array<std::string, MAX_IMAGE_HEIGHT> _imageDisplay;
 	const char* _name;
 
 	//AI
@@ -22,11 +22,17 @@ protected:
 	static const int _maxInventoryStartingSize = 5;
 	int _enemyValue;
 
-	//TO:DO Inventory
 	Inventory _enemyInventory;
 
+	Image _enemyStatsBase = Image(ENEMY_STAT_BASE, 2, { 5, 5 });
+	Image _enemyStats;
+	Image _baseImage;
+	Image* _enemyImage = nullptr;
+
 public:
-	Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold);
+	Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold, Image baseImage);
+
+	Enemy(const Enemy&);
 
 	virtual ~Enemy() = default;
 
@@ -35,6 +41,12 @@ public:
 	void UseItem() override;
 	
 	void Death(Character* killer) override;
+
+	void Damage(const float& incomingDamage, Character& attacker) override;
+
+	void LoadEnemyImage();
+
+	void UpdateStatsMenu();
 
 private:
 	std::vector<Item*> CreateStartingItems();

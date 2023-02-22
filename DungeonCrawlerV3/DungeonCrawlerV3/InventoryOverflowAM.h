@@ -4,7 +4,7 @@
 
 class InventoryOverflowAM : public ActionMap {
 public:
-	InventoryOverflowAM() = default;
+	InventoryOverflowAM();
 
 	void InputAction(const char input) override;
 };

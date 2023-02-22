@@ -161,6 +161,7 @@
     <ClCompile Include="ItemDictionary.cpp" />
     <ClCompile Include="LootTable.cpp" />
     <ClCompile Include="Mimic.cpp" />
+    <ClCompile Include="Notification.cpp" />
     <ClCompile Include="Ogre.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerAM.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="ItemDictionary.h" />
     <ClInclude Include="LootTable.h" />
     <ClInclude Include="Mimic.h" />
+    <ClInclude Include="Notification.h" />
     <ClInclude Include="Ogre.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAM.h" />
@@ -210,6 +212,7 @@
     <ClInclude Include="ShopRoomAM.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Slime.h" />
+    <ClInclude Include="SpriteAtlas.h" />
     <ClInclude Include="TreasureRoom.h" />
     <ClInclude Include="TreasureRoomAM.h" />
   </ItemGroup>

@@ -2,7 +2,7 @@
 #include "ItemDictionary.h"
 
 Banshee::Banshee() :
-	Enemy(12, 8, 0, 0.35f, 7.5f, "Banshee", 30, 0)
+	Enemy(12, 8, 0, 0.35f, 7.5f, "Banshee", 30, 0, Image(BANSHEE, 2, { 35, 18 }))
 {
 	static ItemDictionary instance = ItemDictionary::Instance();
 	static LootTable bansheeLootTable({

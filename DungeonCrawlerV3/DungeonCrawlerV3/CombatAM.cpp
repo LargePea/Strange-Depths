@@ -1,7 +1,8 @@
 #include "CombatAM.h"
+#include "SpriteAtlas.h"
 
 CombatAM::CombatAM(Character* opponent, Player* user)
-	:_opponent(opponent), _user(user) {}
+	:ActionMap(Image(COMBAT_MENU, 1, std::make_pair<int, int>(0, 37))), _opponent(opponent), _user(user) {}
 
 void CombatAM::InputAction(const char input) {
 	switch (input)
@@ -13,10 +14,19 @@ void CombatAM::InputAction(const char input) {
 	case 'q':
 	case 'Q':
 		_user->QuickHeal();
+		break;
 	case 'w':
 	case 'W':
 		_user->Attack(*_opponent);
 	default:
 		break;
 	}
+}
+
+void CombatAM::OnActivate() {
+	_user->LoadStats();
+}
+
+void CombatAM::OnDeactivate() {
+	_user->HideStats();
 }

@@ -2,6 +2,7 @@
 
 #include <array>
 #include <iterator>
+#include "Image.h"
 
 class Room {
 public:
@@ -21,10 +22,11 @@ private:
 		Exit
 	};
 
-	static Room _currentRoom;
+	static Room* _currentRoom;
 	static const int _shopApperance = 5;
 	static int _roomsCompleted;
 	static int _roomDifficulty;
+	static Image* _progress;
 
 	std::array<RoomType, 4> _nextRooms;
 	std::array<int, 3> _roomGenerationWeights{ 7, 1, 2 };
@@ -50,13 +52,19 @@ public:
 
 	virtual ~Room() = default;
 
+	static void Init();
+
 	void Move(Direction moveDirection);
 
-	static inline Room* GetCurrentRoom() { return &_currentRoom; }
+	static inline Room* GetCurrentRoom() { return _currentRoom; }
 
 	static inline int GetRoomsCompleted() { return _roomsCompleted; }
 
 	static inline int GetCurrentDifficulty() { return _roomDifficulty; }
+
+	static inline Image* GetProgress() { return _progress; }
+
+	static void ResetRooms();
 
 	inline std::array<RoomType, 4> GetNextRooms() { return _nextRooms; }
 
