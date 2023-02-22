@@ -28,7 +28,7 @@ void InventoryMenu::AddItem(Item*& item) {
 				".Your.Inventory.is.full.and.can't.take.in:." + (std::string)item->GetName() + ".",
 				".Please.choose.to.accept.this.item.or.not.",
 				".Press.Any.Key.To.Continue."
-				}, { 40, 38 });
+				}, { 30, 38 });
 		}
 		ItemOverflow(item);
 	}
@@ -88,7 +88,7 @@ void InventoryMenu::RemoveItem(bool sellItem) {
 
 	if (_inventoryOverflowMode) {
 		_inventoryOverflowMode = false;
-		ActionMap::PopCurrentMap(); //if this actionmap call is for overflow then it's job is done
+		Quit(); //if this actionmap call is for overflow then it's job is done
 	}
 
 	UpdateDisplay(); //only remove item from display if item was actually removed from inventory
@@ -108,6 +108,7 @@ void InventoryMenu::ItemOverflow(Item*& itemToAdd) {
 	}
 
 	if (!_inventory->IsFull()) AddItem(itemToAdd);
+	ActionMap::PopCurrentMap();
 }
 
 void InventoryMenu::AcceptOverflowItem() {
@@ -116,7 +117,6 @@ void InventoryMenu::AcceptOverflowItem() {
 
 void InventoryMenu::RejectOverflowItem() {
 	_inventoryOverflowMode = false;
-	ActionMap::PopCurrentMap();
 }
 
 void InventoryMenu::UpdateDisplay() {
