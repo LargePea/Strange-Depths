@@ -19,7 +19,11 @@ constexpr auto ENEMY_STAT_BASE = "Sprites\\Enemies\\EnemyStatsBackGround.txt";
 
 #pragma region Characters
 
-
+constexpr auto SLIME =    "Sprites\\Enemies\\Slime.txt";
+constexpr auto SKELETON = "Sprites\\Enemies\\Skeleton.txt";
+constexpr auto OGRE =     "Sprites\\Enemies\\Ogre.txt";
+constexpr auto BANSHEE =  "Sprites\\Enemies\\Banshee.txt";
+constexpr auto MIMIC =    "Sprites\\Enemies\\Mimic.txt";
 
 #pragma endregion
 

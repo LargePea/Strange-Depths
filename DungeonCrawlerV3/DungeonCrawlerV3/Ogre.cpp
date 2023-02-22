@@ -2,7 +2,7 @@
 #include "ItemDictionary.h"
 
 Ogre::Ogre() : 
-	Enemy(20, 4.5f, 8, 0.1f, 2, "Ogre", 45, 0.5) {
+	Enemy(20, 4.5f, 8, 0.1f, 2, "Ogre", 45, 0.5, Image(OGRE, 2, { 46, 9 })) {
 	static ItemDictionary instance = ItemDictionary::Instance();
 	static LootTable ogreLootTable({
 		{instance.GetItem("Club"), 35},

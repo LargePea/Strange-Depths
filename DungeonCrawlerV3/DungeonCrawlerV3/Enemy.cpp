@@ -7,19 +7,21 @@
 #include <random>
 #include <array>
 
-Enemy::Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold) :
-	Character(maxHealth, attack, defense, critRate, speed), _name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyInventory(*this, CreateStartingItems()), _enemyStats(_enemyStatsBase) {
+Enemy::Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold, Image baseImage) :
+	Character(maxHealth, attack, defense, critRate, speed), 
+	_name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyInventory(*this, CreateStartingItems()), _enemyStats(_enemyStatsBase), _baseImage(baseImage) {
 }
 
 Enemy::Enemy(const Enemy& enemy)
 	: Character(enemy._maxHealth, enemy._baseAttack, enemy._baseDefense, enemy._baseCritRatePercent, enemy._baseSpeed), 
-	_name(enemy._name), _enemyValue(enemy._enemyValue), _healThreshold(enemy._healThreshold), _enemyInventory(enemy._enemyInventory), _possibleDrops(enemy._possibleDrops), _enemyStats(_enemyStatsBase) {
+	_name(enemy._name), _enemyValue(enemy._enemyValue), _healThreshold(enemy._healThreshold), _enemyInventory(enemy._enemyInventory), _possibleDrops(enemy._possibleDrops), _enemyStats(_enemyStatsBase), _baseImage(enemy._baseImage) {
 
 }
 
 void Enemy::LoadEnemyImage() {
 	UpdateStatsMenu();
-	Screen::AddImages({ &_enemyStats });
+	_enemyImage = &_baseImage;
+	Screen::AddImages({ &_enemyStats, _enemyImage });
 }
 
 void Enemy::UpdateStatsMenu() {
@@ -53,7 +55,7 @@ void Enemy::UseItem() {
 }
 
 void Enemy::Death(Character* killer) {
-	Screen::RemoveImages({ &_enemyStats });
+	Screen::RemoveImages({ &_enemyStats, _enemyImage });
 
 	std::array<Item*, _maxDropsPossible> droppedLoot{ nullptr };
 	//generate loot

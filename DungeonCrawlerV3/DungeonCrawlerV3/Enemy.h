@@ -11,7 +11,6 @@
 class Enemy : public Character {
 protected:
 	//Display
-	std::vector<std::string> _imageDisplay;
 	const char* _name;
 
 	//AI
@@ -27,9 +26,11 @@ protected:
 
 	Image _enemyStatsBase = Image(ENEMY_STAT_BASE, 2, { 5, 5 });
 	Image _enemyStats;
+	Image _baseImage;
+	Image* _enemyImage = nullptr;
 
 public:
-	Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold);
+	Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold, Image baseImage);
 
 	Enemy(const Enemy&);
 
