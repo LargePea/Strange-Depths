@@ -2,16 +2,13 @@
 
 #include "Image.h"
 
-class Notification {
-private:
-	Image _notifImage;
-
+class Notification : public Image{
 private:
 	Notification(const Notification&);
 	Notification& operator=(Notification){}
 
 public:
-	Notification(Image _notification);
+	Notification(std::vector<std::string> image, std::pair<int, int> displayPos, int priority = 10);
 
 	~Notification();
 };
