@@ -9,4 +9,4 @@
  
  
  
-                 [W] Prev Item   [S] Next Item   [E] Sell Items   [C] Buy Item   [Q] Leave Shop
+                 [W] Prev Item   [S] Next Item   [C] Sell Items   [E] Buy Item   [Q] Leave Shop

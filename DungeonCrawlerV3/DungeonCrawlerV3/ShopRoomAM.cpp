@@ -21,12 +21,12 @@ void ShopRoomAM::InputAction(const char input) {
 	case 'S':
 		_shop.NextItem();
 		break;
-	case 'c':
-	case 'C':
-		_shop.BuyItem();
-		break;
 	case 'e':
 	case 'E':
+		_shop.BuyItem();
+		break;
+	case 'c':
+	case 'C':
 		_shop.SellItems();
 		break;
 	case 'q':
