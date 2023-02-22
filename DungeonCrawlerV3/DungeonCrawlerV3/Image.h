@@ -31,8 +31,10 @@ public:
 
 	inline const std::pair<int, int>& GetDisplayPosition() const { return _displayPosition; }
 
+	static bool ComparePointers(const Image* lhs, const Image* rhs);
 	friend bool operator>(const Image& lhs, const Image& rhs);
 	friend bool operator<(const Image& lhs, const Image& rhs);
+
 	friend std::ostream& operator<<(std::ostream& stream, const Image& image);
 
 	Image operator+(const Image& rhs);

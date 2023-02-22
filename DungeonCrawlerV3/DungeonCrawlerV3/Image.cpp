@@ -68,6 +68,10 @@ Image Image::operator+(const Image& rhs) {
 	return Image(outgoingImage, this->_priority, this->_displayPosition);
 }
 
+bool Image::ComparePointers(const Image* lhs, const Image* rhs) {
+	return lhs->_priority < rhs->_priority;
+}
+
 bool operator>(const Image& lhs, const Image& rhs) {
 	return !(lhs < rhs);
 }

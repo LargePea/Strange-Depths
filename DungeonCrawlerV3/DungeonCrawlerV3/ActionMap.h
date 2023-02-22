@@ -25,7 +25,7 @@ public:
 
 	void virtual OnActivate() {}
 
-	void RemoveMapImage() { Screen::RemoveImages({ &_actionMenu }, false); }
+	void RemoveMapImage() { Screen::RemoveImages({ &_actionMenu }); }
 
 	inline void AddMapImage() { Screen::AddImages({ &_actionMenu }); }
 };

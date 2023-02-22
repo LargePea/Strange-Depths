@@ -34,9 +34,9 @@ public:
 
 	static void Renderer();
 
-	static void AddImages(std::initializer_list<Image*> images, bool updateScreen = true);
+	static void AddImages(std::initializer_list<Image*> images);
 
-	static void RemoveImages(std::initializer_list<Image*> images, bool updateScreen = true);
+	static void RemoveImages(std::initializer_list<Image*> images);
 
 	static void ClearImages(bool updateScreen = true);
 

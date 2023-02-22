@@ -83,16 +83,17 @@ void Screen::MoveCursor(int x, int y) {
 	SetConsoleCursorPosition(_screenHandle, _currentCusorPosition);
 }
 
-void Screen::AddImages(std::initializer_list<Image*> images, bool updateScreen) {
+void Screen::AddImages(std::initializer_list<Image*> images) {
     _bufferUpdateLock.lock();
     for (auto& image : images) {
         _imagesToRender.push_back(image);
     }
-    std::sort(_imagesToRender.begin(), _imagesToRender.end());
+    std::sort(_imagesToRender.begin(), _imagesToRender.end(), Image::ComparePointers);
+    std::vector<Image*> test = _imagesToRender;
     _bufferUpdateLock.unlock();
 }
 
-void Screen::RemoveImages(std::initializer_list<Image*> images, bool updateScreen) {
+void Screen::RemoveImages(std::initializer_list<Image*> images) {
     _bufferUpdateLock.lock();
     for (auto& image : images) {
         for (auto it = _imagesToRender.begin(); it != _imagesToRender.end(); ++it) {
@@ -102,7 +103,7 @@ void Screen::RemoveImages(std::initializer_list<Image*> images, bool updateScree
             }
         }
     }
-    std::sort(_imagesToRender.begin(), _imagesToRender.end());
+    std::sort(_imagesToRender.begin(), _imagesToRender.end(), Image::ComparePointers);
     _bufferUpdateLock.unlock();
 }
 
