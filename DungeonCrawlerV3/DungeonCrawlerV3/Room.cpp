@@ -2,6 +2,8 @@
 #include "EnemyRoom.h"
 #include "TreasureRoom.h"
 #include "ShopRoom.h"
+#include "Notification.h"
+#include "SpriteAtlas.h"
 #include <random>
 #include <iostream>
 
@@ -59,8 +61,15 @@ void Room::Move(Direction moveDirection) {
 		if (_currentRoom != nullptr) delete _currentRoom;
 		_currentRoom = new ShopRoom();
 		break;
-	case RoomType::Exit:
-		//TO:DO win game
+	case RoomType::Exit: 
+	{
+		Screen::ClearImages();
+		GameState::SetStateMask(GameStateMask::GameOver);
+		Image roomText(std::vector<std::string>{std::to_string(_roomsCompleted)}, 1, { 66, 33 });
+		Screen::AddImages({ &roomText });
+		Notification winNotif(WIN_MENU, { 0,0 });
+		Screen::RemoveImages({ &roomText });
+	}
 		break;
 	default:
 		break;

@@ -120,10 +120,10 @@ void Screen::UpdateBuffer() {
         const std::pair<int, int>& startingCoords = image->GetDisplayPosition();
 
         for (int row = 0; row < image->GetImage().size(); ++row) {
-            if (startingCoords.second + row == SCREEN_HEIGHT ) break; //stop rendering image if it's off the bottom of the screen
+            if (startingCoords.second + row >= SCREEN_HEIGHT ) break; //stop rendering image if it's off the bottom of the screen
             if (image->GetImage()[row] == "") continue; //dont bother rendering line if there is nothing to render
             for (int character = 0; character < image->GetImage()[row].size(); ++character) {
-                if (startingCoords.first + character == SCREEN_WIDTH) break; //stop processing line if it's off the screen
+                if (startingCoords.first + character + ORIGIN_HORIZONTAL_OFFSET >= SCREEN_WIDTH) break; //stop processing line if it's off the screen
 
                 char possiblePixel = image->GetImage()[row][character];
                 if (possiblePixel == ' ') continue; //To display transparency, dont render pixels that are "transparent"

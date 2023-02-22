@@ -11,6 +11,7 @@ constexpr auto TREASURE_MENU =   "Sprites\\Menus\\TreasureMenu.txt";
 constexpr auto SHOP_MENU =		 "Sprites\\Menus\\ShopMenu.txt";
 constexpr auto MAIN_MENU =       "Sprites\\Menus\\MainMenu.txt";
 constexpr auto GAMEOVER_MENU =   "Sprites\\Menus\\GameOver.txt";
+constexpr auto WIN_MENU =        "Sprites\\Menus\\Win.txt";
 								 
 constexpr auto ENEMY_STAT_BASE = "Sprites\\Enemies\\EnemyStatsBackGround.txt";
 
