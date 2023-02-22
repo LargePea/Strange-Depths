@@ -64,6 +64,8 @@ public:
 
 	static inline Image* GetProgress() { return _progress; }
 
+	static void ResetRooms();
+
 	inline std::array<RoomType, 4> GetNextRooms() { return _nextRooms; }
 
 private:

@@ -23,6 +23,11 @@ void Room::Init() {
 	_currentRoom = new Room();
 }
 
+void Room::ResetRooms() {
+	_roomsCompleted = 0;
+	_roomDifficulty = 0;
+}
+
 Room::Room(const Room& other) : 
 	_totalGenerationWeight(other._totalGenerationWeight), _roomGenerationWeights(other._roomGenerationWeights) {
 	_nextRooms = other._nextRooms;

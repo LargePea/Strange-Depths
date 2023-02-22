@@ -8,6 +8,7 @@ ActionMap::ActionMap(Image actionMenu)
 
 void ActionMap::PopCurrentMap() {
 	GetCurrentMap().RemoveMapImage();
+	GetCurrentMap().OnDeactivate();
 	_actionMapStack.pop();
 	if (_actionMapStack.size() == 0) return;
 
@@ -16,7 +17,10 @@ void ActionMap::PopCurrentMap() {
 }
 
 void ActionMap::AddActionMap(ActionMap* newMap) {
-	if(_actionMapStack.size() != 0) GetCurrentMap().RemoveMapImage();
+	if (_actionMapStack.size() != 0) {
+		GetCurrentMap().RemoveMapImage();
+		GetCurrentMap().OnDeactivate();
+	}
 	_actionMapStack.emplace(newMap);
 	GetCurrentMap().AddMapImage();
 	GetCurrentMap().OnActivate();

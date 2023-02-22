@@ -22,3 +22,11 @@ void CombatAM::InputAction(const char input) {
 		break;
 	}
 }
+
+void CombatAM::OnActivate() {
+	_user->LoadStats();
+}
+
+void CombatAM::OnDeactivate() {
+	_user->HideStats();
+}

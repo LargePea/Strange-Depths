@@ -10,5 +10,7 @@ private:
 public:
 	Notification(std::vector<std::string> image, std::pair<int, int> displayPos, int priority = 10);
 
+	Notification(const char* imageFilePath, std::pair<int, int> displayPos, int priority = 10);
+
 	~Notification();
 };

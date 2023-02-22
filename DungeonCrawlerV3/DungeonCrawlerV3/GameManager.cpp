@@ -4,6 +4,8 @@
 #include "Screen.h"
 #include "Room.h"
 #include "SpriteAtlas.h"
+#include "Notification.h"
+#include "CombatAM.h"
 #include <conio.h>
 
 Character* GameManager::_player;
@@ -15,23 +17,21 @@ void GameManager::Init() {
 
 	Screen::AddImages({ &menuImage, &backgroundImage });
 
-	Player player = Player();
+	Player player;
 	SetPlayer(&player);
 	ActionMap::AddActionMap(&_playerControls);
 	Room::Init();
 	Screen::AddImages({ Room::GetProgress() });
+
 	//main game loop
 	while (~GameState::GetStateMask() & (int)GameStateMask::GameOver) {
-		bool test = ~(GameState::GetStateMask() & (int)GameStateMask::GameOver);
 		ActionMap::GetCurrentMap().InputAction(static_cast<char>(_getch()));
 	}
 
 	ActionMap::PopCurrentMap();
+	Room::ResetRooms();
 
-	Image gameoverScreen = Image(GAMEOVER_MENU, 1, { 0, 0 });
-	Screen::AddImages({ &gameoverScreen });
-	_getch(); //wait for player to enter input before loading main menu again
-	Screen::RemoveImages({ &gameoverScreen });
+	Notification gameOverNotif(GAMEOVER_MENU, { 0,0 });
 }
 
 
@@ -40,6 +40,9 @@ void GameManager::SetPlayer(Character* player) {
 }
 
 void GameManager::BeginCombat(Character* enemy) {
+	CombatAM playerActions(enemy, static_cast<Player*>(_player));
+	ActionMap::AddActionMap(&playerActions);
+
 	Character* first = _player->GetSpeed() >= enemy->GetSpeed() ? _player : enemy;
 	Character* second = _player->GetSpeed() >= enemy->GetSpeed() ? enemy: _player;
 
@@ -48,10 +51,9 @@ void GameManager::BeginCombat(Character* enemy) {
 
 	GameState::SetStateMask(GameStateMask::Combat);
 	bool firstCharacterturn = true;
-	static_cast<Player*>(_player)->LoadStats();
 
 	//Combat loop
-	while (GameState::GetStateMask() == (int) GameStateMask::Combat)
+	while (GameState::GetStateMask() & (int) GameStateMask::Combat)
 	{
 		if (firstCharacterturn) first->ChooseAction(*second);
 		else second->ChooseAction(*first);
@@ -59,10 +61,9 @@ void GameManager::BeginCombat(Character* enemy) {
 		firstCharacterturn = !firstCharacterturn;
 	}
 
+	ActionMap::PopCurrentMap();
 	first->DeathEvent.Remove(firstDeathEvent);
 	second->DeathEvent.Remove(secondDeathEvent);
-
-	static_cast<Player*>(_player)->HideStats();
 }
 
 void GameManager::EndCombat(Character* deadCharacter) {

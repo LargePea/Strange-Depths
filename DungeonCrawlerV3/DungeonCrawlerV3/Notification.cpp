@@ -8,6 +8,12 @@ Notification::Notification(std::vector<std::string> image, std::pair<int, int> d
 	_getch();
 }
 
+Notification::Notification(const char* imageFilepath, std::pair<int, int> displayPos, int priority)
+	: Image(imageFilepath, priority, displayPos) {
+	Screen::AddImages({ this });
+	_getch();
+}
+
 Notification::~Notification() {
 	Screen::RemoveImages({ this });
 }

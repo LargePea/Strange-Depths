@@ -9,10 +9,10 @@ int main()
 {
     Screen::Init(); //start screen
     bool gameRunning = true;
-    GameState::SetStateMask(GameStateMask::Normal); //sanity check
 
     while (gameRunning)
     {
+        GameState::SetStateMask(GameStateMask::Normal); //sanity check
         Image mainMenu = Image(MAIN_MENU, 0, std::make_pair<int, int>(0, 0));
         Screen::AddImages({ &mainMenu });
         switch (static_cast<char>(_getch()))

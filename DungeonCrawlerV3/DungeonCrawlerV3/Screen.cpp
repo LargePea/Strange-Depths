@@ -103,12 +103,13 @@ void Screen::RemoveImages(std::initializer_list<Image*> images) {
             }
         }
     }
+    std::vector<Image*> test = _imagesToRender;
     _bufferUpdateLock.unlock();
 }
 
 void Screen::ClearImages(bool updateScreen) {
     _bufferUpdateLock.lock();
-    _imagesToRender.clear();
+    _imagesToRender.clear();    
     _bufferUpdateLock.unlock();
 }
 

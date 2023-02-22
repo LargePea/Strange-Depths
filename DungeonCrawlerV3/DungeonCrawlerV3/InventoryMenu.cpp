@@ -17,9 +17,6 @@ InventoryOverflowAM InventoryMenu::_overflowAM;
 //return value of this represents if the player is still wants to use the inventoryMenu
 void InventoryMenu::Navigate() {
 	ActionMap::AddActionMap(&_inventoryAM);
-
-	UpdateDisplay();
-	Screen::AddImages({ _displayImage });
 }
 
 void InventoryMenu::AddItem(Item*& item) {
@@ -89,7 +86,6 @@ void InventoryMenu::RemoveItem(bool sellItem) {
 void InventoryMenu::Quit() {
 	ResetCursor();
 	ResetPageCount();
-	Screen::RemoveImages({ _displayImage });
 	ActionMap::PopCurrentMap();
 }
 

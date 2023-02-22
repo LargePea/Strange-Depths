@@ -43,8 +43,7 @@ void Player::Damage(const float& incomingDamage, Character& attacker) {
 
 //functional methods
 void Player::ChooseAction(Character &other) {
-	CombatAM playerActions(&other, this);
-	ActionMap::AddActionMap(&playerActions);
+
 
 	int startingInvSize = _playerInventory.Size();
 	_playerCombatTurn = true;
@@ -58,7 +57,6 @@ void Player::ChooseAction(Character &other) {
 			ActionMap::PopCurrentMap(); //pop navigation map
 		}
 	}
-	ActionMap::PopCurrentMap();
 }
 
 void Player::Attack(Character& other) {

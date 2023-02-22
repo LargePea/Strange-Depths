@@ -40,3 +40,12 @@ void InventoryMenuAM::InputAction(const char input) {
 		break;
 	}
 }
+
+void InventoryMenuAM::OnActivate() {
+	InventoryMenu::UpdateDisplay();
+	Screen::AddImages({ InventoryMenu::_displayImage });
+}
+
+void InventoryMenuAM::OnDeactivate() {
+	Screen::RemoveImages({ InventoryMenu::_displayImage });
+}
