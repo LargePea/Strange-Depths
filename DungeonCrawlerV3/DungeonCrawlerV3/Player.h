@@ -33,6 +33,8 @@ public:
 
 	void HideStats();
 
+	void Heal(const float& incomingHeal) override;
+
 protected:
 	void UseItem() override;
 

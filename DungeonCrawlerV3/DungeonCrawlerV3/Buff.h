@@ -25,6 +25,7 @@ private:
 	float _lifeStealStrength;
 public:
 	LifeSteal(Character* user, int uses, float lifeStealStrength);
+	~LifeSteal() override = default;
 
 	void UseBuff() override;
 	void NoMoreUses() override;

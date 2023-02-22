@@ -1,4 +1,5 @@
 #include "Buff.h"
+#include "Notification.h"
 
 //Base buff
 Buff::Buff(Character* user, int uses, int activeGameState = 0) : 
@@ -8,7 +9,7 @@ void Buff::TryUseBuff() {
 	if (GameState::GetStateMask() & _activeGameStates && _user != nullptr && _usesRemaining > 0) 
 		UseBuff();
 
-	if (_usesRemaining == 0)
+	if(_usesRemaining == 0)
 	{
 		NoMoreUses();
 	}
@@ -26,6 +27,12 @@ void LifeSteal::UseBuff() {
 	_user->Heal(healAmount);
 
 	--_usesRemaining;
+
+	Notification lSNotif({
+	".You.used.a.LifeSteal.Buff."
+	".Uses.Remaining:." + std::to_string(_usesRemaining) + ".",
+	".Press.Any.Key.To.Continue."
+		}, { 42, 38 });
 }
 
 void LifeSteal::NoMoreUses() {
@@ -44,6 +51,12 @@ void Regeneration::UseBuff() {
 	_user->Heal(healAmount);
 
 	--_usesRemaining;
+
+	Notification regenNotif({
+		".You.used.a.Regeneration.Buff."
+		".Uses.Remaining:." + std::to_string(_usesRemaining) + ".",
+		".Press.Any.Key.To.Continue."
+		}, { 42, 38 });
 }
 
 void Regeneration::NoMoreUses() {

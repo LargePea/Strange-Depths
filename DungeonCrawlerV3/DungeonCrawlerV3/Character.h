@@ -63,7 +63,7 @@ public:
 	virtual void Damage(const float& incomingDamage, Character& attacker);
 
 	//Heal character
-	void Heal(const float& incomingHeal);
+	void virtual Heal(const float& incomingHeal);
 
 	//apply character enhancements
 	void EquipEnchantment(IEquippable* toEquip);

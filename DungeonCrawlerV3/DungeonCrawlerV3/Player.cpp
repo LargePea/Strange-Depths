@@ -38,25 +38,19 @@ void Player::UpdateStats() {
 }
 
 void Player::Damage(const float& incomingDamage, Character& attacker) {
-	float recalculatedIncomingDamage = incomingDamage * (-2 * std::pow(_defense / (_defense + incomingDamage), incomingDamage / (_defense + incomingDamage)) + 2);
-	float damagedhealth = std::round(_currentHealth - recalculatedIncomingDamage);
-
-	std::string damageString = ".You.took." + std::to_string((int)std::round(recalculatedIncomingDamage)) + ".Damage.";
-	std::string healthString = ".You.have." + std::to_string((int) (damagedhealth > 0 ? damagedhealth : 0)) + ".health.remaining.";
-
-	Notification damageNotif({
-		damageString,
-		healthString,
-		".Press.Any.Key.To.Continue."
-	}, { 42, 38 });
-
 	Character::Damage(incomingDamage, attacker);
+	UpdateStats();
+}
+
+void Player::Heal(const float& incomingHeal) {
+	Character::Heal(incomingHeal);
+
 	UpdateStats();
 }
 
 //functional methods
 void Player::ChooseAction(Character &other) {
-
+	Character::ChooseAction(other);
 
 	int startingInvSize = _playerInventory.Size();
 	_playerCombatTurn = true;

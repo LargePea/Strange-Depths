@@ -64,7 +64,8 @@ template<typename... Args>
 class Subject {
 private:
 	std::set<IEvent<Args...>*> events;
-	std::mutex eventsMutex;
+	std::set<IEvent<Args...>*> eventsToDelete;
+	bool _isInvoking;
 
 public:
 	Subject() = default;
@@ -87,13 +88,27 @@ public:
 		return event;
 	}
 
-	void Remove(IEvent<Args...>* event) { events.erase(event); }
+	void Remove(IEvent<Args...>* event) { 
+		if (_isInvoking) eventsToDelete.insert(event);
+		else events.erase(event); 
+	}
 
 
 	void Invoke(Args... args) { 
-		std::lock_guard<std::mutex> lock(eventsMutex);
-		for (IEvent<Args...>* event : events) event->Invoke(args...);
+		_isInvoking = true;
+		for (IEvent<Args...>* const&  event : events) 
+			event->Invoke(args...);
+		_isInvoking = false;
 
+		if (eventsToDelete.size() == 0) return;
+
+		for (IEvent<Args...>* const& event : eventsToDelete) {
+			auto it = events.find(event);
+			if (it != events.end())
+				events.erase(it);
+		}
+
+		eventsToDelete.clear();
 	}
 
 	inline int EventCount() { return events.size(); }

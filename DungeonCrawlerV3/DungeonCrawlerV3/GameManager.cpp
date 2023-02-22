@@ -5,6 +5,7 @@
 #include "Room.h"
 #include "SpriteAtlas.h"
 #include "CombatAM.h"
+#include "Notification.h"
 #include <conio.h>
 
 Character* GameManager::_player;
@@ -13,7 +14,6 @@ PlayerAM GameManager::_playerControls;
 void GameManager::Init() {
 	Image menuImage = Image(MENU_BASE, 0, std::make_pair<int, int>(0, 36));
 	Image backgroundImage = Image(BASIC_BACKGROUND, 0, std::make_pair<int, int>(0, 0));
-
 	Screen::AddImages({ &menuImage, &backgroundImage });
 
 	Player player;
