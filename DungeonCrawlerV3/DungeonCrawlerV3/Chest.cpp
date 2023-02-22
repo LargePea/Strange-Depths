@@ -18,6 +18,7 @@ void Chest::OpenChest() {
 
 	if (spawnMimic(engine)) {
 		Mimic mimic{ _chestLootTable, (int)coinsGenerated(engine) };
+		mimic.LoadEnemyImage();
 		GameManager::BeginCombat(&mimic);
 	}
 	else {
