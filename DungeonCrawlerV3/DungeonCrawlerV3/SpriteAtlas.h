@@ -27,6 +27,14 @@ constexpr auto MIMIC =    "Sprites\\Enemies\\Mimic.txt";
 
 #pragma endregion
 
+#pragma region Objects
+
+constexpr auto CLOSEDCHEST = "Sprites\\Objects\\ClosedChest.txt";
+constexpr auto OPENCHEST = "Sprites\\Objects\\OpenChest.txt";
+
+#pragma endregion
+
+
 #pragma region BackGrounds
 
 constexpr auto BASIC_BACKGROUND = "Sprites\\BackGround.txt";

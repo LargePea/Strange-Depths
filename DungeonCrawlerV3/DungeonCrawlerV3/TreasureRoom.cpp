@@ -6,6 +6,7 @@ TreasureRoom::TreasureRoom()
 	: _chest(GenerateChest()), _actionMap(TreasureRoomAM(&_chest)) 
 {
 	ActionMap::AddActionMap(&_actionMap);
+	_chest.DisplayChest();
 }
 
 Chest TreasureRoom::GenerateChest() {
