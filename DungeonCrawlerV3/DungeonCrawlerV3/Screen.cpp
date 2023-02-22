@@ -103,7 +103,6 @@ void Screen::RemoveImages(std::initializer_list<Image*> images) {
             }
         }
     }
-    std::sort(_imagesToRender.begin(), _imagesToRender.end(), Image::ComparePointers);
     _bufferUpdateLock.unlock();
 }
 
