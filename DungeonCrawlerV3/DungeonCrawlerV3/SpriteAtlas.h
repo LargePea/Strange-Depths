@@ -25,6 +25,13 @@ constexpr auto OGRE =     "Sprites\\Enemies\\Ogre.txt";
 constexpr auto BANSHEE =  "Sprites\\Enemies\\Banshee.txt";
 constexpr auto MIMIC =    "Sprites\\Enemies\\Mimic.txt";
 
+#pragma region Animations
+
+constexpr auto SKELETON_IDLE = "Sprites\\Enemies\\Animations\\Skeleton\\Idle.txt";
+
+#pragma endregion
+
+
 #pragma endregion
 
 #pragma region Objects

@@ -19,12 +19,6 @@ Skeleton::Skeleton() :
 
 	_enemyAnimator = new Animator(
 		{
-		AnimationClip(
-			{
-				{1, Image(SKELETON, 2, { 50, 11 })},
-				{5, Image(SKELETON, 2, { 50, 12 })},
-				{10, Image(SKELETON, 2, { 50, 13 })},
-				{15, Image(SKELETON, 2, { 50, 13 })}
-			})
+		AnimationClip(SKELETON_IDLE)
 		}, &_baseImage);
 }

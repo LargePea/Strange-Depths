@@ -2,7 +2,7 @@
 #include "Screen.h"
 #include <fstream>
 
-Image::Image(const char* imageFilePath, int priority, std::pair<int, int> displayPos)
+Image::Image(std::string imageFilePath, int priority, std::pair<int, int> displayPos)
 	: _priority(priority), _displayPosition(displayPos)
 {
 	_image.reserve(SCREEN_HEIGHT);

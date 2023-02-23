@@ -13,6 +13,7 @@ private:
 
 public:
 	AnimationClip(std::initializer_list<std::pair<int, Image>> keyframes, bool hasExitTime = true, bool isLooping = true);
+	AnimationClip(const char* keyframes, bool hasExitTime = true, bool isLooping = true);
 
 	inline const Image* GetFrame(int frameCount) const
 	{
