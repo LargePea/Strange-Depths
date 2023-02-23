@@ -46,13 +46,16 @@ bool InventoryMenu::RemoveCoins(int& amount) {
 }
 
 void InventoryMenu::IncreaseCursor() {
-	if (_cursorPos == MAX_CURSOR_POSITION) ResetCursor();
+	if (_cursorPos == MAX_CURSOR_POSITION) IncreasePage();
 	else ++_cursorPos;
 	UpdateDisplay();
 }
 
 void InventoryMenu::DecreaseCursor() {
-	if (_cursorPos == 0) MaxCursor();
+	if (_cursorPos == 0) {
+		DecreasePage();
+		MaxCursor();
+	}
 	else --_cursorPos;
 	UpdateDisplay();
 }

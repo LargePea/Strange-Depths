@@ -12,6 +12,9 @@
 Player::Player() : 
 	Character(20, 6, 5, 0.3f, 5) {
 	InventoryMenu::SetInventory(&_playerInventory);
+	UpdateHealthStat();
+	UpdateStats();
+	Screen::AddImages({ &_playerHealth });
 }
 
 Player::Player(const Player& other)
@@ -20,7 +23,6 @@ Player::Player(const Player& other)
 }
 
 void Player::LoadStats() {
-	UpdateStats();
 	Screen::AddImages({ &_playerStats });
 }
 
@@ -30,22 +32,24 @@ void Player::HideStats() {
 
 void Player::UpdateStats() {
 	std::vector<std::string> stats{ 
-		"        Health: " + std::to_string((int)_currentHealth), 
-		"", 
 		"Defense: " + std::to_string((int)_defense) + "     " + "Attack: " + std::to_string((int)_attack)};
 
-	_playerStats = Image(stats, 2, { 74, 43 });
+	_playerStats = Image(stats, 2, { 74, 44 });
+}
+
+void Player::UpdateHealthStat() {
+	_playerHealth = Image(std::vector<std::string>{std::to_string((int)_currentHealth)}, 2, { 101, 35 });
 }
 
 void Player::Damage(const float& incomingDamage, Character& attacker) {
 	Character::Damage(incomingDamage, attacker);
-	UpdateStats();
+	UpdateHealthStat();
 }
 
 void Player::Heal(const float& incomingHeal) {
 	Character::Heal(incomingHeal);
 
-	UpdateStats();
+	UpdateHealthStat();
 }
 
 //functional methods
