@@ -18,7 +18,7 @@ public:
 	{
 		auto frame = _timeLine.find(frameCount);
 		if (frame == _timeLine.end()) return nullptr;
-		return &(frame->second);
+		return &frame->second;
 	}
 
 	inline const int& GetClipFrameCount() const { return _maxFrameCount; }

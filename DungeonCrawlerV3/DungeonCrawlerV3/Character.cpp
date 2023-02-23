@@ -2,6 +2,12 @@
 #include <cmath>
 #include <random>
 
+Character::Character(Character&& other) noexcept 
+	: _baseMaxHealth(other._baseMaxHealth), _baseAttack(other._baseAttack), _baseDefense(other._baseDefense), _baseCritRatePercent(other._baseCritRatePercent), _baseSpeed(other._baseSpeed) 
+{
+	other._enchantment = nullptr;
+}
+
 Character::~Character() {
 	if (_enchantment != nullptr)
 		delete _enchantment;

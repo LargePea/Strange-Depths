@@ -18,7 +18,10 @@ private:
 	bool _animatorIsRunning = false;
 
 	const AnimationClip* _currentAnimation;
-	const Image* _imageToUpdate;
+	Image* _imageToUpdate;
+	std::thread _animationThread;
+
+	int _updateLoop = 1000 / ANIMATION_FRAMES_PER_SECOND;
 
 protected:
 	std::map<const char*, bool> _boolConditions;
@@ -32,7 +35,7 @@ private:
 	void CheckCurrentAnimationConditions();
 
 public:
-	Animator(std::initializer_list<AnimationClip> clips, Image*& imageToUpdate);
+	Animator(std::initializer_list<AnimationClip> clips, Image* imageToUpdate);
 
 	~Animator();
 
@@ -42,7 +45,8 @@ public:
 
 	inline void ActivateAnimator() { 
 		_animatorIsRunning = true;
-		std::thread(&Animator::AnimationLoop, this).detach();
+		_animationThread = std::thread(&Animator::AnimationLoop, this);
+		_animationThread.detach();
 	}
 
 	inline void DeactivateAnimator() { _animatorIsRunning = false; }

@@ -1,19 +1,22 @@
 #include "Animator.h"
 #include <chrono>
 
-
-Animator::Animator(std::initializer_list<AnimationClip> clips, Image*& imageToUpdate) 
+Animator::Animator(std::initializer_list<AnimationClip> clips, Image* imageToUpdate) 
 	: _imageToUpdate(imageToUpdate) {
 	_animationClips.reserve(clips.size());
 	for (auto& clip : clips) {
-		_animationClips.emplace_back(clip);
+		_animationClips.push_back(clip);
 	}
 
 	_currentAnimation = &(_animationClips[0]);
 }
 
 Animator::~Animator() {
-	DeactivateAnimator();
+	if (_animatorIsRunning)
+	{
+		DeactivateAnimator();
+		std::this_thread::sleep_for(std::chrono::milliseconds(_updateLoop));
+	}
 
 	for (auto clip : _transitionConditions) {
 		for (auto condition : clip.second) {
@@ -22,8 +25,7 @@ Animator::~Animator() {
 	}
 }
 
-void Animator::AnimationLoop() {
-	int updateLoop = 1000 / ANIMATION_FRAMES_PER_SECOND;
+void Animator::AnimationLoop() {	
 	int frame = 1;
 	while (_animatorIsRunning)
 	{
@@ -41,12 +43,12 @@ void Animator::AnimationLoop() {
 		//only update frames if there are still key frames to update
 		if (frame <= _currentAnimation->GetClipFrameCount()) {
 			const Image* retrievedFrame = _currentAnimation->GetFrame(frame);
-			if (retrievedFrame != nullptr) _imageToUpdate = retrievedFrame; //change frame if there is a new keyframe
+			if (retrievedFrame != nullptr) *_imageToUpdate = std::move(*retrievedFrame); //change frame if there is a new keyframe
 
 			++frame;
 		}
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(updateLoop));
+		std::this_thread::sleep_for(std::chrono::milliseconds(_updateLoop));
 	}
 }
 

@@ -21,7 +21,7 @@ private:
 	static std::array<char, SCREEN_HEIGHT* SCREEN_WIDTH> _bufferFrame;
 	static std::mutex _bufferUpdateLock;
 
-	static std::vector<Image*> _imagesToRender;
+	static std::vector<const Image*> _imagesToRender;
 
 public:
 	static void Init(int screenWidth = SCREEN_HEIGHT, int screenHeight = SCREEN_WIDTH);
@@ -34,9 +34,9 @@ public:
 
 	static void Renderer();
 
-	static void AddImages(std::initializer_list<Image*> images);
+	static void AddImages(std::initializer_list<const Image*> images);
 
-	static void RemoveImages(std::initializer_list<Image*> images);
+	static void RemoveImages(std::initializer_list<const Image*> images);
 
 	static void ClearImages(bool updateScreen = true);
 
