@@ -13,16 +13,20 @@ Enemy::Enemy(float maxHealth, float attack, float defense, float critRate, float
 	_name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyInventory(*this, CreateStartingItems()), _enemyStats(_enemyStatsBase), _baseImage(baseImage) {
 }
 
-Enemy::Enemy(const Enemy& enemy)
-	: Character(enemy._maxHealth, enemy._baseAttack, enemy._baseDefense, enemy._baseCritRatePercent, enemy._baseSpeed), 
-	_name(enemy._name), _enemyValue(enemy._enemyValue), _healThreshold(enemy._healThreshold), _enemyInventory(enemy._enemyInventory), _possibleDrops(enemy._possibleDrops), _enemyStats(_enemyStatsBase), _baseImage(enemy._baseImage) {
+Enemy::~Enemy() {
+	Screen::RemoveImages({ &_enemyStats, &_baseImage });
+	if (_enemyAnimator != nullptr) delete _enemyAnimator;
+}
 
+void Enemy::HideEnemy() {
+	Screen::RemoveImages({ &_enemyStats, &_baseImage });
+	if (_enemyAnimator != nullptr) delete _enemyAnimator;
 }
 
 void Enemy::LoadEnemyImage() {
 	UpdateStatsMenu();
-	_enemyImage = &_baseImage;
-	Screen::AddImages({ &_enemyStats, _enemyImage });
+	_enemyAnimator->ActivateAnimator();
+	Screen::AddImages({ &_enemyStats, &_baseImage });
 }
 
 void Enemy::UpdateStatsMenu() {
@@ -56,8 +60,11 @@ void Enemy::UseItem() {
 }
 
 void Enemy::Death(Character* killer) {
-	Screen::RemoveImages({ &_enemyStats, _enemyImage });
-
+	Screen::RemoveImages({ &_enemyStats, &_baseImage });
+	if (_enemyAnimator != nullptr) {
+		delete _enemyAnimator;
+		_enemyAnimator = nullptr;
+	}
 	std::array<Item*, _maxDropsPossible> droppedLoot{ nullptr };
 	//generate loot
 	_possibleDrops.CreateLoot(droppedLoot);

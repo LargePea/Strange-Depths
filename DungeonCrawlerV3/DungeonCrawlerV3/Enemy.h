@@ -5,6 +5,7 @@
 #include "Character.h"
 #include "LootTable.h"
 #include "Inventory.h"
+#include "Animator.h"
 #include <array>
 #include <iostream>
 
@@ -27,14 +28,12 @@ protected:
 	Image _enemyStatsBase = Image(ENEMY_STAT_BASE, 2, { 5, 5 });
 	Image _enemyStats;
 	Image _baseImage;
-	Image* _enemyImage = nullptr;
+	Animator* _enemyAnimator = nullptr;
 
 public:
 	Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold, Image baseImage);
 
-	Enemy(const Enemy&);
-
-	virtual ~Enemy() = default;
+	virtual ~Enemy();
 
 	void ChooseAction(Character& other) override;
 
@@ -45,6 +44,8 @@ public:
 	void Damage(const float& incomingDamage, Character& attacker) override;
 
 	void LoadEnemyImage();
+
+	void HideEnemy();
 
 	void UpdateStatsMenu();
 
