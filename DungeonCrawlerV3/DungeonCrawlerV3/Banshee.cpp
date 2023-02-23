@@ -8,7 +8,7 @@ Banshee::Banshee() :
 	static LootTable bansheeLootTable({
 		{instance.GetItem("Tattered Photo"), 30},
 		{instance.GetItem("Ectoplasm"), 40},
-		{instance.GetItem("Demonic Essence"), 8},
+		{instance.GetItem("Lost Soul"), 8},
 		{instance.GetPotion("Heal"), 15},
 		{instance.GetPotion("Life Steal"), 10},
 		{instance.GetEnchant("Banshee"), 1}

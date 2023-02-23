@@ -80,7 +80,7 @@ void Shop::HideShop() {
 void Shop::ShowShop() {
 	_currentItemPos = 0;
 	UpdateScreen();
-	Screen::AddImages({ _shopDisplay, &_shopImage });
+	Screen::AddImages({ _shopDisplay });
 }
 
 void Shop::UpdateScreen() {

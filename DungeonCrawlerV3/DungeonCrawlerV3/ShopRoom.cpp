@@ -7,6 +7,7 @@ ShopRoom::ShopRoom()
 
 	GameState::SetStateMask(GameStateMask::Shop);
 	ActionMap::AddActionMap(&_actionMap);
+	Screen::AddImages({ &_shop._shopImage });
 	_event = _shop.KeyBought.Attach(this, &ShopRoom::UnlockExit);
 	Room::IncreaseRoomDifficulty();
 }
@@ -22,4 +23,5 @@ void ShopRoom::UnlockExit() {
 ShopRoom::~ShopRoom() {
 	GameState::SetStateMask(GameStateMask::Normal);
 	_shop.KeyBought.Remove(_event);
+	Screen::RemoveImages({ &_shop._shopImage });
 }
