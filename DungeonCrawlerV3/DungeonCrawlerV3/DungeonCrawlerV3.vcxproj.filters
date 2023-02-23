@@ -43,6 +43,12 @@
     <Filter Include="Source Files\ActionMaps">
       <UniqueIdentifier>{0c83b236-6afb-4cd2-bc63-01d0cca93d06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Animation">
+      <UniqueIdentifier>{4e3fac86-53b0-47af-a360-09a23c6cd136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Animaton">
+      <UniqueIdentifier>{2ed87310-d52f-4f9e-8656-4bbd9c628f6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonCrawlerV3.cpp">
@@ -152,6 +158,12 @@
     </ClCompile>
     <ClCompile Include="Notification.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Source Files\Animaton</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationClip.cpp">
+      <Filter>Source Files\Animaton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +280,21 @@
     </ClInclude>
     <ClInclude Include="Notification.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationClip.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatorCondition.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="BoolCondition.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="TriggerCondition.h">
+      <Filter>Header Files\Animation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

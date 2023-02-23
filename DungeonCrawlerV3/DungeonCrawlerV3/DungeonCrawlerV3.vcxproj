@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActionMap.cpp" />
+    <ClCompile Include="AnimationClip.cpp" />
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Banshee.cpp" />
     <ClCompile Include="Buff.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -178,7 +180,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionMap.h" />
+    <ClInclude Include="AnimationClip.h" />
+    <ClInclude Include="Animator.h" />
+    <ClInclude Include="AnimatorCondition.h" />
     <ClInclude Include="Banshee.h" />
+    <ClInclude Include="BoolCondition.h" />
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Chest.h" />
@@ -215,6 +221,7 @@
     <ClInclude Include="SpriteAtlas.h" />
     <ClInclude Include="TreasureRoom.h" />
     <ClInclude Include="TreasureRoomAM.h" />
+    <ClInclude Include="TriggerCondition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
