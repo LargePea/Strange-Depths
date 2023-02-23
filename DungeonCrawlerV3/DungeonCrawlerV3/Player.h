@@ -15,7 +15,8 @@ private:
 	//combat
 	bool _playerCombatTurn = false;
 
-	Image _playerStats = Image("", 0, { 0,0 });
+	Image _playerStats{ "", 0, { 0,0 } };
+	Image _playerHealth{ "", 0, {0,0}};
 
 public:
 	Player();
@@ -42,6 +43,8 @@ protected:
 
 private:
 	void UpdateStats();
+
+	void UpdateHealthStat();
 
 	inline Inventory* GetInventory() { return &_playerInventory; }
 

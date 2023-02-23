@@ -15,7 +15,7 @@ Chest TreasureRoom::GenerateChest() {
 	LootTable chestLoot = LootTable({
 		{instance.GetPotion("Heal"), 10 + (float)GetCurrentDifficulty() / (float)2},
 		{instance.GetPotion("Life Steal"), 5 + GetCurrentDifficulty()},
-		{instance.GetPotion("Regen"), 2 + GetCurrentDifficulty() + (float)GetCurrentDifficulty() / (float)2}
+		{instance.GetPotion("Regeneration"), 2 + GetCurrentDifficulty() + (float)GetCurrentDifficulty() / (float)2}
 		});
 
 	float chestValue = _maxChestValue * (1 + (float)GetCurrentDifficulty() / (float)2);

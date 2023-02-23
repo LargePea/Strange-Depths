@@ -15,9 +15,9 @@ private:
 	int _currentItemPos = 0;
 
 	Image* _shopDisplay = nullptr;
-	Image _shopImage{ SHOP, 2, { 33, 10 } };
 
 public:
+	Image _shopImage{ SHOP, 2, { 33, 10 } };
 	Subject<> KeyBought;
 
 public:

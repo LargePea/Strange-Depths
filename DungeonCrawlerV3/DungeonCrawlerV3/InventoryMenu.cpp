@@ -46,13 +46,16 @@ bool InventoryMenu::RemoveCoins(int& amount) {
 }
 
 void InventoryMenu::IncreaseCursor() {
-	if (_cursorPos == MAX_CURSOR_POSITION) ResetCursor();
+	if (_cursorPos == MAX_CURSOR_POSITION) IncreasePage();
 	else ++_cursorPos;
 	UpdateDisplay();
 }
 
 void InventoryMenu::DecreaseCursor() {
-	if (_cursorPos == 0) MaxCursor();
+	if (_cursorPos == 0) {
+		DecreasePage();
+		MaxCursor();
+	}
 	else --_cursorPos;
 	UpdateDisplay();
 }
@@ -128,8 +131,10 @@ void InventoryMenu::UpdateDisplay() {
 			std::string column{ "." + std::to_string((_currentPage * (MAX_CURSOR_POSITION + 1) + row) + (1 + DISPLAY_ROWS * col)) + ":"};
 
 			Item* const& possibleItem = _inventory->GetItem(_currentPage * (MAX_CURSOR_POSITION + 1) + row + col * DISPLAY_ROWS);
-			if (possibleItem != nullptr) column = column + possibleItem->GetName() + "..$" + std::to_string(possibleItem->GetValue());
-
+			if (possibleItem != nullptr) {
+				std::string displayValue = (GameState::GetStateMask() & (int)GameStateMask::Shop ? "..$" + std::to_string(possibleItem->GetValue()) : "");
+				column = column + possibleItem->GetName() + displayValue;
+			}
 			column += std::string(MAX_COLUMN_SIZE - column.size(), '.');
 			line += column;
 		}
