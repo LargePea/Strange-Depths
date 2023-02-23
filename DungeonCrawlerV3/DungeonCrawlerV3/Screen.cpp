@@ -55,6 +55,7 @@ void Screen::CreateScreen(int& screenWidth, int& screenHeight) {
     RECT r;
     GetWindowRect(console, &r);
     MoveWindow(console, r.left, r.top, 970, 840, TRUE);
+    MoveWindow(console, r.left, r.top, 980, 860, TRUE);
 
     COORD outbuff;
     CONSOLE_SCREEN_BUFFER_INFO scrBufferInfo;

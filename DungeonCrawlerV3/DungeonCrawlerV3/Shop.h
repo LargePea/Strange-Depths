@@ -5,6 +5,7 @@
 #include "LootTable.h"
 #include "EventSystem.h"
 #include "Image.h"
+#include "SpriteAtlas.h"
 
 class Shop {
 friend class ShopRoomAM;
@@ -14,6 +15,7 @@ private:
 	int _currentItemPos = 0;
 
 	Image* _shopDisplay = nullptr;
+	Image _shopImage{ SHOP, 2, { 33, 10 } };
 
 public:
 	Subject<> KeyBought;

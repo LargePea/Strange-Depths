@@ -31,6 +31,7 @@ constexpr auto MIMIC =    "Sprites\\Enemies\\Mimic.txt";
 
 constexpr auto CLOSEDCHEST = "Sprites\\Objects\\ClosedChest.txt";
 constexpr auto OPENCHEST = "Sprites\\Objects\\OpenChest.txt";
+constexpr auto SHOP = "Sprites\\Objects\\Shop.txt";
 
 #pragma endregion
 

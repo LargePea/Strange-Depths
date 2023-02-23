@@ -68,19 +68,19 @@ void Shop::SellItems() {
 }
 
 void Shop::LeaveShop() {
-	Screen::RemoveImages({ _shopDisplay });
+	HideShop();
 	ActionMap::GetCurrentMap().PopCurrentMap();
 	GameState::SetStateMask(GameStateMask::Normal);
 }
 
 void Shop::HideShop() {
-	Screen::RemoveImages({ _shopDisplay });
+	Screen::RemoveImages({ _shopDisplay, &_shopImage });
 }
 
 void Shop::ShowShop() {
 	_currentItemPos = 0;
 	UpdateScreen();
-	Screen::AddImages({ _shopDisplay });
+	Screen::AddImages({ _shopDisplay, &_shopImage });
 }
 
 void Shop::UpdateScreen() {
