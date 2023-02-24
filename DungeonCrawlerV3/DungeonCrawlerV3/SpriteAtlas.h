@@ -33,6 +33,9 @@ constexpr auto SKELETON_ATTACK = "Sprites\\Enemies\\Animations\\Skeleton\\Attack
 constexpr auto SLIME_IDLE = "Sprites\\Enemies\\Animations\\Slime\\Idle.txt";
 constexpr auto SLIME_ATTACK = "Sprites\\Enemies\\Animations\\Slime\\Attack.txt";
 
+constexpr auto MIMIC_IDLE = "Sprites\\Enemies\\Animations\\Mimic\\Idle.txt";
+constexpr auto MIMIC_ATTACK = "Sprites\\Enemies\\Animations\\Mimic\\Attack.txt";
+
 #pragma endregion
 
 

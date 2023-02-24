@@ -311,5 +311,8 @@
     <ClInclude Include="ShopAnimator.h">
       <Filter>Header Files\Animation\Animators</Filter>
     </ClInclude>
+    <ClInclude Include="MimicAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

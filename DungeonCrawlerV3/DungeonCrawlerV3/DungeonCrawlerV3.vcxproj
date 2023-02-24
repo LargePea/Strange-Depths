@@ -206,6 +206,7 @@
     <ClInclude Include="ItemDictionary.h" />
     <ClInclude Include="LootTable.h" />
     <ClInclude Include="Mimic.h" />
+    <ClInclude Include="MimicAnimator.h" />
     <ClInclude Include="Notification.h" />
     <ClInclude Include="Ogre.h" />
     <ClInclude Include="Player.h" />
