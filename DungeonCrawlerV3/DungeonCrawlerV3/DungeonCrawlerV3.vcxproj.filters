@@ -49,6 +49,9 @@
     <Filter Include="Source Files\Animaton">
       <UniqueIdentifier>{2ed87310-d52f-4f9e-8656-4bbd9c628f6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Animation\Animators">
+      <UniqueIdentifier>{b08caffa-e8ff-4eb5-aa70-8bc250c7b84a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonCrawlerV3.cpp">
@@ -295,6 +298,18 @@
     </ClInclude>
     <ClInclude Include="TriggerCondition.h">
       <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyCondition.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="SlimeAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

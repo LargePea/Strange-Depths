@@ -1,5 +1,6 @@
 #include "Skeleton.h"
 #include "ItemDictionary.h"
+#include "SkeletonAnimator.h"
 
 Skeleton::Skeleton() :
 	Enemy(15, 5, 2, .2f, 4.5f, "Skeleton", 20, 0.4f, Image(SKELETON, 2, { 50, 12 })) {
@@ -15,10 +16,5 @@ Skeleton::Skeleton() :
 
 	_possibleDrops = skeletonLootTable;
 
-
-
-	_enemyAnimator = new Animator(
-		{
-		AnimationClip(SKELETON_IDLE)
-		}, &_baseImage);
+	_enemyAnimator = new SkeletonAnimator(&_baseImage);
 }

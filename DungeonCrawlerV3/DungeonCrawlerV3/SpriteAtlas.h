@@ -28,6 +28,10 @@ constexpr auto MIMIC =    "Sprites\\Enemies\\Mimic.txt";
 #pragma region Animations
 
 constexpr auto SKELETON_IDLE = "Sprites\\Enemies\\Animations\\Skeleton\\Idle.txt";
+constexpr auto SKELETON_ATTACK = "Sprites\\Enemies\\Animations\\Skeleton\\Attack.txt";
+
+constexpr auto SLIME_IDLE = "Sprites\\Enemies\\Animations\\Slime\\Idle.txt";
+constexpr auto SLIME_ATTACK = "Sprites\\Enemies\\Animations\\Slime\\Attack.txt";
 
 #pragma endregion
 
@@ -39,6 +43,13 @@ constexpr auto SKELETON_IDLE = "Sprites\\Enemies\\Animations\\Skeleton\\Idle.txt
 constexpr auto CLOSEDCHEST = "Sprites\\Objects\\ClosedChest.txt";
 constexpr auto OPENCHEST = "Sprites\\Objects\\OpenChest.txt";
 constexpr auto SHOP = "Sprites\\Objects\\Shop.txt";
+
+#pragma region Animations
+
+constexpr auto SHOP_IDLE = "Sprites\\Objects\\Animations\\Shop\\Idle.txt";
+constexpr auto SHOP_BUY = "Sprites\\Objects\\Animations\\Shop\\Buy.txt";
+
+#pragma endregion
 
 #pragma endregion
 

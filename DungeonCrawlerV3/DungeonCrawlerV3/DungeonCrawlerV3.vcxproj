@@ -189,6 +189,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Chest.h" />
     <ClInclude Include="CombatAM.h" />
+    <ClInclude Include="EmptyCondition.h" />
     <ClInclude Include="Enchant.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyRoom.h" />
@@ -214,10 +215,13 @@
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Enchantment.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="ShopAnimator.h" />
     <ClInclude Include="ShopRoom.h" />
     <ClInclude Include="ShopRoomAM.h" />
     <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="SkeletonAnimator.h" />
     <ClInclude Include="Slime.h" />
+    <ClInclude Include="SlimeAnimator.h" />
     <ClInclude Include="SpriteAtlas.h" />
     <ClInclude Include="TreasureRoom.h" />
     <ClInclude Include="TreasureRoomAM.h" />
