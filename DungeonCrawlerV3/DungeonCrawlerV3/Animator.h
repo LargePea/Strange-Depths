@@ -11,28 +11,31 @@
 
 class Animator {
 private:
-	std::vector<AnimationClip> _animationClips;
-
 	std::map<const AnimationClip*, std::vector<AnimatorCondition*>> _transitionConditions;
 
 	bool _animatorIsRunning = false;
+	bool _deactivatedAnimator = true;
 
 	const AnimationClip* _currentAnimation;
 	Image* _imageToUpdate;
-	std::thread _animationThread;
 
 	int _updateLoop = 1000 / ANIMATION_FRAMES_PER_SECOND;
 
+	bool _transitionedClip = false;
+
 protected:
+	std::vector<AnimationClip> _animationClips;
+
 	std::map<const char*, bool> _boolConditions;
 	std::map<const char*, bool> _triggerConditions;
 
 private:
 	void AnimationLoop();
 
-	void AddConditions(AnimationClip* origin, std::initializer_list<AnimatorCondition*> conditions);
+	bool CheckCurrentAnimationConditions();
 
-	void CheckCurrentAnimationConditions();
+protected:
+	void AddConditions(AnimationClip* origin, std::initializer_list<AnimatorCondition*> conditions);
 
 public:
 	Animator(std::initializer_list<AnimationClip> clips, Image* imageToUpdate);
@@ -41,16 +44,19 @@ public:
 
 	inline void SetBool(const char* name, bool newValue) { if (_boolConditions.find(name) != _boolConditions.end()) _boolConditions[name] = newValue; }
 
-	inline void SetTrigger(const char* name, bool newValue) { if (_triggerConditions.find(name) != _triggerConditions.end()) _triggerConditions[name] = newValue; }
+	inline void SetTrigger(const char* name) { if (_triggerConditions.find(name) != _triggerConditions.end()) 
+		_triggerConditions[name] = true; }
 
 	inline void ActivateAnimator() { 
 		_animatorIsRunning = true;
-		_animationThread = std::thread(&Animator::AnimationLoop, this);
-		_animationThread.detach();
+		_deactivatedAnimator = false;
+		std::thread(&Animator::AnimationLoop, this).detach();	
 	}
+
+	void WaitForNextClipCompletion();
 
 	inline void DeactivateAnimator() { _animatorIsRunning = false; }
 
-	inline float GetCurrentClipLength() { return (float)_currentAnimation->GetClipFrameCount() / ANIMATION_FRAMES_PER_SECOND; }
+	inline float GetCurrentClipLength() { return (float)_currentAnimation->GetClipFrameCount() * 1000 / ANIMATION_FRAMES_PER_SECOND; }
 
 };

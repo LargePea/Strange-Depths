@@ -45,13 +45,20 @@ void Enemy::ChooseAction(Character& other) {
 	Character::ChooseAction(other);
 
 	//attack player if can kill this turn
-	if (other.GetCurrentHealth() - _attack < 0)
+	if (other.GetCurrentHealth() - _attack < 0) {
+		_enemyAnimator->SetTrigger("Attack");
+		_enemyAnimator->WaitForNextClipCompletion();
 		Attack(other);
+	}	
 	//heal only if its past heal threshold and there are items to heal
 	else if (_currentHealth / _maxHealth < _healThreshold && _enemyInventory.Size() != 0)
 		UseItem();
-	else 
+	else
+	{
+		_enemyAnimator->SetTrigger("Attack");
+		_enemyAnimator->WaitForNextClipCompletion();
 		Attack(other);
+	}
 }
 
 void Enemy::UseItem() {

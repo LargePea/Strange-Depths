@@ -7,7 +7,7 @@ private:
 	AnimationClip* _targetClip;
 
 public:
-	AnimatorCondition() = default;
+	AnimatorCondition(AnimationClip* targetClip) : _targetClip(targetClip){}
 
 	virtual ~AnimatorCondition() = default;
 

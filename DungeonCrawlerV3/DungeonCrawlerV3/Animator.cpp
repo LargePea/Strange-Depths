@@ -1,5 +1,6 @@
 #include "Animator.h"
 #include <chrono>
+#include <Windows.h>
 
 Animator::Animator(std::initializer_list<AnimationClip> clips, Image* imageToUpdate) 
 	: _imageToUpdate(imageToUpdate) {
@@ -15,7 +16,7 @@ Animator::~Animator() {
 	if (_animatorIsRunning)
 	{
 		DeactivateAnimator();
-		std::this_thread::sleep_for(std::chrono::milliseconds(_updateLoop));
+		while (!_deactivatedAnimator) {}//wait until animator is deactivated
 	}
 
 	for (auto clip : _transitionConditions) {
@@ -29,16 +30,17 @@ void Animator::AnimationLoop() {
 	int frame = 1;
 	while (_animatorIsRunning)
 	{
+		//if(frame == 2 && _transitionedClip)
+			_transitionedClip = false;
+
 		//if animation does not have exit time check conditions
-		if (!_currentAnimation->GetExitTime()) {
-			CheckCurrentAnimationConditions();
-		}
+		if (!_currentAnimation->GetExitTime()
+			&& CheckCurrentAnimationConditions()) frame = 1;
 
 		//if animation is looping dont bother with loading final frame, just reset animator
-		if (frame == _currentAnimation->GetClipFrameCount()) {
-			if(_currentAnimation->GetLooping()) frame = 1;
-			CheckCurrentAnimationConditions();
-		}
+		if (frame == _currentAnimation->GetClipFrameCount())
+			if(_currentAnimation->GetLooping()
+				|| CheckCurrentAnimationConditions()) frame = 1;
 
 		//only update frames if there are still key frames to update
 		if (frame <= _currentAnimation->GetClipFrameCount()) {
@@ -50,6 +52,7 @@ void Animator::AnimationLoop() {
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(_updateLoop));
 	}
+	_deactivatedAnimator = true;
 }
 
 void Animator::AddConditions(AnimationClip* origin, std::initializer_list<AnimatorCondition*> conditions) {
@@ -59,8 +62,20 @@ void Animator::AddConditions(AnimationClip* origin, std::initializer_list<Animat
 	}
 }
 
-void Animator::CheckCurrentAnimationConditions() {
+bool Animator::CheckCurrentAnimationConditions() {
 	for (const AnimatorCondition* condition : _transitionConditions[_currentAnimation])
-		if (condition->CheckCondition()) 
+		if (condition->CheckCondition()) {
 			_currentAnimation = condition->GetTargetClip();
+			_transitionedClip = true;
+			return true;
+		}
+	return false;
+}
+
+void Animator::WaitForNextClipCompletion() {
+	while (!_transitionedClip)
+	{}
+
+	std::this_thread::sleep_for(std::chrono::milliseconds((int)GetCurrentClipLength()));
+	FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 }

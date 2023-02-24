@@ -8,7 +8,7 @@ private:
 	bool* _conditionToCheck;
 
 public:
-	BoolCondition(bool checkCondition, bool* conditionToCheck) : _checkCondition(checkCondition), _conditionToCheck(conditionToCheck) {}
+	BoolCondition(AnimationClip* targetClip, bool checkCondition, bool* conditionToCheck) : AnimatorCondition(targetClip), _checkCondition(checkCondition), _conditionToCheck(conditionToCheck) {}
 
 	~BoolCondition() override = default;
 
