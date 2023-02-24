@@ -8,7 +8,7 @@ private:
 	bool* _conditionToCheck;
 
 public:
-	TriggerCondition(bool checkCondition, bool* conditionToCheck) : _checkCondition(checkCondition), _conditionToCheck(conditionToCheck) {}
+	TriggerCondition(AnimationClip* targetClip, bool checkCondition, bool* conditionToCheck) : AnimatorCondition(targetClip), _checkCondition(checkCondition), _conditionToCheck(conditionToCheck) {}
 
 	~TriggerCondition() override = default;
 
