@@ -14,7 +14,7 @@ private:
 	std::pair<int, int> _displayPosition;
 
 public:
-	Image(const char* imageFilePath, int priority, std::pair<int, int> displayPos);
+	Image(std::string imageFilePath, int priority, std::pair<int, int> displayPos);
 
 	Image(std::vector<std::string> image, int priority, std::pair<int, int> displayPos);
 

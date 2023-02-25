@@ -16,7 +16,7 @@ public:
 
 class RegenPotion : public Item {
 	const int _buffDuration = 3;
-	const float _regenTotalPercentage = 0.5f;
+	const float _regenTotalPercentage = 0.75f;
 
 public:
 	RegenPotion(const char* name, int value) : Item(name, value, ItemType::Potion, (int)GameStateMask::Combat) {}

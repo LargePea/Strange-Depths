@@ -1,5 +1,6 @@
 #include "Banshee.h"
 #include "ItemDictionary.h"
+#include "BansheeAnimator.h"
 
 Banshee::Banshee() :
 	Enemy(12, 8, 0, 0.35f, 7.5f, "Banshee", 30, 0, Image(BANSHEE, 2, { 50, 5 }))
@@ -15,4 +16,6 @@ Banshee::Banshee() :
 		});
 
 	_possibleDrops = bansheeLootTable;
+
+	_enemyAnimator = new BansheeAnimator(&_baseImage);
 }

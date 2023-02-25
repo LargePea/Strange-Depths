@@ -42,6 +42,9 @@ public:
 	Character(float maxHealth, float attack, float defense, float critRate, float speed) :
 		_baseMaxHealth(maxHealth), _baseAttack(attack), _baseDefense(defense), _baseCritRatePercent(critRate), _baseSpeed(speed) {}
 	Character(const Character& obj) = default;
+
+	Character(Character&& other) noexcept;
+
 	virtual ~Character();
 
 	//Getters

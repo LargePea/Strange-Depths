@@ -4,20 +4,19 @@
 #include "GameState.h"
 #include "ActionMap.h"
 #include "Screen.h"
-
+#include "ShopAnimator.h"
 
 
 Shop::Shop()
 	:_shopStock(GenerateStock()) {
-}
-
-Shop::Shop(const Shop& other)
-	:_shopStock(other._shopStock), _shopDisplay(other._shopDisplay) {
+	_animator = new ShopAnimator(&_shopImage);
+	_animator->ActivateAnimator();
 }
 
 Shop::~Shop() {
 	if(_shopDisplay != nullptr)
 		delete _shopDisplay;
+	delete _animator;
 }
 
 std::array<Item*, 6> Shop::GenerateStock() {
@@ -26,7 +25,7 @@ std::array<Item*, 6> Shop::GenerateStock() {
 		{instance.GetPotion("Heal"), 30},
 		{instance.GetPotion("Life Steal"), 15},
 		{instance.GetPotion("Regeneration"), 7},
-		{instance.GetPotion("Onion"), 2}});
+		{instance.GetItem("Onion"), 2}});
 
 	std::array<Item*, 6> stock;
 	shopLootTable.CreateLoot(stock, true);
@@ -54,6 +53,7 @@ void Shop::BuyItem() {
 	int itemValue = itemToBuy->GetValue();
 	if (!InventoryMenu::RemoveCoins(itemValue)) return;
 	InventoryMenu::AddItem(itemToBuy);
+	_animator->SetTrigger("Buy");
 
 	_shopStock[_currentItemPos] = nullptr;
 	if (_currentItemPos == _shopStock.size() - 1) 

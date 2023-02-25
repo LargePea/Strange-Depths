@@ -5,6 +5,7 @@
 #include "Character.h"
 #include "LootTable.h"
 #include "Inventory.h"
+#include "Animator.h"
 #include <array>
 #include <iostream>
 
@@ -22,23 +23,17 @@ protected:
 	static const int _maxInventoryStartingSize = 5;
 	int _enemyValue;
 
-	Inventory _enemyInventory;
-
 	Image _enemyStatsBase = Image(ENEMY_STAT_BASE, 2, { 5, 5 });
 	Image _enemyStats;
 	Image _baseImage;
-	Image* _enemyImage = nullptr;
+	Animator* _enemyAnimator = nullptr;
 
 public:
 	Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold, Image baseImage);
 
-	Enemy(const Enemy&);
-
-	virtual ~Enemy() = default;
+	virtual ~Enemy();
 
 	void ChooseAction(Character& other) override;
-
-	void UseItem() override;
 	
 	void Death(Character* killer) override;
 
@@ -46,8 +41,7 @@ public:
 
 	void LoadEnemyImage();
 
-	void UpdateStatsMenu();
+	void HideEnemy();
 
-private:
-	std::vector<Item*> CreateStartingItems();
+	void UpdateStatsMenu();
 };

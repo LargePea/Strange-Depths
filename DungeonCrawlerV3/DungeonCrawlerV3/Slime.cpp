@@ -1,6 +1,7 @@
 #include "Slime.h"
 #include "ItemDictionary.h"
 #include "SpriteAtlas.h"
+#include "SlimeAnimator.h"
 
 Slime::Slime() : 
 	Enemy(10, 3, 2, 0.3f, 6, "Slime", 15, 0.6f, Image(SLIME, 2, { 37, 18 })) {
@@ -14,4 +15,6 @@ Slime::Slime() :
 		});
 
 	_possibleDrops = slimeLootTable;
+
+	_enemyAnimator = new SlimeAnimator(&_baseImage);
 }

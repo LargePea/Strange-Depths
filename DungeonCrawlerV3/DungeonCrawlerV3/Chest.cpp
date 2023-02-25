@@ -6,6 +6,7 @@
 #include "Image.h"
 #include "SpriteAtlas.h"
 #include "Screen.h"
+#include "ChestAnimator.h"
 #include <random>
 #include <array>
 
@@ -18,6 +19,7 @@ void Chest::DisplayChest() {
 
 void Chest::HideChest() {
 	Screen::RemoveImages({ &_chestImage });
+	if (_chestAnimator != nullptr) delete _chestAnimator;
 }
 
 void Chest::OpenChest() {
@@ -43,7 +45,8 @@ void Chest::OpenChest() {
 		int coins = coinsGenerated(engine);
 		InventoryMenu::AddCoins(coins);
 
-		_chestImage = Image(OPENCHEST, 2, { 42, 21 });
+		_chestAnimator = new ChestAnimator(&_chestImage);
+		_chestAnimator->ActivateAnimator();
 	}
 }
 

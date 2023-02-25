@@ -1,0 +1,4 @@
+1 Sprites\Objects\Animations\Shop\Buy1.txt 2 33 10
+6 Sprites\Objects\Animations\Shop\Buy2.txt 2 33 10
+11 Sprites\Objects\Animations\Shop\Buy3.txt 2 33 10
+16 null 0 0 0 

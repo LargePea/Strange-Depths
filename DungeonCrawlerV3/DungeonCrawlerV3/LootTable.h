@@ -5,6 +5,7 @@
 #include <map>
 #include <array>
 #include <random>
+#include <chrono>
 
 class LootTable {
 private:
@@ -19,9 +20,10 @@ public:
 
 	template<size_t Size>
 	void CreateLoot(std::array<Item*, Size>& createdLoot, bool maxLoot = false) {
-		static std::default_random_engine numberGenerator;
-		static std::uniform_real_distribution<float> itemDistribution(1, _totalTableWeight);
+		static size_t seed = std::chrono::system_clock::now().time_since_epoch().count();
 		static std::uniform_int_distribution<int> amountGeneratedDistribution(1, Size);
+		std::default_random_engine numberGenerator(seed);
+		std::uniform_real_distribution<float> itemDistribution(1, _totalTableWeight);
 
 		//dont bother generating loot if there's nothing to generate
 		if (_lootList.size() == 0) return;
@@ -40,6 +42,8 @@ public:
 				generatedNumber -= loot.second;
 			}
 		}
+
+		++seed;
 	}
 
 	void PrintTable() {

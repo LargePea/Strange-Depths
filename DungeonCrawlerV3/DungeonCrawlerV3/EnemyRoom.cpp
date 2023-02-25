@@ -9,11 +9,15 @@
 EnemyRoom::EnemyRoom() :
 	Room(), _totalEnemyWeights(0), _roomEnemy(GenerateEnemy()) {
 
-	_roomEnemy.LoadEnemyImage();
-	GameManager::BeginCombat(&_roomEnemy);
+	_roomEnemy->LoadEnemyImage();
+	GameManager::BeginCombat(_roomEnemy);
 }
 
-Enemy EnemyRoom::GenerateEnemy() {
+EnemyRoom::~EnemyRoom() {
+	delete _roomEnemy;
+}
+
+Enemy* EnemyRoom::GenerateEnemy() {
 	static std::default_random_engine engine;
 
 	GenerateEnemyWeights();
@@ -27,13 +31,13 @@ Enemy EnemyRoom::GenerateEnemy() {
 			switch ((EnemyType)i)
 			{
 			case EnemyType::Slime:
-				return Slime();
+				return new Slime();
 			case EnemyType::Skeleton:
-				return Skeleton();
+				return new Skeleton();
 			case EnemyType::Banshee:
-				return Banshee();
+				return new Banshee();
 			case EnemyType::Ogre:
-				return Ogre();
+				return new Ogre();
 			default:
 				break;
 			}
@@ -42,7 +46,7 @@ Enemy EnemyRoom::GenerateEnemy() {
 	}
 
 	//if all fails create slime as a fallback
-	return Slime();
+	return new Slime();
 }
 
 void EnemyRoom::GenerateEnemyWeights() {

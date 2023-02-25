@@ -10,19 +10,23 @@
 
 Enemy::Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold, Image baseImage) :
 	Character(maxHealth, attack, defense, critRate, speed), 
-	_name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyInventory(*this, CreateStartingItems()), _enemyStats(_enemyStatsBase), _baseImage(baseImage) {
+	_name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyStats(_enemyStatsBase), _baseImage(baseImage) {
 }
 
-Enemy::Enemy(const Enemy& enemy)
-	: Character(enemy._maxHealth, enemy._baseAttack, enemy._baseDefense, enemy._baseCritRatePercent, enemy._baseSpeed), 
-	_name(enemy._name), _enemyValue(enemy._enemyValue), _healThreshold(enemy._healThreshold), _enemyInventory(enemy._enemyInventory), _possibleDrops(enemy._possibleDrops), _enemyStats(_enemyStatsBase), _baseImage(enemy._baseImage) {
+Enemy::~Enemy() {
+	Screen::RemoveImages({ &_enemyStats, &_baseImage });
+	if (_enemyAnimator != nullptr) delete _enemyAnimator;
+}
 
+void Enemy::HideEnemy() {
+	Screen::RemoveImages({ &_enemyStats, &_baseImage });
+	if (_enemyAnimator != nullptr) delete _enemyAnimator;
 }
 
 void Enemy::LoadEnemyImage() {
 	UpdateStatsMenu();
-	_enemyImage = &_baseImage;
-	Screen::AddImages({ &_enemyStats, _enemyImage });
+	_enemyAnimator->ActivateAnimator();
+	Screen::AddImages({ &_enemyStats, &_baseImage });
 }
 
 void Enemy::UpdateStatsMenu() {
@@ -39,25 +43,17 @@ void Enemy::Damage(const float& incomingDamage, Character& attacker) {
 
 void Enemy::ChooseAction(Character& other) {
 	Character::ChooseAction(other);
-
-	//attack player if can kill this turn
-	if (other.GetCurrentHealth() - _attack < 0)
-		Attack(other);
-	//heal only if its past heal threshold and there are items to heal
-	else if (_currentHealth / _maxHealth < _healThreshold && _enemyInventory.Size() != 0)
-		UseItem();
-	else 
-		Attack(other);
-}
-
-void Enemy::UseItem() {
-	if ((_enemyInventory.GetItems()[_enemyInventory.Size() - 1])->TryUseItem(this))
-		_enemyInventory.RemoveOrSellItem(_enemyInventory.Size() - 1, false);
+	_enemyAnimator->SetTrigger("Attack");
+	_enemyAnimator->WaitForNextClipCompletion();
+	Attack(other);
 }
 
 void Enemy::Death(Character* killer) {
-	Screen::RemoveImages({ &_enemyStats, _enemyImage });
-
+	Screen::RemoveImages({ &_enemyStats, &_baseImage });
+	if (_enemyAnimator != nullptr) {
+		delete _enemyAnimator;
+		_enemyAnimator = nullptr;
+	}
 	std::array<Item*, _maxDropsPossible> droppedLoot{ nullptr };
 	//generate loot
 	_possibleDrops.CreateLoot(droppedLoot);
@@ -77,22 +73,4 @@ void Enemy::Death(Character* killer) {
 
 	InventoryMenu::AddCoins(_enemyValue);
 	Character::Death(killer);
-}
-
-std::vector<Item*> Enemy::CreateStartingItems() {
-
-	static std::default_random_engine generator;
-	static std::uniform_int_distribution<int> randomInventorySize(0, _maxInventoryStartingSize);
-	static Item*& healPotion = ItemDictionary::Instance().GetPotion("Heal");
-
-	int generatedSize = randomInventorySize(generator);
-
-	std::vector<Item*> startingItems;
-	startingItems.reserve(generatedSize);
-
-	for (int i = 0; i < generatedSize; i++) {
-		startingItems.emplace_back(healPotion);
-	}
-
-	return startingItems;
 }

@@ -1,0 +1,3 @@
+1 Sprites\Enemies\Animations\Skeleton\Idle1.txt 2 50 11
+8 Sprites\Enemies\Animations\Skeleton\Idle2.txt 2 47 11
+15 null 0 0 0 

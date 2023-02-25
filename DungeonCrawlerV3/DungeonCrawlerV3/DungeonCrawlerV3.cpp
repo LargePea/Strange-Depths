@@ -9,7 +9,6 @@ int main()
 {
     Screen::Init(); //start screen
     bool gameRunning = true;
-
     while (gameRunning)
     {
         GameState::SetStateMask(GameStateMask::Normal); //sanity check
@@ -38,3 +37,4 @@ int main()
 
     }
 }
+

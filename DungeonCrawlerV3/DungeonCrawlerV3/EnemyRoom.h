@@ -15,18 +15,18 @@ private:
 		Ogre
 	};
 
-	std::array<int, 4> _enemyWeightMap{6,5,2,1};
+	std::array<int, 4> _enemyWeightMap{6,5,2000,1};
 	int _totalEnemyWeights;
-	Enemy _roomEnemy;
+	Enemy* _roomEnemy;
 
 protected:
 	EnemyRoom();
 
 public:
-	~EnemyRoom() override = default;
+	~EnemyRoom() override;
 
 private:
-	Enemy GenerateEnemy();
+	Enemy* GenerateEnemy();
 
 	void GenerateEnemyWeights();
 };

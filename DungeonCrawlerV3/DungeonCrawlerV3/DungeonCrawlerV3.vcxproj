@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActionMap.cpp" />
+    <ClCompile Include="AnimationClip.cpp" />
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Banshee.cpp" />
     <ClCompile Include="Buff.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -178,11 +180,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionMap.h" />
+    <ClInclude Include="AnimationClip.h" />
+    <ClInclude Include="Animator.h" />
+    <ClInclude Include="AnimatorCondition.h" />
     <ClInclude Include="Banshee.h" />
+    <ClInclude Include="BansheeAnimator.h" />
+    <ClInclude Include="BoolCondition.h" />
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Chest.h" />
+    <ClInclude Include="ChestAnimator.h" />
     <ClInclude Include="CombatAM.h" />
+    <ClInclude Include="EmptyCondition.h" />
     <ClInclude Include="Enchant.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyRoom.h" />
@@ -199,8 +208,10 @@
     <ClInclude Include="ItemDictionary.h" />
     <ClInclude Include="LootTable.h" />
     <ClInclude Include="Mimic.h" />
+    <ClInclude Include="MimicAnimator.h" />
     <ClInclude Include="Notification.h" />
     <ClInclude Include="Ogre.h" />
+    <ClInclude Include="OgreAnimator.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAM.h" />
     <ClInclude Include="Potion.h" />
@@ -208,13 +219,17 @@
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Enchantment.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="ShopAnimator.h" />
     <ClInclude Include="ShopRoom.h" />
     <ClInclude Include="ShopRoomAM.h" />
     <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="SkeletonAnimator.h" />
     <ClInclude Include="Slime.h" />
+    <ClInclude Include="SlimeAnimator.h" />
     <ClInclude Include="SpriteAtlas.h" />
     <ClInclude Include="TreasureRoom.h" />
     <ClInclude Include="TreasureRoomAM.h" />
+    <ClInclude Include="TriggerCondition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

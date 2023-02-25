@@ -1,4 +1,5 @@
 #include "Potion.h"
+#include "Notification.h"
 
 void LifeStealPotion::UseItem(Character* user) {
 	for (auto& buff : LifeSteal::_activeLifeStealBuffs) {
@@ -24,4 +25,9 @@ void RegenPotion::UseItem(Character* user) {
 
 void HealPotion::UseItem(Character* user) {
 	user->Heal(_healStrength);
+	Notification lSNotif({
+		".You.healed:." + std::to_string((int)_healStrength) + ".",
+		".You.now.have." + std::to_string((int)user->GetCurrentHealth()) + ".Health.",
+		".Press.Any.Key.To.Continue."
+		}, { 42, 38 });
 }
