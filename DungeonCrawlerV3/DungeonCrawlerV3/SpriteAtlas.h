@@ -39,6 +39,9 @@ constexpr auto MIMIC_ATTACK = "Sprites\\Enemies\\Animations\\Mimic\\Attack.txt";
 constexpr auto BANSHEE_IDLE = "Sprites\\Enemies\\Animations\\Banshee\\Idle.txt";
 constexpr auto BANSHEE_ATTACK = "Sprites\\Enemies\\Animations\\Banshee\\Attack.txt";
 
+constexpr auto OGRE_IDLE = "Sprites\\Enemies\\Animations\\Ogre\\Idle.txt";
+constexpr auto OGRE_ATTACK = "Sprites\\Enemies\\Animations\\Ogre\\Attack.txt";
+
 #pragma endregion
 
 #pragma endregion

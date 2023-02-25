@@ -211,6 +211,7 @@
     <ClInclude Include="MimicAnimator.h" />
     <ClInclude Include="Notification.h" />
     <ClInclude Include="Ogre.h" />
+    <ClInclude Include="OgreAnimator.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAM.h" />
     <ClInclude Include="Potion.h" />

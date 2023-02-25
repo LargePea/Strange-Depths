@@ -30,7 +30,7 @@ void Animator::AnimationLoop() {
 	int frame = 1;
 	while (_animatorIsRunning)
 	{
-		//if(frame == 2 && _transitionedClip)
+		if(frame == 2 && _transitionedClip)
 			_transitionedClip = false;
 
 		//if animation does not have exit time check conditions

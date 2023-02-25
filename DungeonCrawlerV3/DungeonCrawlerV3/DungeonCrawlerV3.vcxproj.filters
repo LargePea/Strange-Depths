@@ -320,5 +320,8 @@
     <ClInclude Include="ChestAnimator.h">
       <Filter>Header Files\Animation\Animators</Filter>
     </ClInclude>
+    <ClInclude Include="OgreAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,0 +1,5 @@
+1 Sprites\Enemies\Animations\Ogre\Idle2.txt 2 45 9
+4 Sprites\Enemies\Animations\Ogre\Attack1.txt 2 45 9
+6 Sprites\Enemies\Animations\Ogre\Attack2.txt 2 41 6
+9 Sprites\Enemies\Animations\Ogre\Attack3.txt 2 45 9
+11 null 0 0 0
