@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Image.h";
+#include "Image.h"
 #include <map>
 
 class AnimationClip {

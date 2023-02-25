@@ -189,6 +189,7 @@
     <ClInclude Include="Buff.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Chest.h" />
+    <ClInclude Include="ChestAnimator.h" />
     <ClInclude Include="CombatAM.h" />
     <ClInclude Include="EmptyCondition.h" />
     <ClInclude Include="Enchant.h" />

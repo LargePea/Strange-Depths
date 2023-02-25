@@ -54,6 +54,8 @@ constexpr auto SHOP = "Sprites\\Objects\\Shop.txt";
 constexpr auto SHOP_IDLE = "Sprites\\Objects\\Animations\\Shop\\Idle.txt";
 constexpr auto SHOP_BUY = "Sprites\\Objects\\Animations\\Shop\\Buy.txt";
 
+constexpr auto CHEST_OPEN = "Sprites\\Objects\\Animations\\Chest\\Open.txt";
+
 #pragma endregion
 
 #pragma endregion
