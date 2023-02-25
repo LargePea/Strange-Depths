@@ -23,8 +23,6 @@ protected:
 	static const int _maxInventoryStartingSize = 5;
 	int _enemyValue;
 
-	Inventory _enemyInventory;
-
 	Image _enemyStatsBase = Image(ENEMY_STAT_BASE, 2, { 5, 5 });
 	Image _enemyStats;
 	Image _baseImage;
@@ -36,8 +34,6 @@ public:
 	virtual ~Enemy();
 
 	void ChooseAction(Character& other) override;
-
-	void UseItem() override;
 	
 	void Death(Character* killer) override;
 
@@ -48,7 +44,4 @@ public:
 	void HideEnemy();
 
 	void UpdateStatsMenu();
-
-private:
-	std::vector<Item*> CreateStartingItems();
 };

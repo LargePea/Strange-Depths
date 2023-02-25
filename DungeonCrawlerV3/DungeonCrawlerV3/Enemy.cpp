@@ -10,7 +10,7 @@
 
 Enemy::Enemy(float maxHealth, float attack, float defense, float critRate, float speed, const char* name, int value, float healingThreshold, Image baseImage) :
 	Character(maxHealth, attack, defense, critRate, speed), 
-	_name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyInventory(*this, CreateStartingItems()), _enemyStats(_enemyStatsBase), _baseImage(baseImage) {
+	_name(name), _enemyValue(value), _healThreshold(healingThreshold), _enemyStats(_enemyStatsBase), _baseImage(baseImage) {
 }
 
 Enemy::~Enemy() {
@@ -43,27 +43,9 @@ void Enemy::Damage(const float& incomingDamage, Character& attacker) {
 
 void Enemy::ChooseAction(Character& other) {
 	Character::ChooseAction(other);
-
-	//attack player if can kill this turn
-	if (other.GetCurrentHealth() - _attack < 0) {
-		_enemyAnimator->SetTrigger("Attack");
-		_enemyAnimator->WaitForNextClipCompletion();
-		Attack(other);
-	}	
-	//heal only if its past heal threshold and there are items to heal
-	else if (_currentHealth / _maxHealth < _healThreshold && _enemyInventory.Size() != 0)
-		UseItem();
-	else
-	{
-		_enemyAnimator->SetTrigger("Attack");
-		_enemyAnimator->WaitForNextClipCompletion();
-		Attack(other);
-	}
-}
-
-void Enemy::UseItem() {
-	if ((_enemyInventory.GetItems()[_enemyInventory.Size() - 1])->TryUseItem(this))
-		_enemyInventory.RemoveOrSellItem(_enemyInventory.Size() - 1, false);
+	_enemyAnimator->SetTrigger("Attack");
+	_enemyAnimator->WaitForNextClipCompletion();
+	Attack(other);
 }
 
 void Enemy::Death(Character* killer) {
@@ -91,22 +73,4 @@ void Enemy::Death(Character* killer) {
 
 	InventoryMenu::AddCoins(_enemyValue);
 	Character::Death(killer);
-}
-
-std::vector<Item*> Enemy::CreateStartingItems() {
-
-	static std::default_random_engine generator;
-	static std::uniform_int_distribution<int> randomInventorySize(0, _maxInventoryStartingSize);
-	static Item*& healPotion = ItemDictionary::Instance().GetPotion("Heal");
-
-	int generatedSize = randomInventorySize(generator);
-
-	std::vector<Item*> startingItems;
-	startingItems.reserve(generatedSize);
-
-	for (int i = 0; i < generatedSize; i++) {
-		startingItems.emplace_back(healPotion);
-	}
-
-	return startingItems;
 }
