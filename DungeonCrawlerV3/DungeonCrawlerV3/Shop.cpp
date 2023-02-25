@@ -25,7 +25,7 @@ std::array<Item*, 6> Shop::GenerateStock() {
 		{instance.GetPotion("Heal"), 30},
 		{instance.GetPotion("Life Steal"), 15},
 		{instance.GetPotion("Regeneration"), 7},
-		{instance.GetPotion("Onion"), 2}});
+		{instance.GetItem("Onion"), 2}});
 
 	std::array<Item*, 6> stock;
 	shopLootTable.CreateLoot(stock, true);
