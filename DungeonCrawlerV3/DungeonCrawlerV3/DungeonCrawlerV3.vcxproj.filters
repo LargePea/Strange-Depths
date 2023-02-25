@@ -13,10 +13,315 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Items">
+      <UniqueIdentifier>{c44ed2d6-1f0f-4e83-87ec-4db20c313547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Items">
+      <UniqueIdentifier>{eaab7c28-a1cf-4e09-8917-da1bf17495d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Buffs">
+      <UniqueIdentifier>{16542c54-49ff-449c-b44b-6bffff04d20f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Buffs">
+      <UniqueIdentifier>{ca7ebe15-d293-4156-93e1-eff3d9a565d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{1b5e3d3c-060c-427a-ace6-e5ef0fec9a51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemies">
+      <UniqueIdentifier>{abb88582-a78c-4885-8929-0259f78e4193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rooms">
+      <UniqueIdentifier>{278cf90e-0909-44ad-9689-07b43d9743ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rooms">
+      <UniqueIdentifier>{4f6e19b9-a5de-4587-9c69-8b6fad3b970a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ActionMaps">
+      <UniqueIdentifier>{25e45925-ed9f-40cd-8d84-b3dcda3c7503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ActionMaps">
+      <UniqueIdentifier>{0c83b236-6afb-4cd2-bc63-01d0cca93d06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Animation">
+      <UniqueIdentifier>{4e3fac86-53b0-47af-a360-09a23c6cd136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Animaton">
+      <UniqueIdentifier>{2ed87310-d52f-4f9e-8656-4bbd9c628f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Animation\Animators">
+      <UniqueIdentifier>{b08caffa-e8ff-4eb5-aa70-8bc250c7b84a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonCrawlerV3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Buff.cpp">
+      <Filter>Source Files\Buffs</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Potion.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Enchantment.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Enchant.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Banshee.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Ogre.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Mimic.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemDictionary.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="LootTable.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Source Files\Rooms</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyRoom.cpp">
+      <Filter>Source Files\Rooms</Filter>
+    </ClCompile>
+    <ClCompile Include="TreasureRoom.cpp">
+      <Filter>Source Files\Rooms</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionMap.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryMenuAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryOverflowAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="TreasureRoomAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="Chest.cpp">
+      <Filter>Source Files\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopRoom.cpp">
+      <Filter>Source Files\Rooms</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopRoomAM.cpp">
+      <Filter>Source Files\ActionMaps</Filter>
+    </ClCompile>
+    <ClCompile Include="Notification.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Source Files\Animaton</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationClip.cpp">
+      <Filter>Source Files\Animaton</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Screen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Enchantment.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Buff.h">
+      <Filter>Header Files\Buffs</Filter>
+    </ClInclude>
+    <ClInclude Include="EventSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Potion.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="IEquippable.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Enchant.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Banshee.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Ogre.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Mimic.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemDictionary.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="LootTable.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Header Files\Rooms</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyRoom.h">
+      <Filter>Header Files\Rooms</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TreasureRoom.h">
+      <Filter>Header Files\Rooms</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionMap.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryMenuAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryOverflowAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="TreasureRoomAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="Chest.h">
+      <Filter>Header Files\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopRoom.h">
+      <Filter>Header Files\Rooms</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAtlas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopRoomAM.h">
+      <Filter>Header Files\ActionMaps</Filter>
+    </ClInclude>
+    <ClInclude Include="Notification.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationClip.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatorCondition.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="BoolCondition.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="TriggerCondition.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyCondition.h">
+      <Filter>Header Files\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="SlimeAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="MimicAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="BansheeAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="ChestAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
+    <ClInclude Include="OgreAnimator.h">
+      <Filter>Header Files\Animation\Animators</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

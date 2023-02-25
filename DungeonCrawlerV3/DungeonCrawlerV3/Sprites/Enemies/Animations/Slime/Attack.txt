@@ -1,0 +1,6 @@
+1 Sprites\Enemies\Animations\Slime\Idle3.txt 2 36 18
+5 Sprites\Enemies\Animations\Slime\Attack1.txt 2 38 10
+8 Sprites\Enemies\Animations\Slime\Attack1.txt 2 38 7
+13 Sprites\Enemies\Animations\Slime\Attack2.txt 2 38 11
+16 Sprites\Enemies\Animations\Slime\Idle3.txt 2 36 18
+18 null 0 0 0

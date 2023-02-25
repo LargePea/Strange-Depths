@@ -1,0 +1,5 @@
+1 Sprites\Enemies\Banshee.txt 2 50 5
+8 Sprites\Enemies\Banshee.txt 2 50 6
+15 Sprites\Enemies\Banshee.txt 2 50 7
+22 Sprites\Enemies\Banshee.txt 2 50 6
+29 null 0 0 0
